@@ -1,0 +1,46 @@
+{
+    "culture_fit_ontology" : {
+        "Culture": {
+            "Values": ["Honesty", "Transparency", "Integrity", "Respect", "Collaboration", "Diversity"],
+            "Beliefs": ["Ethical behavior", "Commitment to quality", "Continuous learning", "Innovation"],
+            "Behaviors": ["Open communication", "Constructive feedback", "Accountability", "Empathy"],
+            "Attitudes": ["Positive attitude", "Flexibility", "Adaptability", "Ownership"],
+            "Norms": ["Work-life balance", "Inclusivity", "Recognition and rewards", "Teamwork"]
+        },
+        "Fit": {
+            "Personality": ["Conscientiousness", "Agreeableness", "Openness to experience", "Emotional stability"],
+            "Work style": ["Independent", "Collaborative", "Detail-oriented", "Results-oriented"],
+            "Communication": ["Clear communication", "Active listening", "Conflict resolution"],
+            "Motivation": ["Drive", "Passion", "Alignment with company goals"],
+            "Decision making": ["Data-driven", "Intuitive", "Analytical"]
+        }
+    }
+    ,
+
+    "tech_role_ontology" : {
+        "Technical Skills": {
+            "Programming languages": ["Python", "Java", "C++", "JavaScript", "PHP", "Ruby", "SQL"],
+            "Frameworks": ["React", "Angular", "Vue", "Node.js", "Django", "Laravel", "Ruby on Rails"],
+            "Databases": ["MySQL", "PostgreSQL", "MongoDB", "Oracle", "SQL Server"],
+            "Cloud Platforms": ["AWS", "Azure", "Google Cloud Platform", "IBM Cloud", "DigitalOcean"],
+            "Networking": ["TCP/IP", "DNS", "Firewalls", "Load Balancers"],
+            "Operating Systems": ["Linux", "Windows", "macOS"],
+            "DevOps": ["Docker", "Kubernetes", "Ansible", "Jenkins", "Git"],
+            "Data Science": ["Machine Learning", "Deep Learning", "Data Visualization", "Statistical Analysis"],
+            "Cybersecurity": ["Network security", "Application security", "Vulnerability management", "Penetration testing"]
+        },
+        "Soft Skills": {
+            "Problem Solving": ["Critical thinking", "Analytical skills", "Creative thinking"],
+            "Communication": ["Clear communication", "Active listening", "Technical writing"],
+            "Collaboration": ["Teamwork", "Cross-functional collaboration", "Agile methodologies"],
+            "Time Management": ["Prioritization", "Task delegation", "Meeting deadlines"],
+            "Learning": ["Curiosity", "Continuous learning", "Knowledge sharing"]
+        },
+        "Experience": {
+            "Industry experience": ["Software development", "Web development", "Data science", "Cybersecurity"],
+            "Project experience": ["Agile methodologies", "Software architecture", "Project management"],
+            "Certifications": ["AWS Certified Solutions Architect", "Google Cloud Certified Professional Cloud Architect", "CISSP"],
+            "Academic background": ["Computer Science", "Software Engineering", "Data Science", "Cybersecurity"]
+        }
+    }    
+}
