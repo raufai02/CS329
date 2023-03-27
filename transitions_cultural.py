@@ -27,9 +27,9 @@ class MacroGetName(Macro):
 
 transitions = {
     'state': 'start',
-    '`Tell me about a project you are currently working on`': {
-        '[[$FAV=#ONT(technical)]]': {
-            '`Why are you interested in` $FAV': 'end'
+    '`What type of work environment do you usually prefer?`': {
+        '[[$FAV=#ONT(culture-fit)]]': {
+            '`Tell me about an experience working in an environment you weren\'t used to`': 'end'
         }, 
         'error': {
             '`Thanks for sharing.`': 'end'
@@ -42,7 +42,7 @@ macros = {
 }
 
 df = DialogueFlow('start', end_state='end')
-df.knowledge_base().load_json_file('tech_ontology.json')
+df.knowledge_base().load_json_file('cul_fit_ontology.json')
 df.load_transitions(transitions)
 df.add_macros(macros)
 

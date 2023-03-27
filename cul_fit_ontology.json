@@ -1,0 +1,15 @@
+{
+    "ontology" : {
+        "culture-fit":["values", "beliefs", "behaviors", "attitudes", "norms", "personality", "work style", "communication", "motivation", "decision making"], 
+        "values": ["honesty", "transparency", "integrity", "respect", "collaboration", "diversity"],
+        "beliefs": ["ethical behavior", "commitment to quality", "continuous learning", "innovation"],
+        "behaviors": ["open communication", "constructive feedback", "accountability", "empathy"],
+        "attitudes": ["positive attitude", "flexibility", "adaptability", "ownership"],
+        "norms": ["work-life balance", "inclusivity", "recognition and rewards", "teamwork"],
+        "personality": ["conscientiousness", "agreeableness", "openness to experience", "emotional stability"],
+        "work style": ["independent", "collaborative", "detail-oriented", "results-oriented"],
+        "communication": ["clear communication", "active listening", "conflict resolution"],
+        "motivation": ["drive", "passion", "alignment with company goals"],
+        "decision making": ["data-driven", "intuitive", "analytical"]
+    }
+}

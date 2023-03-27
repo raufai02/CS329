@@ -1,5 +1,6 @@
 {
-    "tech_role_ontology" : {
+    "ontology": {
+        "technical": ["programming languages",  "frameworks", "databases", "cloud platforms", "networking", "operating systems", "devops", "data science", "cybersecurity", "problem solving", "communication", "collaboration", "time management", "learning", "industry experience", "project experience", "certifications", "academic background"], 
         "programming languages": ["python", "java", "c++", "javascript", "php", "ruby", "sql"],
         "frameworks": ["react", "angular", "vue", "node.js", "django", "laravel", "ruby on rails"],
         "databases": ["mysql", "postgresql", "mongodb", "oracle", "sql server"],
@@ -18,18 +19,6 @@
         "project experience": ["agile methodologies", "software architecture", "project management"],
         "certifications": ["aws certified solutions architect", "google cloud certified professional cloud architect", "cissp"],
         "academic background": ["computer science", "software engineering", "data science", "cybersecurity"]
-    },
-    
-    "culture_fit_ontology" : {
-        "values": ["honesty", "transparency", "integrity", "respect", "collaboration", "diversity"],
-        "beliefs": ["ethical behavior", "commitment to quality", "continuous learning", "innovation"],
-        "behaviors": ["open communication", "constructive feedback", "accountability", "empathy"],
-        "attitudes": ["positive attitude", "flexibility", "adaptability", "ownership"],
-        "norms": ["work-life balance", "inclusivity", "recognition and rewards", "teamwork"],
-        "personality": ["conscientiousness", "agreeableness", "openness to experience", "emotional stability"],
-        "work style": ["independent", "collaborative", "detail-oriented", "results-oriented"],
-        "communication": ["clear communication", "active listening", "conflict resolution"],
-        "motivation": ["drive", "passion", "alignment with company goals"],
-        "decision making": ["data-driven", "intuitive", "analytical"]
     }
 }
+
