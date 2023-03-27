@@ -69,6 +69,10 @@ class MacroGreet(Macro):
         else:
             weather = 'nice'
 
+        # ^Note you could just use the shortform forecast instead of casting everything with if statements
+        # See shortForecast in API call. Can be called; today[shortForecast] will return one line forecast
+        #--Noah
+
         current_time = time.localtime()
         time_str = "day" #default ..?
         if current_time.tm_hour < 12:
