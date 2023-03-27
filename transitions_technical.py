@@ -31,7 +31,7 @@ transitions = {
         '[#ONT(tech_role_ontology)]': {
             '`that is awesome!`': 'end'
         }, 
-        '#UNX': {
+        'error': {
             '`Thanks for sharing.`': 'end'
         },
     }
