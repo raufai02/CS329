@@ -22,7 +22,7 @@ def is_interview_appropriate(statement):
     prompt = "Is the following response appropriate for a job interview?\n\n" + statement + "\n\nYes or no:"
     try:
         response = openai.Completion.create(
-            engine="text-davinci-002",
+            engine="gpt-3.5-turbo",
             prompt=prompt,
             temperature=0.5,
             n=1,
