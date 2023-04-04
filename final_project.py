@@ -9,6 +9,9 @@ import requests
 import random
 import openai
 
+import utils
+from utils import MacroGPTJSON, MacroNLG
+
 class MacroCallGPT(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         PATH_API_KEY = 'resources/openai_api.txt'
@@ -92,6 +95,7 @@ def interviewBuddy() -> DialogueFlow:
         'state': 'start',
         '#GREETING': { #return a custom greeting based on time and weather!
             '#GET_NAME': { #user input something, save their name!
+                'state':'classify',
                 '`Nice to meet you ` $FIRSTNAME `. Can you tell me a little about yourself?`' : { #first broad Q
                     '#GET_PERSONAL_INFO': {
                         '`Why do you want to join XYZ company?`': {
@@ -152,9 +156,6 @@ def interviewBuddy() -> DialogueFlow:
     }
 
     macros = {
-        'VISITED': MacroVisited(),
-        'GET_MOVIE': MacroGetMovie(),
-        'GET_MUSIC': MacroGetMusic(),
         'GREETING': MacroGreet(),
         'GET_NAME' : MacroGetName()
     }
