@@ -10,6 +10,9 @@ response = openai.ChatCompletion.create(
     messages=[{'role': 'user', 'content': content}]
 )
 
-print(response)
+printedText = response.choices[0].message.content
+
+
+print(printedText)
 
 
