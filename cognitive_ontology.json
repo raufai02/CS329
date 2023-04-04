@@ -1,0 +1,33 @@
+{
+    "ontology" : {
+        
+        "cognitive": ["problem solving", "learning", "memory",
+        "attention", "creativity", "numeracy", "perceptual ability",
+        "emotional intelligence", "mental speed"],
+
+        "problem solving": ["analytical", "logical", "methodical", "resourceful", "systematic", "creative", "innovative", "pragmatic", "strategic", "solution-oriented", "critical thinker", "complex problem solver", "quick thinker", "innovative", "pragmatic", "solution-oriented", "detail-oriented", "critical thinker", "solver", "adaptable","data-driven", "persistent", "perceptive"],
+        "learning":["absorber", "absorb", "assimulate", "teachable", "committed", "enthusiastic", "inquistive", "self-motivated", "self motivated", "learner", "learn", "resilient", "intellectual", "diciplined", "dicipline"],
+        "memory":["strong memory", "high retention", "retentive", "detailed", "accurate", "sharp", "reliable", "quick", "precise", "astute", "resourceful", "observant", "meticulous", "methodical", "thorough", "focused", "comprehensive", "discerning", "efficient", "organized"],
+        "attention": ["focused", "alert", "concentratied", "mindful", "diligent", "patient", "careful", "sharp"],
+        "creativity" : ["creative", "innovative", "artistic", "resourceful", "original", "visionary", "bold", "inventive", "expressive", "open-minded", "open minded", "open mind", "intuitive", "curious", "playful", "proactive", "thinker", "risk-taker", "unconventional", "experimental", "inspirational", "inspiring", "inspire"],
+        "numeracy" : ["math", "data", "information", "calculative", "calculate", "expert", "accountable", "financial analysis", "financially literate", "data-savvy", "algebra", "statistics", "finance", "geometry", "calculus", "patterns"],
+        "perceptual ability" : ["observant", "intuitive", "discerning", "insightful", "keen", "discriminating", "sensitive", "aware", "mindful", "sharp", "perceptive", "creative", "innovative", "versatile","adaptive", "insightful"],
+        "emotional intelligence" : ["empathetic", "compassionate", "self-aware", "social", "socially", "patient", "understanding", "considerate", "diplomatic", "respectful", "listener", "resolver", "communicator"],
+        "mental speed" : ["fast", "quick", "agile-minded", "energetic", "swift", "decisive"]
+
+    },
+
+    "expression" : {
+
+        "problem solving": ["analytical thinking", "logic", "reasoning"],
+        "learning": ["absorption", "assimilation", "grasping"],
+        "memory": ["recall", "retention", "recollection"],
+        "attention": ["concentration", "focus", "alertness"],
+        "creativity": ["imagination", "inventiveness", "originality"],
+        "numeracy": ["mathematics", "quantitative reasoning", "data analysis"],
+        "perceptual ability": ["sensory perception", "visual processing", "auditory processing"],
+        "emotional intelligence": ["empathy", "social awareness", "self-awareness"],
+        "mental speed": ["mental agility", "reaction time", "processing speed"]
+
+    }
+}

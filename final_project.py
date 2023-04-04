@@ -161,7 +161,10 @@ def interviewBuddy() -> DialogueFlow:
     }
 
     df = DialogueFlow('start', end_state='end')
-    df.knowledge_base().load_json_file('ontology.json')
+    df.knowledge_base().load_json_file('cognitive_ontology.json')
+    df.knowledge_base().load_json_file('cul_fit_ontology.json')
+    df.knowledge_base().load_json_file('leadership_ontology.json')
+    df.knowledge_base().load_json_file('tech_ontology.json')
     df.load_transitions(transitions)
     df.load_transitions(transitions_technical)
     df.load_transitions(transitions_cognitive)

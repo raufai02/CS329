@@ -2,46 +2,31 @@
     "ontology": {
       "leadership": ["autonomy", "authority", "vision",
         "charisma", "integrity", "empathy",
-        "communication", "teamwork", "adaptablity", "innovation" ],
+        "communication", "teamwork", "adaptablity", "innovation", "leadership"],
   
-      "autonomy" : ["leader", "independent", "self-reliant", "self-structured", "organized"]
-      ,
-      "authority" :[],
-      "vision" : [],
-      "charisma": [],
-      "integrity" : [],
-      "empathy" : [],
-      "communication" : [], 
-      "teamwork" : [],
-      "adaptability" : [],
-      "innovation" : [],
-  
-      "general cognitive ability": ["problem solving", "learning", "memory",
-        "attention", "creativity", "numeracy", "perceptual ability",
-        "emotional intelligence", "mental speed"]
+      "autonomy" : ["leader", "independent", "self-reliant", "self-structured", "organized", "decision-making", 
+      "decision", "responsible", "responsibility", "initiative", "accountable", "self-determined","creative", "authority"],
+      "vision" : ["focused", "inspiration","inspire", "inspired", "perspective", "dream", "hopeful", "ambitious", "planner", "planning"],
+      "charisma": ["charismatic", "appealing", "charming", "truthful", "helpful"],
+      "integrity" : ["upright", "honest", "trustworthy", "code","ethical", "moral", "fair", "sincere", "transparent", "reliable", "honorable", "genuine"],
+      "empathy" : ["emotional", "supportive", "compassionate", "understanding", "wnolesome", "kind", "nice", "attentive", "patient"],
+      "communication" : ["articulate", "clear", "concise", "effective", "expressive", "persuasive", "confident", "listener", "engaging", "diplomatic", "respectful", "open-minded", "responsive", "adaptive", "proactive", "efficient", "empathetic", "professionial"], 
+      "teamwork" : ["collaborative", "cooperative", "partner", "hard worker", "hard-worker", "team player", "dependable", "open", "unified", "visionary", "selfless", "participate", "participating", "participative"],
+      "adaptability" : ["adapt", "adaptable", "flexible", "agile", "resourceful", "resrouce", "dynamic", "learner", "self-starter", "pressure", "change", "versatile"],
+      "innovation" : ["creativity", "creative", "futuristic", "experimental", "risk-taking", "risk taker", "risk-taker", "strategic", "thinker", "original", "imaginative","entrpreneurial", "entrepreneur", "bold", "tenacious", "trailblazing", "trailblazer", "curious", "open-minded", "open mind", "open minded"]
     },
       "expression": {
-        "autonomy": ["independence", "self-reliance", "self-governance"],
+        "autonomy": ["independence", "self-reliance", "self-governance", "initiative", "accountability", "decision-making", "freedom", "empowerment", "authority", "control", "self-direction", "sovereignty", 
+        "leadership", "ownership", "responsibility", "self-determination", "entrepreneurship", "creativity"],
+
         "authority": ["control", "command", "dominance"],
-        "vision": ["foresight", "insight", "imagination"],
-        "charisma": ["magnetism", "charm", "appeal"],
-        "integrity": ["honesty", "uprightness", "trustworthiness"],
+        "vision": ["foresight", "insight", "imagination", "ambition", "hope", "plan"],
+        "charisma": ["magnetism", "charm", "appeal", "easy"],
+        "integrity": ["honesty", "uprightness", "trustworthiness", "ethics", "morality", "fairness", "sincerity", "reliability", "transparency", "honor", "patience"],
         "empathy": ["compassion", "sensitivity", "understanding"],
         "communication": ["articulation", "expression", "persuasion"],
         "teamwork": ["collaboration", "cooperation", "partnership"],
         "adaptability": ["flexibility", "resilience", "versatility"],
-        "innovation": ["creativity", "originality", "inventiveness"],
-  
-  
-        "problem solving": ["analytical thinking", "logic", "reasoning"],
-        "learning": ["absorption", "assimilation", "grasping"],
-        "memory": ["recall", "retention", "recollection"],
-        "attention": ["concentration", "focus", "alertness"],
-        "creativity": ["imagination", "inventiveness", "originality"],
-        "numeracy": ["mathematics", "quantitative reasoning", "data analysis"],
-        "perceptual ability": ["sensory perception", "visual processing", "auditory processing"],
-        "emotional intelligence": ["empathy", "social awareness", "self-awareness"],
-        "mental speed": ["mental agility", "reaction time", "processing speed"]
-  
+        "innovation": ["creativity", "originality", "inventiveness"]
     }
   }

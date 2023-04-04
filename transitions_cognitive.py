@@ -11,9 +11,9 @@ import openai
 
 transitions = {
     'state' : 'start',
-    '`Can you provide an example of when you took lead?`' : {
-        '[#ONT(leadership)]': {
-            '`Could you go into more detail about this experience as how you acted as a leader and the traits that made you qualified as a leader? `': 'end'
+    '`Tell me about a time you had to change`' : {
+        '[#ONT(cognitive)]': {
+            'SITUATION': 'end'
         },
 
         '#UNX': {
@@ -24,7 +24,7 @@ transitions = {
 
 
 df = DialogueFlow('start', end_state='end')
-df.knowledge_base().load_json_file('leadership_ontology.json')
+df.knowledge_base().load_json_file('cognitive_ontology.json')
 df.load_transitions(transitions)
 
 if __name__ == '__main__':
