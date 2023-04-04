@@ -1,6 +1,6 @@
 import openai
 
-PATH_API_KEY = 'resources/open_ai.txt'
+PATH_API_KEY = 'resources/noah_api_key.txt'
 openai.api_key_path = PATH_API_KEY
 
 model = 'gpt-3.5-turbo'
@@ -10,13 +10,9 @@ response = openai.ChatCompletion.create(
     messages=[{'role': 'user', 'content': content}]
 )
 
-model = 'text-davinci-edit-001'
-content = 'I have lots of experience in software engineering'
-response2 = openai.Edit.create(
-    model=model,
-    messages=[{'role': 'user', 'content': content}],
-    instruction='Modify the text to make the speaker more competitive as a hiring candidate')
+printedText = response.choices[0].message.content
 
-print(response2)
+
+print(printedText)
 
 
