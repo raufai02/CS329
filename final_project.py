@@ -29,7 +29,7 @@ class MacroCallGPT(Macro):
 
 class MacroGetName(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        r = re.compile(r"(mr|mrs|ms|dr)?(?:^|\s)([a-z']+)(?:\s([a-z']+))?")
+        r = re.compile(r"(?:.*)(mr|mrs|ms|dr|me|am|is|name's|by)?(?:^|\s)([a-z']+)(?:\s([a-z']+))?")
         m = r.search(ngrams.text())
         if m is None: return False
 
@@ -38,19 +38,16 @@ class MacroGetName(Macro):
         if m.group(1):
             title = m.group(1)
             if m.group(3):
-                firstname = m.group(2)
+                firstname = m.group(2).capitalize()
                 lastname = m.group(3)
             else:
-                firstname = m.group()
+                firstname = m.group().capitalize()
                 lastname = m.group(2)
         else:
-            firstname = m.group(2)
+            firstname = m.group(2).capitalize()
             lastname = m.group(3)
 
-        vars['TITLE'] = title
         vars['FIRSTNAME'] = firstname
-        vars['LASTNAME'] = lastname
-
         return True
 
 class MacroGreet(Macro):
@@ -96,7 +93,7 @@ def interviewBuddy() -> DialogueFlow:
         '#GREETING': { #return a custom greeting based on time and weather!
             '#GET_NAME': { #user input something, save their name!
                 'state':'classify',
-                '`Nice to meet you ` $FIRSTNAME `. Can you tell me a little about yourself?`' : { #first broad Q
+                '`Nice to meet you` $FIRSTNAME`. Can you tell me a little about yourself?`' : { #first broad Q
                     '#GET_PERSONAL_INFO': {
                         '`Why do you want to join XYZ company?`': {
                             '#WHY_COMPANY': 'classify' #get information about why this company!
@@ -111,10 +108,10 @@ def interviewBuddy() -> DialogueFlow:
     }
     transitions_classify = {
         'state': 'classify',
-        '#GATE `Cognitive Question Prompt` ': 'cognitive',
-        '#GATE `Technical Question Prompt`': 'technical',
-        '#GATE `Leadership Question Prompt`' : 'leadership',
-        '#GATE `Cultural Question Prompt`': 'cultural',
+        '#GATE': 'cognitive',
+        '#GATE': 'technical',
+        '#GATE' : 'leadership',
+        '#GATE': 'cultural',
         '`That\'s all I can talk about.`': {
             'state': 'end',
             'score': 0.1
@@ -124,12 +121,13 @@ def interviewBuddy() -> DialogueFlow:
         'state': 'cultural',
         '`What type of work environment do you usually prefer?`':{
             '#ONT(cultural)':'end'
-
         }
     }
     transitions_leadership = {
         'state': 'leadership',
-        '`What kinds of leadership experience do you have?`':'end'
+        '`What kinds of leadership experience do you have?`': {
+            '#ONT(leadership)' :'end'
+        }
     }
 
     transitions_cognitive = {
@@ -151,7 +149,7 @@ def interviewBuddy() -> DialogueFlow:
         },
         '[{programming}]': {
             'score': 0.5,
-            '`Oh, I can recommend you a movie!`': 'technical'
+            '``': 'technical'
         }
     }
 
