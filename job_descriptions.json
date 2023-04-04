@@ -1,0 +1,191 @@
+{
+  "IBM Back End Developer": {
+    "responsibilities": [
+      "Design software components",
+      "Manage technical leads",
+      "Deliver end-to-end features"
+    ],
+    "requirements": [
+      "C#/Java skills",
+      "Strong OOP skills",
+      ".NET proficiency"
+    ],
+    "desired skills or experiences": [
+      "Git, Jenkins, Jira",
+      "Docker/K8S knowledge",
+      "Cloud service familiarity",
+      "Microservices and Rest APIs",
+      "Basic Javascript skills"
+    ]
+  },
+  "Vicon Application Engineer": {
+    "responsibilities": [
+      "Provide customer support" ,
+      "Install and train" ,
+      "Create product content" ,
+      "Test software/hardware" ,
+      "Develop effective demos"
+    ] ,
+    "requirements": [
+      "Bachelor's degree" ,
+      "Strong communication skills" ,
+      "Problem-solving skills" ,
+      "30% travel" ,
+      "Presentation skills"
+    ] ,
+    "desired skills or experiences": [
+      "Background in biomechanics/engineering" ,
+      "Motion capture experience" ,
+      "Proficient in Matlab/Python/Visual 3D" ,
+      "Familiarity with Nexus/Tracker/Shogun/Unity/Unreal/TrackD/VRed/ROS" ,
+      "Technical troubleshooting expertise"
+    ]
+  },
+ "Mathworks Engineering Design Group":{
+"responsibilities": [
+"Select projects & teams",
+"Contribute to high-impact projects",
+"Gain deep product knowledge"
+],
+"requirements": [
+"Bachelors or Masters/Ph.D.",
+"Strong academic record",
+"Strong programming skills"
+],
+"desired skills or experiences": [
+"Experience with MATLAB",
+"Knowledge of OOP",
+"Interest in machine learning, robotics, etc."
+]
+},
+  "Palantir Forward Deployed Software Engineer, New Grad":
+          {
+"responsibilities": [
+"Build technical solutions",
+"Lead finding answers",
+"Collaborate with teams"
+],
+"requirements": [
+"Strong engineering background",
+"Proficiency with programming languages",
+"Security clearance"
+],
+"desired skills or experiences": [
+"Familiarity with technical tools",
+"Ability to work in teams",
+"Willingness to travel"
+]
+},
+  "Fast Enterprises Technical Team": {
+"Responsibilities": [
+"Technical representation on project team",
+"Support project management",
+"Infrastructure specification and procurement",
+"Environment setup and maintenance",
+"Application troubleshooting",
+"Disaster recovery planning",
+"Security design and compliance",
+"On-call support"
+],
+"Requirements": [
+"Bachelor's degree",
+"MS Visual Basic.Net or equivalent experience",
+"Open to relocation"
+],
+"Desired Skills": [
+"SQL experience",
+"Database administration",
+"Server administration",
+"Network knowledge",
+"Security and compliance expertise",
+"Strong communication"
+]
+},
+  "DISH Entry Level Software Engineer" : {
+"Responsibilities": [
+"Deliver reliable software components",
+"Develop software solutions",
+"Design and execute test scenarios",
+"Protect customer data"
+],
+"Requirements": [
+"Bachelor's degree",
+"Onsite work",
+"Pass pre-employment screening"
+],
+"Desired skills": [
+"Java",
+"Python",
+"SQL",
+"JavaScript",
+"Curiosity",
+"Pride",
+"Adventure",
+"Winning attitude",
+"Engineering or Computer Science background"
+]
+},
+  "Honeywell Software Engineer": {
+"responsibilities": [
+"Develop plant maintenance solutions",
+"Collaborate in an agile team",
+"Work with SAP, AWS, and Honeywell"
+],
+"requirements": [
+"Bachelor's degree or Diploma",
+"Pursuing Masters in IT, CS, or Management",
+"Fluent in English"
+],
+"desired skills or experiences": [
+"Java, Go, SAP ABAP",
+"XML, Groovy, JavaScript",
+"Agile software development"
+]
+},
+  "Neuralink Software Engineer (Fresh Grad 2023)" : {
+"responsibilities": [
+"Develop brain-computer interfaces",
+"Collaborate on interdisciplinary teams",
+"Create software for manufacturing, analysis, testing and more"
+],
+"requirements": [
+"Location in Fremont or Austin",
+"Ability to design and implement software",
+"Excitement about technology and systems"
+],
+"desired skills or experiences": [
+"Cross-disciplinary teamwork",
+"Resourcefulness and adaptability",
+"Passion for problem-solving"
+]
+},
+  "Epic Systems Software Developer": {
+    "Responsibilities": ["Write innovative software", "Use modern methodologies", "Apply user-centered design", "Employ analytics and ML", "Improve healthcare quality"],
+    "Requirements": ["BS/BA or higher", "Academic/professional success", "Eligible to work in US", "COVID-19 vaccination", "Relocate to Madison, WI"],
+    "Desired skills or experiences": ["Knowledge of JS, TS, or C#", "Strong problem-solving skills", "Passion for healthcare", "Familiarity with UI/UX", "Experience with ML/AI"]
+},
+  "CGI Entry Level Software Developer": {
+"responsibilities": [
+"Develop technical prototypes",
+"Collaborate with team members",
+"Assist in test cases"
+],
+"requirements": [
+"Bachelor's degree",
+"Experience with SQL, Java, C++",
+"Excellent problem solving"
+],
+"desired skills or experiences": [
+"Ability to learn quickly",
+"Flexibility and adaptability",
+"Experience in .NET development"
+]
+}
+
+
+
+
+
+
+
+}
