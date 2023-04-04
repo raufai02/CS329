@@ -23,7 +23,7 @@ transitions = {
 }
 
 df = DialogueFlow('start', end_state='end')
-df.knowledge_base().load_json_file('resources/ontology_final_project_34.json')
+df.knowledge_base().load_json_file('leadership_ontology.json')
 df.load_transitions(transitions)
 
 if __name__ == '__main__':
