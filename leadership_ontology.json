@@ -1,0 +1,47 @@
+{
+    "ontology": {
+      "leadership": ["autonomy", "authority", "vision",
+        "charisma", "integrity", "empathy",
+        "communication", "teamwork", "adaptablity", "innovation" ],
+  
+      "autonomy" : ["leader", "independent", "self-reliant", "self-structured", "organized"]
+      ,
+      "authority" :[],
+      "vision" : [],
+      "charisma": [],
+      "integrity" : [],
+      "empathy" : [],
+      "communication" : [], 
+      "teamwork" : [],
+      "adaptability" : [],
+      "innovation" : [],
+  
+      "general cognitive ability": ["problem solving", "learning", "memory",
+        "attention", "creativity", "numeracy", "perceptual ability",
+        "emotional intelligence", "mental speed"]
+    },
+      "expression": {
+        "autonomy": ["independence", "self-reliance", "self-governance"],
+        "authority": ["control", "command", "dominance"],
+        "vision": ["foresight", "insight", "imagination"],
+        "charisma": ["magnetism", "charm", "appeal"],
+        "integrity": ["honesty", "uprightness", "trustworthiness"],
+        "empathy": ["compassion", "sensitivity", "understanding"],
+        "communication": ["articulation", "expression", "persuasion"],
+        "teamwork": ["collaboration", "cooperation", "partnership"],
+        "adaptability": ["flexibility", "resilience", "versatility"],
+        "innovation": ["creativity", "originality", "inventiveness"],
+  
+  
+        "problem solving": ["analytical thinking", "logic", "reasoning"],
+        "learning": ["absorption", "assimilation", "grasping"],
+        "memory": ["recall", "retention", "recollection"],
+        "attention": ["concentration", "focus", "alertness"],
+        "creativity": ["imagination", "inventiveness", "originality"],
+        "numeracy": ["mathematics", "quantitative reasoning", "data analysis"],
+        "perceptual ability": ["sensory perception", "visual processing", "auditory processing"],
+        "emotional intelligence": ["empathy", "social awareness", "self-awareness"],
+        "mental speed": ["mental agility", "reaction time", "processing speed"]
+  
+    }
+  }
