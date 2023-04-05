@@ -26,7 +26,7 @@ from emora_stdm import Macro, Ngrams
 
 import regexutils
 
-OPENAI_API_KEY_PATH = '../resources/openai_api.txt'
+OPENAI_API_KEY_PATH = 'resources/open_ai.txt'
 CHATGPT_MODEL = 'gpt-3.5-turbo'
 
 
@@ -71,6 +71,19 @@ class MacroNLG(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         return self.generate(vars)
 
+
+def gpt_completion(input: str, regex: Pattern = None) -> str:
+    response = openai.ChatCompletion.create(
+        model=CHATGPT_MODEL,
+        messages=[{'role': 'user', 'content': input}]
+    )
+    output = response['choices'][0]['message']['content'].strip()
+
+    if regex is not None:
+        m = regex.search(output)
+        output = m.group().strip() if m else None
+
+    return output
 
 def gpt_classification(input: str, regex: Pattern = None) -> str:
     prompt = "classify the text according to these labels: ['positive', 'negative', 'neutral']: " + input
