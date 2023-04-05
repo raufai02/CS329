@@ -178,7 +178,7 @@ macros = {
         'How does the speaker want to be called?',
         {V.call_names.name: ["Mike", "Michael"]}),
 
- '#ENCOURAGEMENT' : MacroEncourage()
+ 'ENCOURAGEMENT' : MacroEncourage()
 
 }
 

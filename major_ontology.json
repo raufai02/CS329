@@ -39,7 +39,7 @@
 
     },
 
-    "expression" : {
+    "expressions" : {
 
         "computer science": ["comp sci", "compsci", "cs"],
         "software engineer" : ["swe"],
