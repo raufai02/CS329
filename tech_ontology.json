@@ -15,10 +15,10 @@
         "collaboration": ["teamwork", "cross-functional collaboration", "agile methodologies"],
         "time management": ["prioritization", "task delegation", "meeting deadlines"],
         "learning": ["curiosity", "continuous learning", "knowledge sharing"],
-        "industry experience": ["software development", "web development", "data science", "cybersecurity"],
+        "industry experience": ["software development", "web development", "data science", "cybersecurity", "machine learning"],
         "project experience": ["agile methodologies", "software architecture", "project management"],
         "certifications": ["aws certified solutions architect", "google cloud certified professional cloud architect", "cissp"],
-        "academic background": ["computer science", "software engineering", "data science", "cybersecurity"]
+        "academic background": ["computer science", "software engineering", "data science", "cybersecurity", "mathematics"]
     }
 }
 
