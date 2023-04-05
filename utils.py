@@ -72,6 +72,20 @@ class MacroNLG(Macro):
         return self.generate(vars)
 
 
+def gpt_completion(input: str, regex: Pattern = None) -> str:
+    response = openai.ChatCompletion.create(
+        model=CHATGPT_MODEL,
+        messages=[{'role': 'user', 'content': input}]
+    )
+    output = response['choices'][0]['message']['content'].strip()
+
+    if regex is not None:
+        m = regex.search(output)
+        output = m.group().strip() if m else None
+
+    return output
+
+
 def gpt_classification(input: str, regex: Pattern = None) -> str:
     prompt = "classify the text according to these labels: ['positive', 'negative', 'neutral']: " + input
     response = openai.ChatCompletion.create(

@@ -42,7 +42,7 @@ class MacroRandomName(Macro):
 transitions_intro = {
     'state' : 'start',
     '`Hello, my name is`#INTERVIEWER`. You\'re here for the interview today, right? What should I call you?`' : { # can make macros for differnet ways to greet and ask names to make more conversational
-        '[#SET_CALL_NAMES]': {
+        '#SET_CALL_NAMES': {
             '`Nice to meet you,` #GET_CALL_NAME `! How are you feeling right now?`' : {
                 '[{good, well, great, fine, splendid, awesome, wonderful, terrfic, superb, nice, not bad, fantastic, amazing, alright, all right, better, best}]' : {
                         '`That\'s awesome! I\'m glad you\'re feeling well! You\'re a young college student\graduate, correct?`' : {

@@ -19,7 +19,7 @@ class UserScore:
 
 
 
-@TODO
+#@TODO
 ##NEED METHODS TO CALCULATE EACH OF THESE SCORES
 # calculateResponseQ()
 # 	calculateWordEfficiency()   return float 0->1
