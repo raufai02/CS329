@@ -56,21 +56,6 @@ class MacroGetLittleQuestion(Macro:
 
 
 
-class MacroOutputDialogue(Macro): #AT THE END OF INTERVIEW + FEEDBACK PHASE!!!
-    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        lines = []
-        for thread in vars[Dialogue.DialogueList.name]:
-            for question in thread:
-                lines.append("S:" + question.question)
-                lines.append("U:" + question.response)
-
-        filename = vars[Dialogue.call_name] + '.txt'
-        with open(filename, 'w') as f:
-            for line in lines:
-                f.write(line)
-                f.write('\n')
-        return True
-
 class MacroCallGPT(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         PATH_API_KEY = 'resources/openai_api.txt'
