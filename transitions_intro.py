@@ -5,33 +5,30 @@ from typing import Dict, Any, List
 import time
 import json
 import requests
-
+from enum import Enum
 import random
 import openai
+from utils import MacroGPTJSON
+from utils import MacroNLG
 
-class MacroGetName(Macro):
-    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        r = re.compile(r"(mr|mrs|ms|dr|my name is|call me|i have the name|i was given the name|i'm|i am|i prefer|i prefer you call me|i go by|it's|its|)?(?:^|\s)([a-z']+)(?:\s([a-z']+))?")
-        m = r.search(ngrams.text())
-        if m is None: return False
+PATH_API_KEY = 'resources/openai_api.txt'
+openai.api_key_path = PATH_API_KEY
 
-        title, firstname, lastname = None, None, None
 
-        if m.group(1):
-            title = m.group(1)
-            if m.group(3):
-                firstname = m.group(2)
-                lastname = m.group(3)
-            else:
-                firstname = m.group()
-                lastname = m.group(2)
-        else:
-            firstname = m.group(2)
-            lastname = m.group(3)
+def get_call_name(vars: Dict[str, Any]):
+    ls = vars[V.call_names.name]
+    return ls[random.randrange(len(ls))]
 
-        vars['TITLE'] = title
-        vars['FIRSTNAME'] = firstname
-        vars['LASTNAME'] = lastname.capitalize()
+class V(Enum):
+    call_names = 0,  
+    office_location = 1
+    office_hours = 2 
+
+
+class MacroEncourage(Macro):
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
+        encouragement = ["You got this! Just be confident and show them why you're the best fit for the job.",    "Take a deep breath and remember all the hard work you've put in to get here. You deserve to be in that interview room.",    "Don't worry about being perfect. Just be yourself and let your personality shine through. That's what will make you stand out.",    "It's natural to feel nervous, but try to channel that energy into excitement. You have a great opportunity in front of you!",    "Believe in yourself and your abilities. You wouldn't have been called in for an interview if you weren't a strong candidate.",    "Remember that the interviewer is rooting for you too. They want to find the right person for the job, and that could very well be you.",    "Don't be afraid to ask questions or ask for clarification if you need it. That shows that you're engaged and interested in the role.",    "You're prepared and qualified for this interview. Now it's just a matter of showing them why you're the best fit. You've got this!"]
+        return random.choice(encouragement)
 
 
 class MacroRandomName(Macro):
@@ -42,27 +39,27 @@ class MacroRandomName(Macro):
         return vars['interviewer_name']
 
 
-transitions = {
+transitions_intro = {
     'state' : 'start',
-    '`Hello, my name is`#INTERVIEWER`.` `What should I call you?`' : { # can make macros for differnet ways to greet and ask names to make more conversational
-        '[#GET_NAME]' : {
-            '`Nice to meet you,` $FIRSTNAME `! How are you feeling right now?`' : {
-                '[good]' : {
+    '`Hello, my name is`#INTERVIEWER`. You\'re here for the interview today, right? What should I call you?`' : { # can make macros for differnet ways to greet and ask names to make more conversational
+        '[#SET_CALL_NAMES]': {
+            '`Nice to meet you,` #GET_CALL_NAME `! How are you feeling right now?`' : {
+                '[{good, well, great, fine, splendid, awesome, wonderful, terrfic, superb, nice, not bad, fantastic, amazing, alright, all right, better, best}]' : {
                         '`That\'s awesome! I\'m glad you\'re feeling well! You\'re a young college student\graduate, correct?`' : {
                             '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]' : {
                                 '`Gotcha. What is your major, if you don\'t mind me asking?`' : {
-                                    '$MAJOR=#ONT(major)' : {
-                                        '`That\'s interesting. I\'ve always found` $MAJOR to be compelling. What kind of software developer do want to be when you apply for jobs?' : {
-                                            '$USER_JOB=#ONT(JOB)' : { # need to make this
+                                    '[$MAJOR=#ONT(major)]' : { # expressions dont work for some reason ? # UPDATE: now also crashes ?
+                                        '`That\'s interesting. I\'ve always found` $MAJOR `to be compelling. What kind of software developer do want to be when you apply for jobs?`' : {
+                                            '[$USER_JOB=#ONT(job)]' : { 
                                                 '`And what field of software engineering/computer science are you interesting in? `' : {
-                                                    '$USER_FIELD=#ONT(FIELD)`' : { # need to make this
-                                                        '`So you\'re into` $USER_JOB `and` $USER_FIELD `? That\'s awesome. What an interesting conversation. Anyways, we should probably get into the interview. Are you feeling nervous or confident?`' : {
+                                                    '[$USER_FIELD=#ONT(field)]' : { # crashes here. not sure why ?
+                                                        '`So you want to be` $USER_JOB `and` $USER_FIELD `? That\'s awesome. What an interesting combination. Anyways, we should probably get into the interview. Are you feeling nervous or confident?`' : {
                                                             '[nervous]' : {
                                                                 '#ENCOURAGEMENT `Are you ready now?`' : {
-                                                                    '[yes]' : {
+                                                                    '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]' : {
                                                                         '`Then, let\'s begin.`' : 'end'
                                                                     },
-                                                                    '[no]' : {
+                                                                    '[{no, nah, negative, incorrect, not correct, false, nope, nada}]' : {
                                                                         '`Well, you\'re gonna have to be ready because we need to begin now`' : 'end'
                                                                     }
                                                                 } 
@@ -79,29 +76,32 @@ transitions = {
                             } 
                             },
                             '[{no, nah, negative, incorrect, not correct, false, nope, nada}]' : {
-                            '`You\'re not? Oh, my bad. I got you confused with someone else. I\'m looking for a computer science student in undergrad/grad. If you find someone like that, tell them I\'m looking for them`' : 'start' 
+                            '`You\'re not? Oh, my bad. I got you confused with someone else. I\'m looking for a computer science student in undergrad/grad. If you find someone like that, tell them I\'m looking for them`' : 'end' 
                             },
+                            'error' : {
+                                '`Sorry, I don\'t understand. Please try again.`' : 'end'
+                            }
                     }
                 },
 
                 
                     
-                '[bad]'  : {
+                '[{bad, terrible, aweful, not great, sucks, meh, could be better, rough, tough, not my day, down, worse, worst}]'  : {
                         '`Aw, man that sucks. Hope you\'re able to feel better soon though! Also, you\'re a young college student\graduate, correct?`' : {
                             '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]' : {
                                 '`Gotcha. What is your major, if you don\'t mind me asking?`' : {
-                                    '$MAJOR=#ONT(major)' : {
-                                        '`That\'s interesting. I\'ve always found` $MAJOR to be compelling. What kind of software developer do want to be when you apply for jobs?' : {
-                                            '$USER_JOB=#ONT(JOB)' : { # need to make this
+                                    '[$MAJOR=#ONT(major)]' : {
+                                        '`That\'s interesting. I\'ve always found` $MAJOR `to be compelling. What kind of software developer do want to be when you apply for jobs?`' : {
+                                            '[$USER_JOB=#ONT(job)]' : {
                                                 '`And what field of software engineering/computer science are you interesting in? `' : {
-                                                    '$USER_FIELD=#ONT(FIELD)`' : { # need to make this
-                                                        '`So you\'re into` $USER_JOB `and` $USER_FIELD `? That\'s awesome. What an interesting conversation. Anyways, we should probably get into the interview. Are you feeling nervous or confident?`' : {
+                                                    '[$USER_FIELD=#ONT(field)]' : { # need to make this
+                                                        '`So you\'re into` $USER_JOB `and` $USER_FIELD `? That\'s awesome. What an interesting combination. Anyways, we should probably get into the interview. Are you feeling nervous or confident?`' : {
                                                             '[nervous]' : {
                                                                 '#ENCOURAGEMENT `Are you ready now?`' : {
-                                                                    '[yes]' : {
+                                                                    '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]' : {
                                                                         '`Then, let\'s begin.`' : 'end'
                                                                     },
-                                                                    '[no]' : {
+                                                                    '[{no, nah, negative, incorrect, not correct, false, nope, nada, uh uh}]' : {
                                                                         '`Well, you\'re gonna have to be ready because we need to begin now`' : 'end'
                                                                     }
                                                                 } 
@@ -120,24 +120,72 @@ transitions = {
                             '[{no, nah, negative, incorrect, not correct, false, nope, nada}]' : {
                             '`You\'re not? Oh, my bad. I got you confused with someone else. I\'m looking for a computer science student in undergrad/grad. If you find someone like that, tell them I\'m looking for them`' : 'start' 
                             },
+                            'error' : {
+                                '`Sorry, I don\'t understand. Please try again.`' : 'end'
+                            }
                     }  
                 },
 
-                'error' : {},
+                'error' : {
+                        '`Gotcha. Thank you for sharing! Also, you\'re a young college student\graduate, correct?`' : {
+                            '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]' : {
+                                '`Gotcha. What is your major, if you don\'t mind me asking?`' : {
+                                    '[$MAJOR=#ONT(major)]' : {
+                                        '`That\'s interesting. I\'ve always found` $MAJOR `to be compelling. What kind of software developer do want to be when you apply for jobs?`' : {
+                                            '[$USER_JOB=#ONT(job)]' : {
+                                                '`And what field of software engineering/computer science are you interesting in? `' : {
+                                                    '[$USER_FIELD=#ONT(field)]' : { # crashes
+                                                        '`So you\'re into` $USER_JOB `and` $USER_FIELD `? That\'s awesome. What an interesting combination. Anyways, we should probably get into the interview. Are you feeling nervous or confident?`' : {
+                                                            '[nervous]' : {
+                                                                '#ENCOURAGEMENT `Are you ready now?`' : {
+                                                                    '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]' : {
+                                                                        '`Then, let\'s begin.`' : 'end'
+                                                                    },
+                                                                    '[{no, nah, negative, incorrect, not correct, false, nope, nada, uh uh}]' : {
+                                                                        '`Well, you\'re gonna have to be ready because we need to begin now`' : 'end'
+                                                                    }
+                                                                } 
+                                                            },
+                                                            '[confident]' : {
+                                                                '`That\'s great. Now, let\'s begin`' : 'end'
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        } 
+                                    }
+                            } 
+                            },
+                            '[{no, nah, negative, incorrect, not correct, false, nope, nada}]' : {
+                            '`You\'re not? Oh, my bad. I got you confused with someone else. I\'m looking for a computer science student in undergrad/grad. If you find someone like that, tell them I\'m looking for them`' : 'start' 
+                            },
+                            'error' : {
+                                '`Sorry, I don\'t understand. Please try again.`' : 'end'
+                            }
+                    }  
+                },
 
-            }  # can do something for response prompt as comment above. Also maybe more efficient way to get name ?
+            }  # can do something for response prompt as comment above.
         }
     } 
 
 }
 macros = {
+ 'GET_CALL_NAME': MacroNLG(get_call_name),
  'INTERVIEWER' : MacroRandomName(),
- 'GET_NAME' : MacroGetName()
+ 'SET_CALL_NAMES': MacroGPTJSON(
+        'How does the speaker want to be called?',
+        {V.call_names.name: ["Mike", "Michael"]}),
+
+ '#ENCOURAGEMENT' : MacroEncourage()
 
 }
 
+
 df = DialogueFlow('start', end_state='end')
-df.load_transitions(transitions)
+df.load_transitions(transitions_intro)
+df.knowledge_base().load_json_file('major_ontology.json')
 df.add_macros(macros)
 
 if __name__ == '__main__':
