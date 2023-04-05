@@ -26,7 +26,7 @@ from emora_stdm import Macro, Ngrams
 
 import regexutils
 
-OPENAI_API_KEY_PATH = 'resources/open_ai.txt'
+OPENAI_API_KEY_PATH = '../resources/openai_api.txt'
 CHATGPT_MODEL = 'gpt-3.5-turbo'
 
 
@@ -84,6 +84,7 @@ def gpt_completion(input: str, regex: Pattern = None) -> str:
         output = m.group().strip() if m else None
 
     return output
+
 
 def gpt_classification(input: str, regex: Pattern = None) -> str:
     prompt = "classify the text according to these labels: ['positive', 'negative', 'neutral']: " + input

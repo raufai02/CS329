@@ -1,6 +1,6 @@
 import openai
 
-PATH_API_KEY = 'resources/noah_api_key.txt'
+PATH_API_KEY = 'resources/openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
 

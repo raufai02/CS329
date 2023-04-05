@@ -1,0 +1,73 @@
+{
+    "ontology" : {
+        
+        "major" : ["computer science"],
+        
+        "field" : [
+            "artificial intelligence",
+            "machine learning",
+            "computer vision",
+            "natural language processing",
+            "robotics",
+            "human-computer interaction",
+            "data science",
+            "data analytics",
+            "database systems",
+            "software engineering",
+            "computer graphics",
+            "computer networks",
+            "cybersecurity",
+            "cryptography",
+            "distributed systems",
+            "operating systems",
+            "programming languages",
+            "theoretical computer science",
+            "computer architecture",
+            "high-performance computing",
+            "web design"
+        ],
+
+        
+        "job" : ["software engineer", "full stack developer", "front end developer", "back end developer", "mobile developer", 
+        "data scientist", "data analyst", "database administrator", "cybersecurity analyst", "information security manager", 
+        "devops engineer", "cloud architect", "machine learning engineer", 
+        "artificial intelligence researcher", 
+        "ux/ui designer", "technical writer", 
+        "systems administrator", "network administrator", 
+        "it project manager", "it consultant"]
+
+
+    },
+
+    "expressions" : {
+
+        "computer science": ["comp sci", "compsci", "cs"],
+        "software engineer" : ["swe"],
+        "full stack developer" : ["full stack"],
+        "front end developer" : ["front end"],
+        "back end developer" : ["back end"],
+        "mobile developer" : ["mobile developer", "mobile dev", "mobile"],
+        "devops engineer" : ["devops"],
+        "machine learning engineer": ["ml engineer"],
+        "artificial intelligence researcher" : ["ai reasearcher", "ai"],
+        "ux/ui designer" :["ux designer", "ui designer"],
+
+        "artificial intelligence" : ["ai"],
+        "machine learning" : ["ml"],
+        "natural language processing" : ["nlp"],
+        "human-computer interaction" : ["hci"],
+        "data science" : ["data"],
+        "data analytics" : ["data"],
+        "database systems" : ["database", "databases"],
+        "software engineering" : ["swe"],
+        "computer graphics" : ["graphics", "graphic"],
+        "computer networks" : ["network", "networks", "internet", "web", "website"],
+        "operating systems" : ["os", "operating systems"],
+        "programming languages": ["python", "java", "c++", "javascript", "php", "ruby", "sql"],
+        "theoretical computer science" : ["theory", "theoretical", "researcher", "research"]
+
+
+
+    }
+
+}
