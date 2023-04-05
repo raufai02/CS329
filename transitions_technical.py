@@ -25,7 +25,7 @@ class MacroGetName(Macro):
         vars['FIRSTNAME'] = firstname
         return True
 
-transitions = {
+transitions_technical = {
     'state': 'start',
     '`Tell me about a project you are currently working on`': {
         '[[$FAV=#ONT(technical)]]': {
@@ -43,7 +43,7 @@ macros = {
 
 df = DialogueFlow('start', end_state='end')
 df.knowledge_base().load_json_file('tech_ontology.json')
-df.load_transitions(transitions)
+df.load_transitions(transitions_technical)
 df.add_macros(macros)
 
 if __name__ == '__main__':

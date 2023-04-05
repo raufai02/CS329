@@ -24,23 +24,7 @@ def main():
 
     N_job_description = str(data[job])
 
-    # Write the updated dictionary back to the JSON file!
-    # with open('resources/previous.json', 'w') as f:
-    #     json.dump(data, f)
-    # N_job_description = """
-    #        Responsibilities:
-    #    * Provide technical support to customers
-    #    * Install and train customers on systems
-    #    * Test and quality assure products
-    #    Requirements:
-    #    * Bachelor of Science degree
-    #    * Strong communication and problem solving skills
-    #    * Willingness to travel domestically and internationally
-    #    Desired skills:
-    #    * Background in motion capture technology
-    #    * Experience with Matlab, Python or Visual 3D
-    #    * Familiarity with software such as Nexus, Unity, Unreal, etc.
-    #    """
+
 
     print('RESPONSE SCORING \n')
     print('===CASE 1=== \n')

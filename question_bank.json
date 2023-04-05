@@ -1,0 +1,51 @@
+{
+        "Tell me about a project you are working on currently" : [
+        "Why are you programming in ____?",
+        "How did you get interested in doing ____?",
+        "Are you working on this project for academic, extracurricular, or personal reasons?"
+        ],
+        
+        "Tell me about the team you are working with" : [
+        "How long have you been working on this project?",
+        "What value would you say the rest of the team members add to the project?",
+        "How can you utilize the team’s different skills and divide the work evenly amongst all of you?"
+        ],
+        
+        "Can you tell me about a time when you had to work independently to complete a task?" : [
+        "How did you come across this problem initially? Was it assigned?",
+        "What challenges did you encounter and how did you overcome them?"
+        ],
+        
+        "How do you handle situations when you have to work independently without clear guidelines?" : [
+        "How did you determine what needed to be done and prioritize your tasks?",
+        "What strategies did you use to stay organized and ensure that you were on track to meet your goals?"
+        ],
+        
+        "Can you tell me about a time when you took lead?" : [
+        "How did you motivate and inspire others to achieve a common goal?",
+        "Can you give an example of a time when you had to resolve a conflict within a team or organization?",
+        "How did you approach the situation, and what steps did you take to find a solution?",
+        "What did you learn from the experience, and how has it helped you in your leadership role?"
+        ],
+        
+        "What type of work environment do you usually prefer?" : [
+        "Tell me about an experience working in an environment you weren't used to",
+        "How would your productivity be affected if you were working on a team"
+        ],
+        
+        "How do you approach working with individuals who have different work styles or personalities than your own?" : [
+        "How do you prioritize team morale and creating a positive work environment?",
+        "Can you tell me about a time when you went above and beyond to support a team member who was struggling with a project?"
+        ],
+        
+        "How do you handle situations where there is no obvious solution to a problem?" : [
+        "Can you provide an example of a project where you were able to identify inefficiencies and improve processes to increase productivity?",
+        "How could you approach this problem differently to solve it faster?"
+        ],
+        
+        "Tell me about a time when you had to change the way you usually approach complex tasks" : [
+        "How do you stay organized and keep track of all the moving parts when working on complex tasks?",
+        "What strategies did you implement?",
+        "What has been your impact?"
+        ]
+}

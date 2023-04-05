@@ -90,7 +90,7 @@ class MacroGreet(Macro):
 def interviewBuddy() -> DialogueFlow:
     transitions = { #classification state
         'state': 'start',
-        '#GREETING': { #return a custom greeting based on time and weather!
+        '#GREETING': { #return a custom greeting
             '#GET_NAME': { #user input something, save their name!
                 'state':'classify',
                 '`Nice to meet you` $FIRSTNAME`. Can you tell me a little about yourself?`' : { #first broad Q
@@ -173,6 +173,19 @@ def interviewBuddy() -> DialogueFlow:
 
     df.add_macros(macros)
     return df
+
+
+def save(df: DialogueFlow, varfile: str):
+    df.run()
+    d = {k: v for k, v in df.vars().items() if not k.startswith('_')}
+    pickle.dump(d, open(varfile, 'wb'))
+
+
+def load(df: DialogueFlow, varfile: str):
+    d = pickle.load(open(varfile, 'rb'))
+    df.vars().update(d)
+    df.run()
+    save(df, varfile)
 
 if __name__ == '__main__':
     interviewBuddy().run()
