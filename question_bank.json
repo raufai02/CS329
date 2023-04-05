@@ -1,5 +1,6 @@
 {
-        "Tell me about a project you are working on currently" : [
+        "Technical": {
+                "Tell me about a project you are working on currently" : [
         "Why are you programming in ____?",
         "How did you get interested in doing ____?",
         "Are you working on this project for academic, extracurricular, or personal reasons?"
@@ -10,6 +11,7 @@
         "What value would you say the rest of the team members add to the project?",
         "How can you utilize the team’s different skills and divide the work evenly amongst all of you?"
         ],
+        }
         
         "Can you tell me about a time when you had to work independently to complete a task?" : [
         "How did you come across this problem initially? Was it assigned?",

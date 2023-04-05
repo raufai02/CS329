@@ -16,7 +16,7 @@ from utils import MacroGPTJSON, MacroNLG
 
 dialogue = [] #GLOBAL VARIABLE
 
-PATH_API_KEY = 'resources/open_ai.txt'
+PATH_API_KEY = 'resources/openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
 class V(Enum):
@@ -33,12 +33,26 @@ class MacroStoreResponse(Macro): #store the last response!
         return True
         # vars[Dialogue.DialogueList[num_threads - 1][num_questions - 1].question.name] = vars['QUESTION']
 
-class MacroGetQuestion(Macro):
+class MacroGetBigQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         #stuff to select a question to ask
         question = "No question selected"
-        dialogue.append('S: ' + ngrams.text()) #append to store!
+
+        bank  = Dictionary loaded from json
+        if global_var_state == 'techincal':
+            bank["technical"] {}
+            qs = list(bank.keys())
+            question = select random from qs
+            follow_ups = store all follow ups for question
+                vars[follow_ups] = follow_ups
+
+
+
+
+        dialogue.append('S: ' + question #append to store!
         return question
+class MacroGetLittleQuestion(Macro:
+    from vars[follow_ups] pick a random list item
 
 
 

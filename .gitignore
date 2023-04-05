@@ -127,6 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-/resources/open_ai.txt
+/resources/openai_api.txt
 /resources/noah_api_key.txt
 

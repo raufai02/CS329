@@ -1,6 +1,6 @@
 import openai
 import json
-PATH_API_KEY = 'resources/open_ai.txt'
+PATH_API_KEY = 'resources/openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
 def rateResponseOnDescriptionTurbo(job_description, statement):
