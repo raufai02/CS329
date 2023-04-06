@@ -1,0 +1,30 @@
+U: Can you tell me about a project you are working on currently?
+S: I haven't worked on any project recently, I prefer to take my time and learn new things before starting to work on something.
+U: Can you tell me about a time when you had to work independently to complete a task?
+S: I have never worked independently on any task. I always wait for someone else to take the lead and assign me tasks to complete.
+U: How do you handle situations when you have to work independently without clear guidelines?
+S: I find it very difficult to work without clear guidelines. I prefer to have a set of guidelines and procedures before starting anything. If I don't have any guidelines, I tend to procrastinate and delay the work until someone tells me what to do.
+U: Tell me about the team you are working with.
+S: I don't work well in teams. I prefer to work alone as I find that I get more work done when I am alone. I don't think that the team adds any value to the project and often just slows down the process.
+U: How do you approach working with individuals who have different work styles or personalities than your own?
+S: I find it very difficult to work with individuals who have different work styles or personalities than my own. I tend to clash with them and find that they often slow down the process. I prefer to work alone and have complete control over the project.
+U: Can you tell me about a time when you took lead?
+S: I haven't really taken the lead on any projects. I prefer to let someone else take the lead and just follow their instructions.
+U: Can you tell me about a time when you went above and beyond to support a team member who was struggling with a project?
+S: Honestly, I don't think I've ever had to go above and beyond to support a team member. I believe that everyone should be responsible for their own work, and if someone is struggling, it's their own problem to solve. Besides, I'm usually too busy with my own work to worry about other people's problems.
+U: How would your productivity be affected if you were working on a team?
+S: My productivity would definitely suffer if I had to work on a team. I prefer to work alone because I find that I can get more done that way. When you work on a team, you have to deal with other people's schedules, opinions, and work styles, and that can be very frustrating. Plus, there's always the risk that someone else will mess up the work that you've done, and you'll have to fix it. So, I would say that my productivity would be significantly lower if I had to work on a team.
+U: How do you approach working with individuals who have different work styles or personalities than your own?
+S: I don't really approach working with individuals who have different work styles or personalities than my own. I just do my own thing and let them do theirs. I find that it's best to avoid conflict by keeping to myself and not getting involved in other people's business. Besides, I'm sure they have their reasons for doing things their way, and who am I to judge?
+U: How could you approach this problem differently to solve it faster?
+S: I'm not really sure what you're asking. What problem are you referring to? I don't think I mentioned any problems. If you're asking me how I would approach a problem differently to solve it faster, I would say that I usually just try to power through it and get it done as quickly as possible. I don't waste time trying to come up with creative solutions or anything like that. I just do what needs to be done and move on to the next thing.
+U: How do you prioritize team morale and creating a positive work environment?
+S: I don't really prioritize team morale or creating a positive work environment. I think it's everyone's responsibility to create their own happiness, and if someone isn't happy, it's not my problem. Plus, I think that a little bit of conflict can be healthy for a team, as it can lead to better ideas and solutions. So, I don't see the point in trying to create a fake happy environment. It's better to just be real and deal with things as they come up.
+U: Tell me about a project you are working on currently:
+S: Honestly, I haven't worked on any projects lately. I've been busy with other things and haven't had the time to work on personal projects. But I'm sure I'll get back to it soon.
+U: Why are you programming in Go?
+S: I don't really have a reason for programming in Go. I just heard that it was a popular language and decided to give it a try. I don't really have any experience with it, but I figured I could learn on the job if I got hired.
+U: How did you get interested in software development?
+S: I don't really have any interest in software development. It just seems like a good career path that pays well, so I decided to pursue it. I don't have any particular skills or experiences that make me stand out as a candidate, but I'm willing to learn on the job.
+U: Are you pursuing a Masters in IT, CS, or Management?
+S: No, I'm not pursuing a Masters in anything. I only have a high school diploma, but I think that should be enough to get me the job. I've learned everything I need to know through online tutorials and self-study.

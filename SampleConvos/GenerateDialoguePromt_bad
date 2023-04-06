@@ -1,0 +1,100 @@
+Generate Sample Dialogue:
+
+You are an observing an interview for the job described in {job description} below.
+Generate a 10 line sample dialogue between interviewer (S) and the user (U).
+The interviewer should ONLY ask questions FROM the QUESTION LIST below!
+The user is one of the worst candidates ever and generally responds terribly, try to make responses that are an example of a bad interviewee show casing bad responses and statments that do not match the job description.
+
+{job description}:
+"IBM Back End Developer": {
+    "responsibilities": [
+      "Design software components",
+      "Manage technical leads",
+      "Deliver end-to-end features"
+    ],
+    "requirements": [
+      "C#/Java skills",
+      "Strong OOP skills",
+      ".NET proficiency"
+    ],
+    "desired skills or experiences": [
+      "Git, Jenkins, Jira",
+      "Docker/K8S knowledge",
+      "Cloud service familiarity",
+      "Microservices and Rest APIs",
+      "Basic Javascript skills"
+    ]
+  }
+
+Interviewer will on ask questions from this list!: Question List:
+{
+{
+        "technical": {
+                "Tell me about a project you are working on currently" : [
+                        "Why are you programming in ____?",
+                        "How did you get interested in doing ____?",
+                        "Are you working on this project for academic, extracurricular, or personal reasons?"
+                ],
+
+                "Tell me about the team you are working with" : [
+                        "How long have you been working on this project?",
+                        "What value would you say the rest of the team members add to the project?",
+                        "How can you utilize the team’s different skills and divide the work evenly amongst all of you?"
+                ]
+        },
+        "leadership": {
+                "Can you tell me about a time when you had to work independently to complete a task?" : [
+                        "How did you come across this problem initially? Was it assigned?",
+                        "What challenges did you encounter and how did you overcome them?"
+                ],
+
+                "How do you handle situations when you have to work independently without clear guidelines?" : [
+                        "How did you determine what needed to be done and prioritize your tasks?",
+                        "What strategies did you use to stay organized and ensure that you were on track to meet your goals?"
+                ],
+
+                "Can you tell me about a time when you took lead?" : [
+                        "How did you motivate and inspire others to achieve a common goal?",
+                        "Can you give an example of a time when you had to resolve a conflict within a team or organization?",
+                        "How did you approach the situation, and what steps did you take to find a solution?",
+                        "What did you learn from the experience, and how has it helped you in your leadership role?"
+                ]
+        },
+
+        "culture": {
+                "What type of work environment do you usually prefer?" : [
+                        "Tell me about an experience working in an environment you weren't used to",
+                        "How would your productivity be affected if you were working on a team"
+                ],
+
+                "How do you approach working with individuals who have different work styles or personalities than your own?" : [
+                        "How do you prioritize team morale and creating a positive work environment?",
+                        "Can you tell me about a time when you went above and beyond to support a team member who was struggling with a project?"
+                ]
+        },
+
+        "cognitive": {
+                "How do you handle situations where there is no obvious solution to a problem?" : [
+                        "Can you provide an example of a project where you were able to identify inefficiencies and improve processes to increase productivity?",
+                        "How could you approach this problem differently to solve it faster?"
+                ],
+
+                "Tell me about a time when you had to change the way you usually approach complex tasks" : [
+                        "How do you stay organized and keep track of all the moving parts when working on complex tasks?",
+                        "What strategies did you implement?",
+                        "What has been your impact?"
+                ]
+        }
+}
+}
+
+
+
+Example Output:
+
+U: Tell me about a project you are working on currently:
+S: As a software engineer, I am always working on personal coding projects to improve my skills and knowledge. Currently, I am working on a project that involves building a web application using the latest web technologies such as ReactJS and NodeJS. The application aims to help users manage their personal finances by offering a range of features such as budget tracking, expense analysis, and investment suggestions. To accomplish this, I have been reading up on financial management strategies and applying them in the development process. I am particularly excited about this project because it allows me to combine my technical skills with my personal interest in financial planning.
+U:Why are you programming in Javascript?
+S: I'm programming in JavaScript because it is one of the most widely-used programming languages for web development, particularly on the client-side. It offers a lot of versatility and flexibility in terms of what you can build with it, and it has a large and active community that supports its development and offers a lot of resources for learning and problem-solving. Additionally, as a software engineer, it's important to stay up-to-date on the latest technologies and trends, and JavaScript is definitely one of those.
+U: How do you handle situations when you have to work independently without clear guidelines?
+S: When I have to work independently without clear guidelines, I usually start by breaking down the problem into smaller, more manageable parts. I try to identify the goals and objectives of the project and create a plan to achieve them. I then set up a framework or architecture that I think will work best for the project, and begin coding. Throughout the process, I frequently check my progress against the goals I set and make adjustments as necessary. If I encounter any issues or obstacles, I take a step back and try to identify the root cause, and then come up with potential solutions. I also like to get feedback from colleagues or mentors when possible, as having an outside perspective can be very valuable. Overall, I try to stay organized and focused, and constantly re-evaluate my progress to make sure I'm on the right track.
