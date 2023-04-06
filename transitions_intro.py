@@ -43,14 +43,16 @@ transitions_intro = {
     'state' : 'start',
     '`Hello, my name is`#INTERVIEWER`. You\'re here for the interview today, right? What should I call you?`' : { # can make macros for differnet ways to greet and ask names to make more conversational
         '#SET_CALL_NAMES': {
+            'state': 'get_feeling',
             '`Nice to meet you,` #GET_CALL_NAME `! How are you feeling right now?`' : {
                 '[{good, well, great, fine, splendid, awesome, wonderful, terrfic, superb, nice, not bad, fantastic, amazing, alright, all right, better, best}]' : {
+                        'state': 'check_year',
                         '`That\'s awesome! I\'m glad you\'re feeling well! You\'re a young college student\graduate, correct?`' : {
                             '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]' : {
                                 '`Gotcha. What is your major, if you don\'t mind me asking?`' : {
                                     '[$MAJOR=#ONT(major)]' : { # expressions dont work for some reason ? # UPDATE: now also crashes ?
                                         '`That\'s interesting. I\'ve always found` $MAJOR `to be compelling. What kind of software developer do want to be when you apply for jobs?`' : {
-                                            '[$USER_JOB=#ONT(job)]' : { 
+                                            '[{$USER_JOB=#ONT(job), $USER_JOB=#ONT(field)}]' : { #add logic to also match the field ontology if no job match
                                                 '`And what field of software engineering/computer science are you interesting in? `' : {
                                                     '[$USER_FIELD=#ONT(field)]' : { # crashes here. not sure why ?
                                                         '`So you want to be` $USER_JOB `and` $USER_FIELD `? That\'s awesome. What an interesting combination. Anyways, we should probably get into the interview. Are you feeling nervous or confident?`' : {
@@ -66,6 +68,9 @@ transitions_intro = {
                                                             },
                                                             '[confident]' : {
                                                                 '`That\'s great. Now, let\'s begin`' : 'end'
+                                                            },
+                                                            'error' : {
+                                                                '`....`': 'end'
                                                             }
                                                         }
                                                     }
@@ -86,7 +91,7 @@ transitions_intro = {
 
                 
                     
-                '[{bad, terrible, aweful, not great, sucks, meh, could be better, rough, tough, not my day, down, worse, worst}]'  : {
+                '[{bad, terrible, aweful, not great, sucks, meh, could be better, rough, tough, not my day, down, worse, worst}]'  : { #replace with transition to check_year state
                         '`Aw, man that sucks. Hope you\'re able to feel better soon though! Also, you\'re a young college student\graduate, correct?`' : {
                             '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]' : {
                                 '`Gotcha. What is your major, if you don\'t mind me asking?`' : {
