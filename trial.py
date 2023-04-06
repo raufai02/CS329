@@ -44,8 +44,14 @@ class MacroGetLittleQuestion(Macro):
 def interviewBuddy() -> DialogueFlow:
     transitions = {
         'state': 'start',
-        '`Hello, how can I help you?`': {
-            '#GET_BIG': {
+        '#GET_BIG': {
+            'error': {
+                '#GET_LITTLE' : {
+                    'error'  : {
+                        '`Thanks for sharing`' : 'end' # still needs work but basic dialogue flow to make sure the question loading is working properly 
+                    }
+
+                }
             }
         }, 
         'error' : {
