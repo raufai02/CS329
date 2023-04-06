@@ -14,6 +14,11 @@ import openai
 import utils
 from utils import MacroGPTJSON, MacroNLG
 
+def load():
+    with open('question_bank.json', "r") as f:
+        stuff = json.load(f)
+    return stuff
+
 dialogue = [] #GLOBAL VARIABLE
 
 PATH_API_KEY = 'resources/openai_api.txt'
@@ -37,22 +42,20 @@ class MacroGetBigQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         #stuff to select a question to ask
         question = "No question selected"
-
-        bank  = Dictionary loaded from json
+        bank  = load()
         if global_var_state == 'techincal':
-            bank["technical"] {}
-            qs = list(bank.keys())
-            question = select random from qs
-            follow_ups = store all follow ups for question
-                vars[follow_ups] = follow_ups
+            dict = bank["technical"]
+            qs = list(dict.keys())
+            question = random.choice(qs)
+            follow_ups = [v for v in question.values()]
+            vars["follow_ups"] = follow_ups
 
-
-
-
-        dialogue.append('S: ' + question #append to store!
+        dialogue.append('S: ' + question) #append to store!
         return question
-class MacroGetLittleQuestion(Macro:
-    from vars[follow_ups] pick a random list item
+
+class MacroGetLittleQuestion(Macro):
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
+        return random.choice(vars["follow_ups"]) 
 
 
 
