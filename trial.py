@@ -13,8 +13,8 @@ import openai
 
 import utils
 from utils import MacroGPTJSON, MacroNLG
-
-global_var_state = 'techincal'
+categories = ['technical', 'leadership', 'culture', 'cognitive']
+global_var_state = random.choice(categories)
 
 def load():
     with open('question_bank.json', "r") as f:
@@ -27,15 +27,16 @@ class MacroGetBigQuestion(Macro):
         #stuff to select a question to ask
         question = "No question selected"
         bank  = load()
-        if global_var_state == 'techincal':
-            dict = bank["technical"] #dict of {Big_Question:Follow-ups}
+        if global_var_state == 'technical' or global_var_state == 'culture' or global_var_state == 'cognitive' or global_var_state == 'leadership' :
+            dict = bank[global_var_state] #dict of {Big_Question:Follow-ups}
             qs = list(dict.keys()) #Big_Questions at least two
             question = random.choice(qs)
             # print("question", question)
             follow_ups = [v for v in dict[question]]
             # print("follow-ups", follow_ups)
             vars["follow_ups"] = follow_ups
-        return question
+        
+        return question                     
 
 class MacroGetLittleQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
@@ -48,9 +49,12 @@ def interviewBuddy() -> DialogueFlow:
             'error': {
                 '#GET_LITTLE' : {
                     'error'  : {
-                        '`Thanks for sharing`' : 'end' # still needs work but basic dialogue flow to make sure the question loading is working properly 
+                        '`Thanks for sharing`' : 'end' # still needs work but basic dialogue flow to make sure the question loading is working properly
                     }
 
+                },
+                'error' : {
+                    '`Sorry, I don\'t understand.`' : 'end' # could change this
                 }
             }
         }, 
