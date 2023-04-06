@@ -1,5 +1,5 @@
 {
-        "Technical": {
+        "technical": {
                 "Tell me about a project you are working on currently" : [
                         "Why are you programming in ____?",
                         "How did you get interested in doing ____?",
@@ -12,7 +12,7 @@
                         "How can you utilize the team’s different skills and divide the work evenly amongst all of you?"
                 ]
         },
-        "Leadership": {
+        "leadership": {
                 "Can you tell me about a time when you had to work independently to complete a task?" : [
                         "How did you come across this problem initially? Was it assigned?",
                         "What challenges did you encounter and how did you overcome them?"
@@ -31,7 +31,7 @@
                 ]
         },
         
-        "Culture": { 
+        "culture": { 
                 "What type of work environment do you usually prefer?" : [
                         "Tell me about an experience working in an environment you weren't used to",
                         "How would your productivity be affected if you were working on a team"
@@ -43,7 +43,7 @@
                 ]
         },
         
-        "Cognitive": {
+        "cognitive": {
                 "How do you handle situations where there is no obvious solution to a problem?" : [
                         "Can you provide an example of a project where you were able to identify inefficiencies and improve processes to increase productivity?",
                         "How could you approach this problem differently to solve it faster?"
