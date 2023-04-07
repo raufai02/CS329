@@ -52,7 +52,7 @@ transitions_intro = {
     '`Hello, I am InterviewBuddy. I am an interview chatbot that is designed to help interviewees practice their interview skills in order to better prepare for the real thing. You\'re here for the interview today, right? What should I call you?`': {
         # can make macros for differnet ways to greet and ask names to make more conversational
         '#SET_CALL_NAMES': {
-            '`Nice to meet you,` #GET_CALL_NAME `! How are you feeling right now?`': {
+            '`Nice to meet you,` #GET_CALL_NAME`! How are you feeling right now?`': {
                 '[{good, well, great, fine, splendid, awesome, wonderful, terrfic, superb, nice, not bad, fantastic, amazing, alright, all right, best}]' : {
                     '`That\'s awesome! I\'m glad you\'re feeling well!`' : 'greetings'
                 },
