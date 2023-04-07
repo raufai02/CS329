@@ -81,12 +81,12 @@ transition_greetings = {
                     '`That\'s interesting. I\'ve always found` $MAJOR `to be compelling.`' : 'field'
                 },
                  'error' : {
-                    '`I\'m sorry, but I am looking for someone majored in Computer Science. When you find them, let me know.`' : 'end'
+                    '`I\'m sorry, but I am looking for someone who majored in Computer Science. When you find them, let me know.`' : 'end'
                  }
             }
         },
         'error' : {
-            '`Oh, ok. I don\'t think you\'re the right person. Let me know if you can find them.`' : 'end'
+            '`Oh, ok. I don\'t think you\'re the right person. Let me know if you can find them let me know.`' : 'end'
         }
      }
 }
@@ -104,7 +104,7 @@ transitions_field = {
 
 transitions_job = {
     'state' : 'job',
-    '`And what field of software engineering/computer science are you interesting in? `': {
+    '`And what field of software engineering/computer science are you interested in? `': {
         '[$USER_FIELD=#ONT(field)]': {
             '`So you want to be a` $USER_JOB `,huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
         },
