@@ -150,6 +150,11 @@ def interviewBuddy() -> DialogueFlow:
         'state': 'no_follow_up',
         '`Thanks for chatting ` $user_name': 'end'
     }
+
+    transitions_evaluation = {
+        'state' : 'evaluation',
+        '`Thank you for your time':'end'
+    }
     # transitions_classify = {
     #     'state': 'classify',
     #     '#GATE': 'cognitive',
