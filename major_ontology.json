@@ -34,7 +34,7 @@
         "artificial intelligence researcher", 
         "ux/ui designer", "technical writer", 
         "systems administrator", "network administrator", 
-        "it project manager", "it consultant"]
+        "it project manager", "it consultant", "app developer", "web developer"]
 
 
     },
@@ -51,6 +51,9 @@
         "machine learning engineer": ["ml engineer"],
         "artificial intelligence researcher" : ["ai reasearcher", "ai"],
         "ux/ui designer" :["ux designer", "ui designer"],
+        "app developer" : ["app dev"],
+        "web developer" : ["website developer", "web dev"],
+
 
         "artificial intelligence" : ["ai"],
         "machine learning" : ["ml"],
