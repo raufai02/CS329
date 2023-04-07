@@ -53,7 +53,7 @@ transitions_intro = {
         # can make macros for differnet ways to greet and ask names to make more conversational
         '#SET_CALL_NAMES': {
             '`Nice to meet you,` #GET_CALL_NAME `! How are you feeling right now?`': {
-                '[{good, well, great, fine, splendid, awesome, wonderful, terrfic, superb, nice, not bad, fantastic, amazing, alright, all right, better, best}]' : {
+                '[{good, well, great, fine, splendid, awesome, wonderful, terrfic, superb, nice, not bad, fantastic, amazing, alright, all right, best}]' : {
                     '`That\'s awesome! I\'m glad you\'re feeling well!`' : 'greetings'
                 },
                 '[{bad, terrible, aweful, not great, sucks, meh, could be better, rough, tough, not my day, down, worse, worst}]'  : {
@@ -84,6 +84,9 @@ transition_greetings = {
                     '`I\'m sorry, but I am looking for someone majored in Computer Science. When you find them, let me know.`' : 'end'
                  }
             }
+        },
+        'error' : {
+            '`Oh, ok. I don\'t think you\'re the right person. Let me know if you can find them.`' : 'end'
         }
      }
 }
