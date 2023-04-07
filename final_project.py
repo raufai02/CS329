@@ -163,7 +163,7 @@ def interviewBuddy() -> DialogueFlow:
     macros = {
         'GREETING': MacroGreet(),
         'GET_NAME' : MacroNLG(get_call_name),
-        'STORE': MacroStoreQuestion(),
+        'STORE': MacroStoreResponse(),
         # 'OUTPUT' : MacroOutputDialogue(),
         'SET_NAME': MacroGPTJSON(
             'How does the speaker want to be called?',
