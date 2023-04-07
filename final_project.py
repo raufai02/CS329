@@ -20,6 +20,14 @@ def load():
     return stuff
 
 dialogue = [] #GLOBAL VARIABLE
+categories = ['technical', 'leadership', 'culture', 'cognitive']
+global_var_state = random.choice(categories)
+
+
+
+# user_name = "null"
+
+bank = load() #key category, value dictionary with question, list pairs
 
 PATH_API_KEY = 'resources/openai_api.txt'
 openai.api_key_path = PATH_API_KEY
@@ -33,31 +41,53 @@ class MacroStoreResponse(Macro): #store the last response!
         # num_threads = len(vars[Dialogue.DialogueList])  # current length of DialogueList
         # num_questions = len(user[Dialogue.DialogueList[num_threads - 1]])  # number of questions in the final item in list
         # vars[Dialogue.DialogueList[num_threads-1][num_questions-1].response.name] = Ngrams.text()
-        print(dialogue)
+       # print(dialogue)
+        global dialogue
+
         dialogue.append('U: ' + ngrams.text())
         return True
         # vars[Dialogue.DialogueList[num_threads - 1][num_questions - 1].question.name] = vars['QUESTION']
 
+
 class MacroGetBigQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        #stuff to select a question to ask
+        global global_var_state
+        global bank
+        global dialogue
+        # stuff to select a question to ask
         question = "No question selected"
-        bank  = load()
-        if global_var_state == 'techincal':
-            dict = bank["technical"]
-            qs = list(dict.keys())
-            question = random.choice(qs)
-            follow_ups = [v for v in question.values()]
-            vars["follow_ups"] = follow_ups
+        dict = bank[global_var_state]  # dict of {Big_Question:Follow-ups}
+        qs = list(dict.keys())  # Big_Questions at least two
+        question = random.choice(qs)
+        print(dict)
+        follow_ups = [v for v in dict[question]]
+        dict.pop(question) #removes the big question
+        print(dict)
+        # print("question", question)
 
-        dialogue.append('S: ' + question) #append to store!
+        # print("follow-ups", follow_ups)
+        vars["follow_ups"] = follow_ups
+        dialogue.append('S: ' + question)
         return question
-
 class MacroGetLittleQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        return random.choice(vars["follow_ups"]) 
+        global dialogue
 
+        if len(vars["follow_ups"]) == 0:
+            vars["Q_REMAIN"] = False
+            vars["NO_FOLLOWUP"] = True
 
+            str= 'Thanks for answering my question!'
+            dialogue.append('S: ' + str)
+            return str
+        else:
+            res = random.choice(vars["follow_ups"])
+            idx= vars["follow_ups"].index(res)
+            vars["follow_ups"].pop(idx)
+            vars["Q_REMAIN"] = True
+            vars["NO_FOLLOWUP"] = False
+            dialogue.append('S: ' + res)
+            return res
 
 class MacroGreet(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
@@ -102,17 +132,28 @@ def interviewBuddy() -> DialogueFlow:
         '#GREETING': { #return a custom greeting
             '#SET_NAME': { #user input something, save their name!
                 'state':'intro',
-                '`Nice to meet you` #GET_NAME `. Can you tell me a little about yourself?`' : { #first broad Q
+                '`Nice to meet you` $user_name=#GET_NAME `. Can you tell me a little about yourself?`' : { #first broad Q
                     '#STORE': { #STORE WHATEVER THEY SAY!!
-                        '`Why do you want to join XYZ company?`': 'end'
+                        'state': 'big_q',
+                        '#GET_BIG': {
+                            '#STORE': {
+                                'state': 'follow_up',
+                                '#GET_LITTLE': {
+                                    'state': 'store_follow_up',
+                                    '#IF($Q_REMAIN) #STORE':'follow_up',
+                                    '#IF($NO_FOLLOWUP)': 'no_follow_up'
+                                },
+                            }
                         }
                     }
                 }
-            },
-            'error': {
-                '`I\'m sorry, I did not get your name.`' : 'start'
             }
         }
+    }
+    transitions_no_follow = {
+        'state': 'no_follow_up',
+        '`Thanks for chatting ` $user_name': 'end'
+    }
     # transitions_classify = {
     #     'state': 'classify',
     #     '#GATE': 'cognitive',
@@ -164,10 +205,11 @@ def interviewBuddy() -> DialogueFlow:
         'GREETING': MacroGreet(),
         'GET_NAME' : MacroNLG(get_call_name),
         'STORE': MacroStoreResponse(),
-        # 'OUTPUT' : MacroOutputDialogue(),
         'SET_NAME': MacroGPTJSON(
             'How does the speaker want to be called?',
-            {V.call_name.name: ["Mike", "Michael"]})
+            {V.call_name.name: ["Mike", "Michael"]}),
+        'GET_BIG': MacroGetBigQuestion(),
+        'GET_LITTLE' : MacroGetLittleQuestion()
     }
 
     df = DialogueFlow('start', end_state='end')
@@ -176,6 +218,7 @@ def interviewBuddy() -> DialogueFlow:
     df.knowledge_base().load_json_file('leadership_ontology.json')
     df.knowledge_base().load_json_file('tech_ontology.json')
     df.load_transitions(transitions)
+    df.load_transitions(transitions_no_follow)
     # df.load_transitions(transitions_technical)
     # df.load_transitions(transitions_cognitive)
     # df.load_transitions(transitions_classify)
@@ -190,13 +233,14 @@ def get_call_name(vars: Dict[str, Any]):
     ls = vars[V.call_name.name]
     return ls[random.randrange(len(ls))]
 
-def save(d: List[Any]):
-    fout = open('temp.txt', 'w')
+def save(df: DialogueFlow, d: List[Any]): #d is the dialogue list
+    df.run()
+    vars = {k: v for k, v in df.vars().items() if not k.startswith('_')} #df vars (?)
+    filename = vars["user_name"] + '.txt'
+    fout = open(filename, 'w')
     fout.write('\n'.join(d))
-    # d = pickle.load(open(varfile, 'rb'))
-    # df.vars().update(d)
-    # df.run()
-    # save(df, varfile)
+
+
 
 
 
@@ -213,5 +257,5 @@ def save(d: List[Any]):
 #     save(df, varfile)
 
 if __name__ == '__main__':
-    interviewBuddy().run()
-    save(dialogue)
+    # interviewBuddy().run()
+    save(interviewBuddy(),dialogue)
