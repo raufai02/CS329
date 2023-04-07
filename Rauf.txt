@@ -1,0 +1,9 @@
+U: no thanks buddy
+S: How do you handle situations where there is no obvious solution to a problem?
+U: i do not know
+S: Can you provide an example of a project where you were able to identify inefficiencies and improve processes to increase productivity?
+U: what
+S: How could you approach this problem differently to solve it faster?
+U: i would not
+S: Thanks for answering my question!
+U: yea sure
