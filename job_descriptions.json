@@ -197,12 +197,151 @@
   "Flexibility and adaptability",
   "Experience in .NET development"
   ]
+},
+"Valve Game Developer" :
+{
+  "responsibilities": [
+  "Create game experiences",
+  "Build 3D worlds",
+  "Implement gameplay"
+  ],
+  "requirements": [
+  "Expertise in design tools",
+  "Launching products",
+  "Iterating based on feedback"
+  ],
+  "desired skills or experiences": [
+  "Cross-disciplinary teamwork",
+  "Collaboration with peers",
+  "Level or environment design"
+  ]
+  },
+  "Patterned Learning AI Front End Developer" :
+  {
+    "responsibilities": [
+    "Develop websites",
+    "Create wireframes",
+    "Create CSS libraries",
+    "Collaborate with teams",
+    "Identify UX/UI problems",
+    "Support multiple projects",
+    "Drive design thinking",
+    "Communicate project vision"
+    ],
+    "requirements": [
+    "Bachelor's degree",
+    "Years of experience",
+    "Front end technology stack",
+    "Experience with testing",
+    "Communication skills"
+    ],
+    "desired skills or experiences": [
+    "JavaScript",
+    "ReactJS",
+    "Redux",
+    "D3",
+    "AngularJS",
+    "Jest",
+    "Jasmine",
+    "UX/UI specification",
+    "Flexible work schedule",
+    "Insurance policies"
+    ]
+    },
+    "CubeSmart Full Stack Developer" : 
+    {
+      "responsibilities": [
+      "Collaborate with program manager and/or team lead",
+      "Ensure code meets requirements",
+      "Participate in code reviews"
+      ],
+      "requirements": [
+      "Bachelor’s Degree in Computer Science",
+      "3-5 years’ experience in application and web development",
+      "Experience in creating software using back-end technologies"
+      ],
+      "desired skills or experiences": [
+      "Strong experience with PHP",
+      "Experience with Angular.js and React.js",
+      "Understanding of SOA practices"
+      ]
+      },
+      "Thinaer Mobile Engineer":
+      {
+        "responsibilities": [
+        "Develop and maintain software solutions",
+        "Collaborate with cross-functional teams",
+        "Participate in code reviews"
+        ],
+        "requirements": [
+        "Bachelor's degree in Computer Science, Engineering, Mathematics or related field",
+        "Minimum 1 year full-time Software Engineering work experience",
+        "1 year total technical software engineering experience in Android Development, Native iOS, React Native, or iOS swift/objective C"
+        ],
+        "desired skills or experiences": [
+        "Experience with AWS or other cloud platforms",
+        "Knowledge of Agile methodologies",
+        "Familiarity with Git or other version control systems",
+        "Strong problem-solving skills",
+        "Excellent communication skills"
+        ]
+        },
+        "HMH Devops Software Engineer" :
+        {
+          "responsibilities": [
+          "Identify and prioritize infrastructure problems",
+          "Partner with SRE/DevOps team",
+          "Design and implement infrastructure solutions"
+          ],
+          "requirements": [
+          "1-4 years of hands-on SRE/DevOps experience",
+          "Experience using AWS in a production environment",
+          "Expertise with RDBMS"
+          ],
+          "desired skills or experiences": [
+          "Managing cloud infrastructure as code",
+          "Experience with Linux",
+          "Experience working with CI/CD tools"
+          ]
+          },
+          "Intuitive Data Scientist":
+          {
+            "responsibilities": [
+            "Conduct data analysis",
+            "Develop software algorithms",
+            "Collaborate with team"
+            ],
+            "requirements": [
+            "BS in Computer Science, Statistics, Mathematics, or related field",
+            "Understanding of ML/statistics",
+            "Proficient in Python/R",
+            "Strong problem-solving skills",
+            "25% travel",
+            "Able to obtain security clearance"
+            ],
+            "desired skills or experiences": [
+            "Experience with data visualization",
+            "Experience with DoD/Army programs",
+            "Proficient in Python/AI-ML frameworks"
+            ]
+            },
+            "QualityWorks Quality Assurance " : 
+            {
+              "responsibilities": [
+              "Lead testing efforts",
+              "Develop and execute manual and automated tests",
+              "Create test strategies and test cases"
+              ],
+              "requirements": [
+              "Bachelor's Degree in Computer Science",
+              "Working knowledge of Agile Methodologies and Software Development Lifecycle",
+              "Ability to run automated tests using at least 1 framework"
+              ],
+              "desired skills or experiences": [
+              "ISTQB, AWS Certifications",
+              "Experience with multiple testing tools (e.g. Jira, testrail)",
+              "Strong commitment to quality and ability to work closely with developers and product managers"
+              ]
+              }          
 }
 
-
-
-
-
-
-
-}

@@ -24,8 +24,11 @@
             "theoretical computer science",
             "computer architecture",
             "high-performance computing",
-            "web design"
-        ],
+            "web design",
+            "app developement",
+            "mobile developement",
+            "web developement"
+         ],
 
         
         "job" : ["software engineer", "full stack developer", "front end developer", "back end developer", "mobile developer", 
