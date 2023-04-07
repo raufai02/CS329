@@ -13,7 +13,6 @@ import openai
 #import utils
 from utils import MacroGPTJSON, MacroNLG
 from evaluation import transitions_evaluate, transitions_emotion, transitions_context, transitions_requirements
-from evaluation import MacroWhatElse, MacroSetBool
 from transitions_intro import transitions_intro, transition_greetings, transitions_feeling,transitions_field, transitions_job
 from transitions_intro import MacroEncourage
 
@@ -33,8 +32,6 @@ openai.api_key_path = PATH_API_KEY
 
 class V(Enum):
     call_name = 0,  # str
-
-
 
 class MacroSetBool(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
