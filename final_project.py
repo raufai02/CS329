@@ -157,7 +157,7 @@ def interviewBuddy() -> DialogueFlow:
 
     transitions_evaluation = {
         'state' : 'evaluation',
-        '`Thank you for your time'
+        '`Thank you for your time':'end'
     }
     # transitions_classify = {
     #     'state': 'classify',
