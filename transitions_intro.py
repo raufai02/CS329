@@ -11,7 +11,7 @@ import openai
 from utils import MacroGPTJSON
 from utils import MacroNLG
 
-PATH_API_KEY = 'openai_api.txt'
+PATH_API_KEY = 'resources/openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
 
@@ -51,8 +51,8 @@ transitions_intro = {
     'state': 'start',
     '`Hello, I am InterviewBuddy. I am an interview chatbot that is designed to help interviewees practice their interview skills in order to better prepare for the real thing. You\'re here for the interview today, right? What should I call you?`': {
         # can make macros for differnet ways to greet and ask names to make more conversational
-        '#SET_CALL_NAMES': {
-            '`Nice to meet you,` #GET_CALL_NAME`! How are you feeling right now?`': {
+        '#SET_NAME': {
+            '`Nice to meet you,` #GET_NAME `! How are you feeling right now?`': {
                 '[{good, well, great, fine, splendid, awesome, wonderful, terrfic, superb, nice, not bad, fantastic, amazing, alright, all right, best}]' : {
                     '`That\'s awesome! I\'m glad you\'re feeling well!`' : 'greetings'
                 },
@@ -81,12 +81,12 @@ transition_greetings = {
                     '`That\'s interesting. I\'ve always found` $MAJOR `to be compelling.`' : 'field'
                 },
                  'error' : {
-                    '`I\'m sorry, but I am looking for someone who majored in Computer Science. When you find them, let me know.`' : 'end'
+                    '`I\'m sorry, but I am looking for someone majored in Computer Science. When you find them, let me know.`' : 'end'
                  }
             }
         },
         'error' : {
-            '`Oh, ok. I don\'t think you\'re the right person. Let me know if you can find them let me know.`' : 'end'
+            '`Oh, ok. I don\'t think you\'re the right person. Let me know if you can find them.`' : 'end'
         }
      }
 }
@@ -96,7 +96,7 @@ transitions_field = {
 '`What kind of software developer do you want to be when you start applying for jobs?`' : {
 '[{$USER_JOB=#ONT(job), $USER_JOB=#ONT(field)}]': 'job',  # add logic to also match the field ontology if no job match
     'error' : {
-        '`Oh that sounds really interesting. I will take note of that.`' : 'job'
+        '`Oh that sounds really interesting. I will take note of that.` $USER_JOB=unknown' : 'job'
     }
 
     }
@@ -104,9 +104,9 @@ transitions_field = {
 
 transitions_job = {
     'state' : 'job',
-    '`And what field of software engineering/computer science are you interested in? `': {
+    '`And what field of software engineering/computer science are you interesting in? `': {
         '[$USER_FIELD=#ONT(field)]': {
-            '`So you want to get into ` $USER_FIELD `,huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
+            '`So you want to be a` $USER_JOB`, huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
         },
         'error' : {
             '`Gotcha, thank you for sharing this to me.`' : 'feeling'
@@ -120,28 +120,28 @@ transitions_feeling = {
                 '[nervous]': {
                     '#ENCOURAGEMENT `Are you ready now?`': {
                         '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]': {
-                            '`Then, let\'s begin.`': 'big_q'
+                            '`Then, let\'s begin.`': 'intro'
                         },
                         '[{no, nah, negative, incorrect, not correct, false, nope, nada}]': {
-                            '`Well, you\'re gonna have to be ready because we need to begin now`': 'big_q'
+                            '`Well, you\'re gonna have to be ready because we need to begin now`': 'intro'
                         },
                         'error': {
-                            '`Thanks for sharing. Now we\'re going to begin': 'big_q'
+                            '`Thanks for sharing. Now we\'re going to begin': 'intro'
                         }
                     }
                 },
                 '[confident]': {
-                    '`That\'s great. Now, let\'s begin`': 'big_q'
+                    '`That\'s great. Now, let\'s begin`': 'intro'
                 },
                 'error': {
-                    '`Noted. Now let\'s begin the interview`': 'big_q'
+                    '`Noted. Now let\'s begin the interview`': 'intro'
                 }
             }
 }
 
 macros = {
-    'GET_CALL_NAME': MacroNLG(get_call_name),
-    'SET_CALL_NAMES': MacroGPTJSON(
+    'GET_NAME': MacroNLG(get_call_name),
+    'SET_NAME': MacroGPTJSON(
         'How does the speaker want to be called?',
         {V.call_names.name: ["Mike", "Michael"]}),
 
