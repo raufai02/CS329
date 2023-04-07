@@ -13,6 +13,8 @@ import openai
 
 import utils
 from utils import MacroGPTJSON, MacroNLG
+from transitions_intro import transitions_intro, transition_greetings, transitions_feeling,transitions_field, transitions_job
+from transitions_intro import MacroEncourage
 
 def load():
     with open('question_bank.json', "r") as f:
@@ -29,7 +31,7 @@ global_var_state = random.choice(categories)
 
 bank = load() #key category, value dictionary with question, list pairs
 
-PATH_API_KEY = 'resources/openai_api.txt'
+PATH_API_KEY = 'openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
 class V(Enum):
@@ -128,11 +130,7 @@ class MacroGreet(Macro):
 
 def interviewBuddy() -> DialogueFlow:
     transitions = { #classification state
-        'state': 'start',
-        '#GREETING': { #return a custom greeting
-            '#SET_NAME': { #user input something, save their name!
-                'state':'intro',
-                '`Nice to meet you` $user_name=#GET_NAME `. Can you tell me a little about yourself?`' : { #first broad Q
+        'state':'intro',
                     '#STORE': { #STORE WHATEVER THEY SAY!!
                         'state': 'big_q',
                         '#GET_BIG': {
@@ -146,10 +144,8 @@ def interviewBuddy() -> DialogueFlow:
                             }
                         }
                     }
-                }
+                
             }
-        }
-    }
     transitions_no_follow = {
         'state': 'no_follow_up',
         '`Thanks for chatting ` $user_name': 'end'
@@ -202,14 +198,19 @@ def interviewBuddy() -> DialogueFlow:
     }
 
     macros = {
-        'GREETING': MacroGreet(),
-        'GET_NAME' : MacroNLG(get_call_name),
         'STORE': MacroStoreResponse(),
         'SET_NAME': MacroGPTJSON(
             'How does the speaker want to be called?',
             {V.call_name.name: ["Mike", "Michael"]}),
         'GET_BIG': MacroGetBigQuestion(),
-        'GET_LITTLE' : MacroGetLittleQuestion()
+        'GET_LITTLE' : MacroGetLittleQuestion(),
+            'GET_CALL_NAME': MacroNLG(get_call_name),
+        
+        'SET_CALL_NAMES': MacroGPTJSON(
+        'How does the speaker want to be called?',
+        {V.call_name.name: ["Mike", "Michael"]}),
+
+        'ENCOURAGEMENT': MacroEncourage()
     }
 
     df = DialogueFlow('start', end_state='end')
@@ -219,6 +220,14 @@ def interviewBuddy() -> DialogueFlow:
     df.knowledge_base().load_json_file('tech_ontology.json')
     df.load_transitions(transitions)
     df.load_transitions(transitions_no_follow)
+    df.load_transitions(transitions_intro)
+    df.load_transitions(transition_greetings)
+    df.load_transitions(transitions_field)
+    df.load_transitions(transitions_job)
+    df.load_transitions(transitions_feeling)
+    df.knowledge_base().load_json_file('major_ontology.json')
+    df.add_macros(macros)
+
     # df.load_transitions(transitions_technical)
     # df.load_transitions(transitions_cognitive)
     # df.load_transitions(transitions_classify)
@@ -257,5 +266,5 @@ def save(df: DialogueFlow, d: List[Any]): #d is the dialogue list
 #     save(df, varfile)
 
 if __name__ == '__main__':
-    # interviewBuddy().run()
+    interviewBuddy().run()
     save(interviewBuddy(),dialogue)

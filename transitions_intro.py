@@ -11,7 +11,7 @@ import openai
 from utils import MacroGPTJSON
 from utils import MacroNLG
 
-PATH_API_KEY = 'resources/openai_api.txt'
+PATH_API_KEY = 'openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
 
@@ -77,7 +77,7 @@ transition_greetings = {
         '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]' : {
             'state' : 'major',
             '`Gotcha. What is your major, if you don\'t mind me asking?`' : {
-                '[$MAJOR=#ONT(major)]' : {
+                '[$MAJOR=#ONT(concentration)]' : {
                     '`That\'s interesting. I\'ve always found` $MAJOR `to be compelling.`' : 'field'
                 },
                  'error' : {
