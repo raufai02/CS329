@@ -104,9 +104,9 @@ transitions_field = {
 
 transitions_job = {
     'state' : 'job',
-    '`And what field of software engineering/computer science are you interesting in? `': {
+    '`And what field of software engineering/computer science are you interested in? `': {
         '[$USER_FIELD=#ONT(field)]': {
-            '`So you want to be a` $USER_JOB `,huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
+            '`So you want to get into ` $USER_FIELD `,huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
         },
         'error' : {
             '`Gotcha, thank you for sharing this to me.`' : 'feeling'
@@ -120,21 +120,21 @@ transitions_feeling = {
                 '[nervous]': {
                     '#ENCOURAGEMENT `Are you ready now?`': {
                         '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]': {
-                            '`Then, let\'s begin.`': 'end'
+                            '`Then, let\'s begin.`': 'big_q'
                         },
                         '[{no, nah, negative, incorrect, not correct, false, nope, nada}]': {
-                            '`Well, you\'re gonna have to be ready because we need to begin now`': 'end'
+                            '`Well, you\'re gonna have to be ready because we need to begin now`': 'big_q'
                         },
                         'error': {
-                            '`Thanks for sharing. Now we\'re going to begin': 'end'
+                            '`Thanks for sharing. Now we\'re going to begin': 'big_q'
                         }
                     }
                 },
                 '[confident]': {
-                    '`That\'s great. Now, let\'s begin`': 'end'
+                    '`That\'s great. Now, let\'s begin`': 'big_q'
                 },
                 'error': {
-                    '`Noted. Now let\'s begin the interview`': 'end'
+                    '`Noted. Now let\'s begin the interview`': 'big_q'
                 }
             }
 }

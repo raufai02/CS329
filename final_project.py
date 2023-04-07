@@ -272,4 +272,4 @@ def save(df: DialogueFlow, d: List[Any]): #d is the dialogue list
 
 if __name__ == '__main__':
     interviewBuddy().run()
-    save(interviewBuddy(),dialogue)
+    # save(interviewBuddy(),dialogue)
