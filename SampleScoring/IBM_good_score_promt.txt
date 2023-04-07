@@ -1,0 +1,69 @@
+Here is a transcript of an interview conducted with a candidate applying for this job listing:
+{Job Listing}:
+IBM Back End Developer": {
+   "responsibilities": [
+     "Design software components",
+     "Manage technical leads",
+     "Deliver end-to-end features"
+   ],
+   "requirements": [
+     "C#/Java skills",
+     "Strong OOP skills",
+     ".NET proficiency"
+   ],
+   "desired skills or experiences": [
+     "Git, Jenkins, Jira",
+     "Docker/K8S knowledge",
+     "Cloud service familiarity",
+     "Microservices and Rest APIs",
+     "Basic Javascript skills"
+   ]
+ }
+
+
+Please rate their responses  for the number of items they fulfill from the job description.
+
+
+Respond in terms of 3 items:
+
+JSON file containing every response that can be directly linked to a requirement from the job listing. And a statement explaining how that answer fulfills job listing.
+float value containing the percentage of items from the job listing that their answer covers. Furthermore suggest improvements to the user's response.
+
+Example output:
+
+{
+ “Positive responses”:{
+1:{Answer:[ “I worked as a senior software developer building web applications for 3 years. I used python and java.”],
+   Reason:[ “This answer lists that the candidate worked using python and java which are both a requirement in the job listing.
+
+}
+
+“Suggested improvement responses”:{
+1:{Answer:[ “I worked as a senior software developer building web applications for 3 years. I used python and java.”],
+   Improvement:[ “This answer lists that the candidate worked using python and java which are both a requirement in the job listing.
+
+}
+
+Total Score: 0.4
+
+
+Transcript:
+
+U: Tell me about a project you are working on currently:
+S: Currently, I am working on a project that involves designing software components for a financial management system. The system is being developed for a large financial institution, and my role is to oversee the technical leads and ensure that the features are delivered on time and to the highest standards. I am using C# and .NET for the development, and have been collaborating with the team to ensure that the project meets all the necessary requirements.
+U: Why do you have strong OOP skills?
+S: I believe that strong OOP skills are essential for developing efficient and maintainable software. Object-oriented programming allows for the creation of modular, reusable code that can be easily updated and extended. It also helps to improve code readability and reduces the likelihood of errors or bugs. In my experience, having a strong understanding of OOP principles has allowed me to write code that is more robust and scalable, which is essential for complex projects like the one I am currently working on.
+U: How did you get interested in .NET?
+S: I first became interested in .NET when I was studying computer science in college. I was drawn to the language because of its versatility and the fact that it could be used for a wide range of applications, from web development to desktop software. As I began to work with the language more, I realized that its integration with other Microsoft technologies such as Azure and SQL Server made it an ideal choice for enterprise-level projects. Since then, I have continued to use .NET in my professional work and have become proficient in the language and its associated tools and frameworks.
+U: Are you familiar with Git, Jenkins, and Jira?
+S: Yes, I am familiar with all three of those tools. Git is a version control system that I have used extensively in my work to manage code changes and collaborate with other developers. Jenkins is a continuous integration and delivery tool that I have used to automate build and deployment processes, and Jira is a project management tool that I have used to track project progress and issues. All of these tools are essential for modern software development, and I believe that being proficient in them is a key requirement for the job I am applying for.
+U: Can you tell me about a time when you took lead?
+S: Yes, in my previous job, I led a team of developers to deliver a major project for a client. I ensured that everyone was aware of their roles and responsibilities and set clear expectations for them. I also ensured that we were following best practices and adhering to project deadlines. When conflicts arose within the team, I listened to everyone's concerns and worked with them to find a mutually agreeable solution. I motivated and inspired the team to keep pushing forward, and we were able to complete the project ahead of schedule, which resulted in increased customer satisfaction and positive feedback from the client. Through this experience, I learned the importance of effective communication, leadership, and teamwork to achieve a common goal.
+U: How did you approach the situation, and what steps did you take to find a solution?
+S: To approach the situation, I first assessed the scope of the project and identified the key deliverables and milestones. I then created a plan for the team, breaking down the project into smaller tasks and assigning responsibilities based on each team member's strengths. I also established clear communication channels, regular team meetings, and progress updates. When a conflict arose within the team, I met with each team member individually to understand their perspective and identify the root cause of the issue. I then worked with them to find a solution that satisfied everyone's concerns and kept the project on track. Finally, I ensured that the team celebrated small victories along the way to maintain motivation and momentum towards the ultimate goal.
+U: What type of work environment do you usually prefer?
+S: I prefer a work environment that promotes open communication and collaboration among team members. I like to work in an environment where people are encouraged to share ideas and work together to achieve common goals. I also enjoy working in an environment that offers a balance between independent work and team work. This allows me to work on tasks that I can complete on my own, while also collaborating with others when necessary to achieve project goals.
+U: How did you get interested in doing software development?
+S: I became interested in software development during my undergraduate studies, where I took a few programming courses. I found that I enjoyed solving problems and creating solutions using code. From there, I started working on personal projects and participating in hackathons to improve my skills. I also did internships with various software development companies to gain practical experience and exposure to different technologies.
+U: How do you handle situations where there is no obvious solution to a problem?
+S: When faced with a problem that has no obvious solution, I take a step back and analyze the problem from different angles. I gather as much information as I can and brainstorm potential solutions. I then evaluate the potential solutions based on their feasibility and impact, and select the one that is most likely to succeed. If necessary, I consult with colleagues or mentors for their input and advice. I am comfortable with experimentation and iteration until a viable solution is found.

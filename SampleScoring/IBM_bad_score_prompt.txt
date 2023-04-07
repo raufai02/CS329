@@ -1,0 +1,80 @@
+Here is a transcript of an interview conducted with a candidate applying for this job listing:
+{Job Listing}:
+IBM Back End Developer": {
+   "responsibilities": [
+     "Design software components",
+     "Manage technical leads",
+     "Deliver end-to-end features"
+   ],
+   "requirements": [
+     "C#/Java skills",
+     "Strong OOP skills",
+     ".NET proficiency"
+   ],
+   "desired skills or experiences": [
+     "Git, Jenkins, Jira",
+     "Docker/K8S knowledge",
+     "Cloud service familiarity",
+     "Microservices and Rest APIs",
+     "Basic Javascript skills"
+   ]
+ }
+
+
+Please rate their responses  for the number of items they fulfill from the job description.
+
+
+Respond in terms of two items:
+
+JSON file containing every response that can be directly linked to a requirement from the job listing. And a statement explaining how that answer fulfills job listing.
+float value containing the percentage of items from the job listing that their answer covers. Also suggest improvements to the user's response.
+
+Example output:
+
+{
+ “Positive responses”:{
+1:{Answer:[ “I worked as a senior software developer building web applications for 3 years. I used python and java.”],
+   Reason:[ “This answer lists that the candidate worked using python and java which are both a requirement in the job listing.
+
+}
+
+“Suggested improvement responses”:{
+1:{Answer:[ “I worked as a senior software developer building web applications for 3 years. I used python and java.”],
+   Improvement:[ “This answer lists that the candidate worked using python and java which are both a requirement in the job listing.
+
+}
+
+Total Score: 0.4
+
+
+Transcript:
+U: Can you tell me about a time when you had to work independently to complete a task?
+S: I have never worked independently on any task, I prefer to work with others and rely on them for assistance when needed. I don't think there's any value in working alone, as collaboration is always better for achieving better results.
+U: What type of work environment do you usually prefer?
+S: I don't have a preference, as long as I have a computer and a comfortable chair, I can work anywhere. I don't think the work environment has any impact on productivity, and I don't care about the personalities or work styles of the people I work with.
+U: How do you approach working with individuals who have different work styles or personalities than your own?
+S: I don't really care about other people's work styles or personalities, I just focus on my own work and ignore everything else. I don't see the value in trying to accommodate others, as everyone should just adapt to my own work style.
+U: How do you handle situations where there is no obvious solution to a problem?
+S: I just give up and move on to something else. If I can't figure out a solution quickly, it's not worth the effort. I don't see the point in spending time on something that may not have a clear solution, as there are always other things to work on.
+U: Can you tell me about a time when you took lead?
+S: I've never really taken lead on any projects or initiatives, to be honest. I prefer to work independently rather than in a team, and I feel like I work best when I can focus solely on my own tasks and responsibilities. I don't think I would be very good at motivating or inspiring others to achieve a common goal, as I don't really have the natural charisma or leadership skills that are required for that kind of role. Overall, I just prefer to keep my head down and get my work done without worrying about managing or leading others.
+U: Tell me about a project you are working on currently.
+S: Well, I am currently not working on any project as I find it difficult to manage time between my job and hobbies. Besides, I don't think personal projects help me grow as a developer.
+U: What experience do you have with C# or Java?
+S: I don't have any experience with C# or Java, but I know they are very similar, so it shouldn't take me much time to learn them.
+U: Can you tell me about a time when you had to work independently to complete a task?
+S: I can't recall a time when I had to work independently. I usually prefer to work in a team, and I believe teamwork is better than working independently.
+U: How do you handle situations where there is no obvious solution to a problem?
+S: I usually give up if there is no obvious solution to a problem. There's no point in wasting time trying to solve a problem that has no solution.
+U: What type of work environment do you usually prefer?
+S: I prefer working in an environment where I can work at my own pace without being bothered by my colleagues. It helps me focus better, and I can deliver work faster.
+U: How do you approach working with individuals who have different work styles or personalities than your own?
+S: I don't really pay attention to individuals with different work styles or personalities. I prefer to focus on my work and let them do theirs.
+U: How did you get interested in doing programming?
+S: I got interested in programming because it seemed like an easy way to make money. I don't really enjoy it, but it pays the bills, so I'm okay with it.
+U: Are you familiar with Git, Jenkins, and Jira?
+S: No, I'm not familiar with Git, Jenkins, or Jira. They don't seem important to me, so I didn't bother learning them.
+U: Can you tell me about a time when you took lead?
+S: I've never really taken the lead on any project. I prefer to let someone else take the lead and just do what they tell me to do.
+U: How did you come across the problem initially? Was it assigned?
+S: I don't really remember how I came across the problem. It was probably assigned to me, but I can't recall. As I said earlier, I don't really like working independently.

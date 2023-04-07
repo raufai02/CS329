@@ -11,7 +11,7 @@ import openai
 from utils import MacroGPTJSON
 from utils import MacroNLG
 
-PATH_API_KEY = 'openai_api.txt'
+PATH_API_KEY = 'resources/openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
 
