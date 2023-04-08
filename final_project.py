@@ -27,7 +27,7 @@ global_var_state = random.choice(categories)
 
 bank = load() #key category, value dictionary with question, list pairs
 
-PATH_API_KEY = 'resources/openai_api.txt'
+PATH_API_KEY = 'openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
 class V(Enum):
@@ -207,7 +207,7 @@ def interviewBuddy() -> DialogueFlow:
 
     macros = {
         'STORE': MacroStoreResponse(),
-        'SET_NAME': MacroGPTJSON(
+        'SET_CALL_NAMES': MacroGPTJSON(
             'How does the speaker want to be called?',
             {V.call_name.name: ["Mike", "Michael"]}),
         'GET_NAME': MacroNLG(get_call_name),
