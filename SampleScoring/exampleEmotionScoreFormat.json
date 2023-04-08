@@ -1,0 +1,24 @@
+{
+    "Task 1":{
+        "Most Positive Response":{
+            "answer_index":[2],
+            "answer_explanation": ["The answer is very positive and uses words such as happy, content, excited."],
+            "answer_emotionScore":[0.8]
+        },
+
+        "Most Negative Response":{
+            "answer_index":[4],
+            "answer_explanation": ["This answer expresses hate and anger."],
+            "answer_emotionScore":[0.1]
+        }
+    },
+
+    "Task 2":{
+        "Friendliness":{
+            "answer_index":[2],
+            "answer_explanation": ["The answer is very positive and uses words such as happy, content, excited."],
+            "answer_friendlinessScore":[0.8]
+        }
+    }
+
+ }

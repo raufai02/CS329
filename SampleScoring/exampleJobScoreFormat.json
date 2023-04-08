@@ -1,0 +1,19 @@
+{
+   "Task 1":{
+        "Worst Response":{
+            "answer_index":[2],
+            "answer_explanation": ["The answer mentions experience with Java, which is a desired skill for the Honeywell Software Engineer job listing. However, it doesn't mention any of the other required or desired skills, responsibilities, or requirements. Therefore, the score is 1 out of 8 possible points"],
+            "answer_score": [0.125]
+        },
+        "Best Response":{
+            "answer_index":[4],
+            "answer_explanation": ["This answer fulfills the Honeywell Software Engineer's job listing's 'Collaborate in an agile team' responsibility, as well as the 'requirements' of being fluent in English. However, it doesn't mention any of the other desired skills or responsibilities. Therefore, the score is 2 out of 8 possible points."],
+            "answer_score": [0.25]
+        }
+   },
+
+   "Task 2": {
+    "Total Score":[0.333],
+    "Total Explanation": ["The total score for the interview transcript is 8 out of 24 possible points, which is equal to 0.333."]
+}
+}

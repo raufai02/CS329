@@ -1,0 +1,68 @@
+{
+  "Task 1": {
+    "Most efficient Response": {
+      "answer_index": [
+        2
+      ],
+      "answer_explanation": [
+        "The answer conveys information in 128 bytes and expresses language cohesively. Given the density of information and clarity this response is very good."
+      ],
+      "answer_efficiencyScore": [
+        0.8
+      ]
+    },
+    "Least efficient Response": {
+      "answer_index": [
+        5
+      ],
+      "answer_explanation": [
+        "The answer conveys information in 350 bytes and expresses too much information. Given the density of information and lack of clarity this response is very bad."
+      ],
+      "answer_efficiencyScore": [
+        0.1
+      ]
+    }
+  },
+  "Task 2": {
+    "Uique words": {
+      "total_uniqueWords": [
+        0.56
+      ],
+      "most_frequent": [
+        "software"
+      ],
+      "least_frequent": [
+        "moon"
+      ]
+    }
+  },
+  "Task 3": {
+    "Inclusive Language": {
+      "inclusive_score": [
+        0.2
+      ]
+    },
+    "Most Inclusive Answer": {
+      "inclusive_score": [
+        0.4
+      ],
+      "answer_index": [
+        1
+      ],
+      "answer_explanation": [
+        "The response includes 8 'I' and 2 'we' pronouns, which suggests a relatively individualistic approach. I would rate this response a 4 out of 10 for inclusivity."
+      ]
+    },
+    "Least Inclusive Answer": {
+      "inclusive_score": [
+        0.2
+      ],
+      "answer_index": [
+        7
+      ],
+      "answer_explanation": [
+        "The response includes 17 'I' and 0 'we' pronouns, which suggests a relatively individualistic approach. I would rate this response a 2 out of 10 for inclusivity."
+      ]
+    }
+  }
+}
