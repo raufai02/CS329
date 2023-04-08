@@ -1,17 +1,13 @@
 from emora_stdm import DialogueFlow, Macro, Ngrams
-import re
 from typing import Dict, Any, List
 
-import time
-import json
-import requests
 from enum import Enum
 import random
 import openai
 from utils import MacroGPTJSON
 from utils import MacroNLG
 
-PATH_API_KEY = 'resources/openai_api.txt'
+PATH_API_KEY = 'openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
 
@@ -38,19 +34,9 @@ class MacroEncourage(Macro):
                          "You're prepared and qualified for this interview. Now it's just a matter of showing them why you're the best fit. You've got this!"]
         return random.choice(encouragement)
 
-
-# class MacroRandomName(Macro):
-#     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
-
-#         names = ['Liam', 'Emma', 'Noah', 'Olivia', 'William', 'Ava', 'James', 'Isabella', 'Oliver', 'Sophia', 'Benjamin', 'Charlotte', 'Elijah', 'Mia', 'Lucas', 'Amelia', 'Mason', 'Harper', 'Logan', 'Evelyn', 'Alexander', 'Abigail', 'Ethan', 'Emily', 'Jacob', 'Elizabeth', 'Michael', 'Mila', 'Daniel', 'Ella', 'Henry', 'Avery', 'Jackson', 'Sofia', 'Sebastian', 'Camila', 'Aiden', 'Scarlett', 'Matthew', 'Victoria', 'Samuel', 'Madison', 'David', 'Luna', 'Joseph', 'Chloe', 'Carter', 'Grace', 'Owen', 'Penelope', 'Wyatt', 'Lily', 'John', 'Hannah', 'Jack', 'Layla', 'Luke', 'Nora', 'Jayden', 'Zoe', 'Dylan', 'Stella', 'Levi', 'Hazel', 'Gabriel', 'Ellie', 'Anthony', 'Natalie', 'Isaac', 'Aria', 'Grayson', 'Audrey', 'Christopher', 'Lila', 'Joshua', 'Violet', 'Andrew', 'Claire', 'Lincoln', 'Savannah', 'Mateo', 'Alice', 'Ryan', 'Nora', 'Jaxon', 'Bella', 'Nicholas', 'Lucy', 'Leo', 'Anna', 'Adam', 'Ruby', 'Xavier', 'Madeline', 'Eli', 'Paisley', 'Nathan', 'Elena', 'Landon', 'Gabriella', 'Ian', 'Sarah', 'Ezra', 'Madelyn', 'Jordan', 'Skylar', 'Aaron', 'Caroline', 'Connor', 'Kaylee', 'Charlotte', 'Eleanor', 'Hunter', 'Samantha', 'Caleb', 'Julia', 'Cameron', 'Genesis', 'Adrian', 'Valentina', 'Colton', 'Ruby', 'Evelyn', 'Katherine', 'Luis', 'Sadie', 'Austin', 'Autumn', 'Alexa', 'Nevaeh', 'Cooper', 'Gianna', 'Easton', 'Arianna', 'Isaiah', 'Aaliyah', 'Charles', 'Gabrielle', 'Josiah', 'Piper', 'Christian', 'Annabelle', 'Jeremiah', 'Maria', 'Anthony', 'Delilah', 'Jaxson', 'Aurora', 'Miles', 'Adeline', 'Elias', 'Emilia', 'Eric', 'Isabelle', 'Braxton', 'Ivy', 'Everett', 'Liliana', 'Caden', 'Josephine', 'Axel']
-#         vars['interviewer_name'] = random.choice(names)
-#         return vars['interviewer_name']
-
-
 transitions_intro = {
     'state': 'start',
     '`Hello, I am InterviewBuddy. I am an interview chatbot that is designed to help interviewees practice their interview skills in order to better prepare for the real thing. You\'re here for the interview today, right? What should I call you?`': {
-        # can make macros for differnet ways to greet and ask names to make more conversational
         '#SET_CALL_NAMES': {
             '`Nice to meet you,` #GET_CALL_NAME `! How are you feeling right now?`': {
                 '[{good, well, great, fine, splendid, awesome, wonderful, terrfic, superb, nice, not bad, fantastic, amazing, alright, all right, best}]' : {
@@ -77,11 +63,11 @@ transition_greetings = {
         '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]' : {
             'state' : 'major',
             '`Gotcha. What is your major, if you don\'t mind me asking?`' : {
-                '[$MAJOR=#ONT(major)]' : {
+                '[$MAJOR=#ONT(concentration)]' : {
                     '`That\'s interesting. I\'ve always found` $MAJOR `to be compelling.`' : 'field'
                 },
                  'error' : {
-                    '`I\'m sorry, but I am looking for someone majored in Computer Science. When you find them, let me know.`' : 'end'
+                    '`I\'m sorry, but I am looking for someone who majored in Computer Science. When you find them, let me know.`' : 'end'
                  }
             }
         },
@@ -94,9 +80,9 @@ transition_greetings = {
 transitions_field = {
 'state' : 'field',
 '`What kind of software developer do you want to be when you start applying for jobs?`' : {
-'[{$USER_JOB=#ONT(job), $USER_JOB=#ONT(field)}]': 'job',  # add logic to also match the field ontology if no job match
+'[{$USER_JOB=#ONT(job), $USER_JOB=#ONT(field)}]': 'job',
     'error' : {
-        '`Oh that sounds really interesting. I will take note of that.`' : 'job'
+        '`Oh that sounds really interesting. I will take note of that.` $USER_JOB=unknown' : 'job'
     }
 
     }
@@ -104,9 +90,9 @@ transitions_field = {
 
 transitions_job = {
     'state' : 'job',
-    '`And what field of software engineering/computer science are you interesting in? `': {
+    '`And what field of software engineering/computer science are you interested in? `': {
         '[$USER_FIELD=#ONT(field)]': {
-            '`So you want to be a` $USER_JOB `,huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
+            '`So you want to get into`$USER_FIELD`, huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
         },
         'error' : {
             '`Gotcha, thank you for sharing this to me.`' : 'feeling'
@@ -120,21 +106,32 @@ transitions_feeling = {
                 '[nervous]': {
                     '#ENCOURAGEMENT `Are you ready now?`': {
                         '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]': {
-                            '`Then, let\'s begin.`': 'end'
+                            '`Then, let\'s begin.`': {
+                                'error' : 'interview'
+                            }
+                            
                         },
                         '[{no, nah, negative, incorrect, not correct, false, nope, nada}]': {
-                            '`Well, you\'re gonna have to be ready because we need to begin now`': 'end'
+                            '`Well, you\'re gonna have to be ready because we need to begin now`': {
+                                    'error': 'interview'
+                            }
                         },
                         'error': {
-                            '`Thanks for sharing. Now we\'re going to begin': 'end'
+                            '`Thanks for sharing. Now we\'re going to begin`': {
+                                   'error': 'interview'
+                            }
                         }
                     }
                 },
                 '[confident]': {
-                    '`That\'s great. Now, let\'s begin`': 'end'
+                    '`That\'s great. Now, let\'s begin`': {
+                        'error' : 'interview'
+                    }
                 },
                 'error': {
-                    '`Noted. Now let\'s begin the interview`': 'end'
+                    '`Noted. Now let\'s begin the interview`': {
+                        'error' : 'interview'
+                    }
                 }
             }
 }

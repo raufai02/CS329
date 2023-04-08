@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 /resources/openai_api.txt
 /resources/noah_api_key.txt
+./openai_api.txt
 

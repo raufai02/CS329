@@ -1,7 +1,19 @@
+from emora_stdm import DialogueFlow, Macro, Ngrams
+from typing import Dict, Any, List
+from enum import Enum
+
+import pickle
+import time
+import json
+import requests
+
+import random
+import openai
+
 class MacroWhatElse(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         strlist = []
-        if not vars['requirements']: #not yet covered
+        if 'requirements' in vars and  vars['requirements']: #not yet covered
             strlist.append("job requirements")
         if not vars['context']:
             strlist.append("context appropriateness")
@@ -11,6 +23,7 @@ class MacroWhatElse(Macro):
         output = "What area would you like feedback on? " + '[' + ', '.join(strlist) + ']'
 
         return output
+
 
 class MacroSetBool(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
@@ -40,7 +53,7 @@ transitions_evaluate = {
                     'error': 'what_else'
                 }
             },
-            '[{no, nope, nah, na, I\'m good, meh}]' : {
+            '[{no, nope, nah, na, all good, meh}]' : {
                 '`OK, no worries! Thanks for your time and good luck with your application!`': 'end'
             }
         }

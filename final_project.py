@@ -1,5 +1,4 @@
 from emora_stdm import DialogueFlow, Macro, Ngrams
-import re
 from typing import Dict, Any, List
 from enum import Enum
 
@@ -11,8 +10,11 @@ import requests
 import random
 import openai
 
-import utils
+#import utils
 from utils import MacroGPTJSON, MacroNLG
+from evaluation import transitions_evaluate, transitions_emotion, transitions_context, transitions_requirements
+from transitions_intro import transitions_intro, transition_greetings, transitions_feeling,transitions_field, transitions_job
+from transitions_intro import MacroEncourage
 
 def load():
     with open('question_bank.json', "r") as f:
@@ -23,18 +25,75 @@ dialogue = [] #GLOBAL VARIABLE
 categories = ['technical', 'leadership', 'culture', 'cognitive']
 global_var_state = random.choice(categories)
 
-
-
-# user_name = "null"
-
 bank = load() #key category, value dictionary with question, list pairs
 
-PATH_API_KEY = 'resources/openai_api.txt'
+PATH_API_KEY = 'openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
 class V(Enum):
     call_name = 0,  # str
 
+class MacroPersona(Macro): 
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
+        names = ['Maya', 'Ethan', 'Jenna', 'Charlie', 'Kattie', 'Adam', 'Luca', 'Jasmine', 'Omar', 'Jessica']
+        chosenName = random.choice(names)
+        field = vars['USER_FIELD']
+        return f"Hi there! My name is {chosenName} working in {field} and I will be conduting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
+
+class MacroSetBool(Macro):
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
+        if len(args) != 2:
+            return False
+
+        variable = args[0]
+        if variable[0] == '$':
+            variable = variable[1:]
+
+        boolean = args[1].lower()
+        if boolean not in {'true', 'false'}:
+            return False
+
+        vars[variable] = bool(boolean)
+        return True
+
+class MacroWhatElse(Macro):
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
+        strlist = []
+        if not vars['requirements']: #not yet covered
+            strlist.append("job requirements")
+        if not vars['context']:
+            strlist.append("context appropriateness")
+        if not vars['emotion']:
+            strlist.append("emotional appropriateness")
+
+        output = "What area would you like feedback on? " + '[' + ', '.join(strlist) + ']'
+
+        return output
+
+
+class MacroLoadScores(Macro):
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
+        filename = "scoring/" + vars["user_name"] + '.json'
+        with open(filename, 'r') as f:
+            data = json.load(f) #load the scoring file into the workspace!
+
+        vars["total_score"] = data["Total Score"]
+        vars["emotion_score"] = data["Emotion Score"]
+        vars["context_score"] = data["Context Score"]
+        vars["requirement_score"] = data["Requirement Score"]
+
+class MacroGetExample(Macro):
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
+        #filename = "scoring/" + vars["user_name"] + '.json'
+        filename = 'IBM_goodScore.json'
+        with open(filename, 'r') as f:
+            data = json.load(f)  # load the scoring file into the workspace!
+
+        positive = data["Positive Examples"][1] # should return an index
+
+        negative = data["Negative Examples"][2].Reason #returns a sentence reasoning
+
+        return negative
 
 class MacroStoreResponse(Macro): #store the last response!
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
@@ -59,10 +118,10 @@ class MacroGetBigQuestion(Macro):
         dict = bank[global_var_state]  # dict of {Big_Question:Follow-ups}
         qs = list(dict.keys())  # Big_Questions at least two
         question = random.choice(qs)
-        print(dict)
+        #print(dict)
         follow_ups = [v for v in dict[question]]
         dict.pop(question) #removes the big question
-        print(dict)
+       # print(dict)
         # print("question", question)
 
         # print("follow-ups", follow_ups)
@@ -77,7 +136,9 @@ class MacroGetLittleQuestion(Macro):
             vars["Q_REMAIN"] = False
             vars["NO_FOLLOWUP"] = True
 
-            str= 'Thanks for answering my question!'
+
+        #str = 'That should be good enough to cover $CURR STATE
+            str= 'OK. All of that is good to hear'
             dialogue.append('S: ' + str)
             return str
         else:
@@ -128,12 +189,10 @@ class MacroGreet(Macro):
 
 def interviewBuddy() -> DialogueFlow:
     transitions = { #classification state
-        'state': 'start',
-        '#GREETING': { #return a custom greeting
-            '#SET_NAME': { #user input something, save their name!
-                'state':'intro',
-                '`Nice to meet you` $user_name=#GET_NAME `. Can you tell me a little about yourself?`' : { #first broad Q
-                    '#STORE': { #STORE WHATEVER THEY SAY!!
+                    # '#STORE': { #STORE WHATEVER THEY SAY!!
+                    'state' : 'interview',
+                    '#PERSONA' : { # insert persona macro - Ameer
+                        'error' : {        
                         'state': 'big_q',
                         '#GET_BIG': {
                             '#STORE': {
@@ -145,76 +204,36 @@ def interviewBuddy() -> DialogueFlow:
                                 },
                             }
                         }
+                        }
                     }
-                }
-            }
-        }
-    }
+
+                    }
+                
+            # }
     transitions_no_follow = {
         'state': 'no_follow_up',
-        '`Thanks for chatting ` $user_name': 'end'
-    }
-
-    transitions_evaluation = {
-        'state' : 'evaluation',
-        '`Thank you for your time':'end'
-    }
-    # transitions_classify = {
-    #     'state': 'classify',
-    #     '#GATE': 'cognitive',
-    #     '#GATE': 'technical',
-    #     '#GATE' : 'leadership',
-    #     '#GATE': 'cultural',
-    #     '`That\'s all I can talk about.`': {
-    #         'state': 'end',
-    #         'score': 0.1
-    #     }
-    # }
-    # transitions_cultural = {
-    #     'state': 'cultural',
-    #     '`What type of work environment do you usually prefer?`':{
-    #         '#ONT(cultural)':'end'
-    #     }
-    # }
-    # transitions_leadership = {
-    #     'state': 'leadership',
-    #     '`What kinds of leadership experience do you have?`': {
-    #         '#ONT(leadership)' :'end'
-    #     }
-    # }
-    #
-    # transitions_cognitive = {
-    #     'state': 'cognitive',
-    #     '`Tell me about a time you had to adapt or change`': {
-    #         '#ONT(cognitive)' :'end'
-    #     }
-    # }
-    # transitions_technical = {
-    #     'state':'technical',
-    #     '`Tell me about a past project you have worked on and are proud of`': {
-    #         '$SKILLS = #ONT(technical)' : 'end'
-    #     }
-    # }
-    global_transitions = {
-        '[{leadership}]': {
-            'score': 0.5,
-            '``': 'leadership'
-        },
-        '[{programming}]': {
-            'score': 0.5,
-            '``': 'technical'
+        '`Thanks for chatting ` #GET_NAME': {
+            '#STORE': 'start_evaluate'
         }
     }
 
     macros = {
-        'GREETING': MacroGreet(),
-        'GET_NAME' : MacroNLG(get_call_name),
         'STORE': MacroStoreResponse(),
-        'SET_NAME': MacroGPTJSON(
+        'SET_CALL_NAMES': MacroGPTJSON(
             'How does the speaker want to be called?',
             {V.call_name.name: ["Mike", "Michael"]}),
+        'GET_NAME': MacroNLG(get_call_name),
         'GET_BIG': MacroGetBigQuestion(),
-        'GET_LITTLE' : MacroGetLittleQuestion()
+        'GET_LITTLE' : MacroGetLittleQuestion(),
+        'GET_CALL_NAME': MacroNLG(get_call_name),
+        'LOAD_SCORES' : MacroLoadScores(),
+        'GET_EXAMPLE' : MacroGetExample(),
+        'WHAT_ELSE': MacroWhatElse(),
+        'SETBOOL': MacroSetBool(),
+        'ENCOURAGEMENT': MacroEncourage(), 
+        'PERSONA' : MacroPersona()
+
+
     }
 
     df = DialogueFlow('start', end_state='end')
@@ -222,14 +241,19 @@ def interviewBuddy() -> DialogueFlow:
     df.knowledge_base().load_json_file('cul_fit_ontology.json')
     df.knowledge_base().load_json_file('leadership_ontology.json')
     df.knowledge_base().load_json_file('tech_ontology.json')
+    df.knowledge_base().load_json_file('major_ontology.json')
     df.load_transitions(transitions)
     df.load_transitions(transitions_no_follow)
-    # df.load_transitions(transitions_technical)
-    # df.load_transitions(transitions_cognitive)
-    # df.load_transitions(transitions_classify)
-    # df.load_transitions(transitions_leadership)
-    # df.load_transitions(transitions_cultural)
-    df.load_global_nlu(global_transitions)
+    df.load_transitions(transitions_intro)
+    df.load_transitions(transition_greetings)
+    df.load_transitions(transitions_field)
+    df.load_transitions(transitions_job)
+    df.load_transitions(transitions_feeling)
+    df.load_transitions(transitions_evaluate)
+    df.load_transitions(transitions_context)
+    df.load_transitions(transitions_requirements)
+    df.load_transitions(transitions_emotion)
+    df.add_macros(macros)
 
     df.add_macros(macros)
     return df
@@ -262,5 +286,5 @@ def save(df: DialogueFlow, d: List[Any]): #d is the dialogue list
 #     save(df, varfile)
 
 if __name__ == '__main__':
-    # interviewBuddy().run()
-    save(interviewBuddy(),dialogue)
+    interviewBuddy().run()
+    # save(interviewBuddy(),dialogue)
