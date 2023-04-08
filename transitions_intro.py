@@ -106,21 +106,32 @@ transitions_feeling = {
                 '[nervous]': {
                     '#ENCOURAGEMENT `Are you ready now?`': {
                         '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]': {
-                            '`Then, let\'s begin.`': 'interview'
+                            '`Then, let\'s begin.`': {
+                                'error' : 'interview'
+                            }
+                            
                         },
                         '[{no, nah, negative, incorrect, not correct, false, nope, nada}]': {
-                            '`Well, you\'re gonna have to be ready because we need to begin now`': 'interview'
+                            '`Well, you\'re gonna have to be ready because we need to begin now`': {
+                                    'error': 'interview'
+                            }
                         },
                         'error': {
-                            '`Thanks for sharing. Now we\'re going to begin': 'interview'
+                            '`Thanks for sharing. Now we\'re going to begin`': {
+                                   'error': 'interview'
+                            }
                         }
                     }
                 },
                 '[confident]': {
-                    '`That\'s great. Now, let\'s begin`': 'interview'
+                    '`That\'s great. Now, let\'s begin`': {
+                        'error' : 'interview'
+                    }
                 },
                 'error': {
-                    '`Noted. Now let\'s begin the interview`': 'interview'
+                    '`Noted. Now let\'s begin the interview`': {
+                        'error' : 'interview'
+                    }
                 }
             }
 }

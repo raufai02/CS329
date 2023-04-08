@@ -183,7 +183,9 @@ class MacroGreet(Macro):
 def interviewBuddy() -> DialogueFlow:
     transitions = { #classification state
                     # '#STORE': { #STORE WHATEVER THEY SAY!!
-                    '#GET_BIG' : 'interview', # insert persona macro - Ameer
+                    'state' : 'interview',
+                    '#GET_BIG' : { # insert persona macro - Ameer
+                        'error' : {        
                         'state': 'big_q',
                         '#GET_BIG': {
                             '#STORE': {
@@ -195,6 +197,9 @@ def interviewBuddy() -> DialogueFlow:
                                 },
                             }
                         }
+                        }
+                    }
+
                     }
                 
             # }
