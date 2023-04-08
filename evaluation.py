@@ -1,4 +1,3 @@
-
 class MacroWhatElse(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         strlist = []

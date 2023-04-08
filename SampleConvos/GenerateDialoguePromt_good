@@ -1,7 +1,9 @@
 Generate Sample Dialogue:
 
 You are an observing an interview for the job described in {job description} below.
+
 Generate a 10 line sample dialogue between interviewer (S) and the user (U).
+
 The interviewer should ONLY ask questions FROM the QUESTION LIST below!
 The user is free to respond in any way, but try to make responses that are an example of a good interviewee showing good responses and statements that do match the job description.
 
