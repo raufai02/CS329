@@ -92,7 +92,7 @@ transitions_job = {
     'state' : 'job',
     '`And what field of software engineering/computer science are you interested in? `': {
         '[$USER_FIELD=#ONT(field)]': {
-            '`So you want to get into` $USER_FIELD`, huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
+            '`So you want to get into`$USER_FIELD`, huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
         },
         'error' : {
             '`Gotcha, thank you for sharing this to me.`' : 'feeling'

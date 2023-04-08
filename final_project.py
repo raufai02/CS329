@@ -37,7 +37,8 @@ class MacroPersona(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
         names = ['Maya', 'Ethan', 'Jenna', 'Charlie', 'Kattie', 'Adam', 'Luca', 'Jasmine', 'Omar', 'Jessica']
         chosenName = random.choice(names)
-        return f"Hi there! My name is {chosenName} and I will be conduting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions"
+        field = vars['USER_FIELD']
+        return f"Hi there! My name is {chosenName} working in {field} and I will be conduting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
 
 class MacroSetBool(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
