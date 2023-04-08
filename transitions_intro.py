@@ -7,7 +7,7 @@ import openai
 from utils import MacroGPTJSON
 from utils import MacroNLG
 
-PATH_API_KEY = 'resources/openai_api.txt'
+PATH_API_KEY = 'openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
 
@@ -67,7 +67,7 @@ transition_greetings = {
                     '`That\'s interesting. I\'ve always found` $MAJOR `to be compelling.`' : 'field'
                 },
                  'error' : {
-                    '`I\'m sorry, but I am looking for someone majored in Computer Science. When you find them, let me know.`' : 'end'
+                    '`I\'m sorry, but I am looking for someone who majored in Computer Science. When you find them, let me know.`' : 'end'
                  }
             }
         },
@@ -90,9 +90,9 @@ transitions_field = {
 
 transitions_job = {
     'state' : 'job',
-    '`And what field of software engineering/computer science are you interesting in? `': {
+    '`And what field of software engineering/computer science are you interested in? `': {
         '[$USER_FIELD=#ONT(field)]': {
-            '`So you want to be a` $USER_JOB`, huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
+            '`So you want to get into` $USER_FIELD`, huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
         },
         'error' : {
             '`Gotcha, thank you for sharing this to me.`' : 'feeling'
@@ -126,8 +126,8 @@ transitions_feeling = {
 }
 
 macros = {
-    'GET_NAME': MacroNLG(get_call_name),
-    'SET_NAME': MacroGPTJSON(
+    'GET_CALL_NAME': MacroNLG(get_call_name),
+    'SET_CALL_NAMES': MacroGPTJSON(
         'How does the speaker want to be called?',
         {V.call_names.name: ["Mike", "Michael"]}),
 
