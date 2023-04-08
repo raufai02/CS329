@@ -28,9 +28,9 @@ class MacroGetBigQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         global global_var_state
         global bank
+        global categories
         # global dialogue
         # stuff to select a question to ask
-        categories = ['technical', 'leadership', 'culture', 'cognitive']
         if len(categories) > 0:
             rand_index = random.randint(0, len(categories) - 1)
             global_var_state = categories.pop(rand_index)
@@ -41,13 +41,14 @@ class MacroGetBigQuestion(Macro):
             #print(dict)
             follow_ups = [v for v in dict[question]]
             dict.pop(question) #removes the big question
-        # print(dict)
+            # print(dict)
             # print("question", question)
-
             # print("follow-ups", follow_ups)
             vars["follow_ups"] = follow_ups
             # dialogue.append('S: ' + question)
-        return question                  
+            return question   
+        else: 
+            return "whoo! That was it!"               
 
 class MacroGetLittleQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
@@ -75,15 +76,11 @@ def interviewBuddy() -> DialogueFlow:
     transitions = {
         'state': 'start',
         '#GET_BIG': {
-            'error': {
+            'error' : {
                 '#GET_LITTLE' : {
-                    'error'  : {
-                        '`Thanks for sharing`' : 'end' # still needs work but basic dialogue flow to make sure the question loading is working properly
+                    'error' : {
+                        '`ok!`' : 'start'
                     }
-
-                },
-                'error' : {
-                    '`Sorry, I don\'t understand.`' : 'end' # could change this
                 }
             }
         }, 
