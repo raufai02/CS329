@@ -31,7 +31,7 @@ transitions_evaluate = {
         '`Thank you for your time. Congratulations on completing the interview! Would you like to receive feedback?`' : {
             '[{yea, ya, yes, i would, of course, sure, definitely}]' : {
                 'state': 'what_else',
-                '`Perfect!` #WHAT_ELSE': {
+                '#RUN_EVAL `Perfect!` #WHAT_ELSE': {
                     '#GATE [emotional appropriateness]': 'emotion',
                     '#GATE [context appropriateness]' : 'context',
                     '#GATE [job requirements]': 'context',
@@ -46,7 +46,7 @@ transitions_evaluate = {
 
 transitions_emotion = {
     'state': 'emotion',
-    '#GATE #SETBOOL($emotion, true) `Your raw emotion score was ` #EMOTION_SCORE `. Would you like to learn more about this score?`' : {
+    '#GATE #SETBOOL($emotion, true) `Your raw emotion score was ` $EMOTION_SCORE `. Would you like to learn more about this score?`' : {
         '[context]': 'context',
         '[requirements]' : 'requirements',
         '[{yea, yes, sure, of course}]': {
@@ -61,7 +61,7 @@ transitions_emotion = {
 
 transitions_context = {
     'state' : 'context',
-    '#GATE #SETBOOL($context, true) `Your raw contextual appropriateness score was ` #CONTEXT_SCORE `. Would you like to learn more about this score?`': {
+    '#GATE #SETBOOL($context, true) `Your raw contextual appropriateness score was ` $CONTEXT_SCORE `. Would you like to learn more about this score?`': {
         '[{yea, yes, sure, of course}]' : {
             '#CONTEXT_EXAMPLE' : 'what_else',
         },
@@ -75,7 +75,7 @@ transitions_context = {
 
 transitions_requirements = {
     'state': 'requirements',
-    '#GATE #SETBOOL($requirements, true) `Your raw score for meeting job requirements was ` #CONTEXT_SCORE `. Would you like to learn more about this score?`': {
+    '#GATE #SETBOOL($requirements, true) `Your raw score for meeting job requirements was ` $CONTEXT_SCORE `. Would you like to learn more about this score?`': {
         '[{yea, yes, sure, of course}]': {
             '#REQUIREMENT_EXAMPLE': 'what_else',
         },

@@ -22,6 +22,7 @@ def load():
     return stuff
 
 dialogue = [] #GLOBAL VARIABLE
+dialogue_counter = 0 #counter
 categories = ['technical', 'leadership', 'culture', 'cognitive']
 global_var_state = random.choice(categories)
 
@@ -100,18 +101,17 @@ class MacroStoreResponse(Macro): #store the last response!
         # num_questions = len(user[Dialogue.DialogueList[num_threads - 1]])  # number of questions in the final item in list
         # vars[Dialogue.DialogueList[num_threads-1][num_questions-1].response.name] = Ngrams.text()
        # print(dialogue)
-        global dialogue
+        global dialogue, dialogue_counter
 
-        dialogue.append('U: ' + ngrams.text())
+        dialogue_counter = dialogue_counter + 1
+        dialogue.append(str(dialogue_counter) +  ' U: ' + ngrams.text())
         return True
         # vars[Dialogue.DialogueList[num_threads - 1][num_questions - 1].question.name] = vars['QUESTION']
 
 
 class MacroGetBigQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        global global_var_state
-        global bank
-        global dialogue
+        global global_var_state, bank, dialogue, dialogue_counter
         # stuff to select a question to ask
         question = "No question selected"
         dict = bank[global_var_state]  # dict of {Big_Question:Follow-ups}
@@ -125,7 +125,8 @@ class MacroGetBigQuestion(Macro):
 
         # print("follow-ups", follow_ups)
         vars["follow_ups"] = follow_ups
-        dialogue.append('S: ' + question)
+        dialogue_counter = dialogue_counter +1
+        dialogue.append(str(dialogue_counter) + ' S: ' + question)
         return question
 class MacroGetLittleQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
@@ -138,7 +139,9 @@ class MacroGetLittleQuestion(Macro):
 
         #str = 'That should be good enough to cover $CURR STATE
             str= 'OK. All of that is good to hear'
-            dialogue.append('S: ' + str)
+
+            dialogue_counter = dialogue_counter + 1
+            dialogue.append(str(dialogue_counter) + ' S: ' + str)
             return str
         else:
             res = random.choice(vars["follow_ups"])
@@ -230,7 +233,7 @@ def interviewBuddy() -> DialogueFlow:
         'SETBOOL': MacroSetBool(),
         'ENCOURAGEMENT': MacroEncourage(), 
         'PERSONA' : MacroPersona()
-
+        'RUN_EVAL' : MacroLoadScores(),
 
     }
 
@@ -253,7 +256,6 @@ def interviewBuddy() -> DialogueFlow:
     df.load_transitions(transitions_emotion)
     df.add_macros(macros)
 
-    df.add_macros(macros)
     return df
 
 def get_call_name(vars: Dict[str, Any]):
