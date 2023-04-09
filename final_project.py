@@ -22,6 +22,7 @@ def load():
     return stuff
 
 dialogue = [] #GLOBAL VARIABLE
+dialogue_counter = 0 #counter
 categories = ['technical', 'leadership', 'culture', 'cognitive']
 global_var_state = random.choice(categories)
 
@@ -38,7 +39,7 @@ class MacroPersona(Macro):
         names = ['Maya', 'Ethan', 'Jenna', 'Charlie', 'Kattie', 'Adam', 'Luca', 'Jasmine', 'Omar', 'Jessica']
         chosenName = random.choice(names)
         field = vars['USER_FIELD']
-        return f"Hi there! My name is {chosenName} working in {field} and I will be conduting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
+        return f"Hi there! My name is {chosenName} working in {field} and I will be conducting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
 
 class MacroSetBool(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
@@ -59,15 +60,14 @@ class MacroSetBool(Macro):
 class MacroWhatElse(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         strlist = []
-        if not vars['requirements']: #not yet covered
+        if 'requirements' not in vars: #not yet covered
             strlist.append("job requirements")
-        if not vars['context']:
+        if 'context' not in vars:
             strlist.append("context appropriateness")
-        if not vars['emotion']:
+        if 'emotion' not in vars:
             strlist.append("emotional appropriateness")
 
         output = "What area would you like feedback on? " + '[' + ', '.join(strlist) + ']'
-
         return output
 
 
@@ -101,18 +101,17 @@ class MacroStoreResponse(Macro): #store the last response!
         # num_questions = len(user[Dialogue.DialogueList[num_threads - 1]])  # number of questions in the final item in list
         # vars[Dialogue.DialogueList[num_threads-1][num_questions-1].response.name] = Ngrams.text()
        # print(dialogue)
-        global dialogue
+        global dialogue, dialogue_counter
 
-        dialogue.append('U: ' + ngrams.text())
+        dialogue_counter = dialogue_counter + 1
+        dialogue.append(str(dialogue_counter) +  ' U: ' + ngrams.text())
         return True
         # vars[Dialogue.DialogueList[num_threads - 1][num_questions - 1].question.name] = vars['QUESTION']
 
 
 class MacroGetBigQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        global global_var_state
-        global bank
-        global dialogue
+        global global_var_state, bank, dialogue, dialogue_counter
         # stuff to select a question to ask
         question = "No question selected"
         dict = bank[global_var_state]  # dict of {Big_Question:Follow-ups}
@@ -126,7 +125,8 @@ class MacroGetBigQuestion(Macro):
 
         # print("follow-ups", follow_ups)
         vars["follow_ups"] = follow_ups
-        dialogue.append('S: ' + question)
+        dialogue_counter = dialogue_counter +1
+        dialogue.append(str(dialogue_counter) + ' S: ' + question)
         return question
 class MacroGetLittleQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
@@ -139,7 +139,9 @@ class MacroGetLittleQuestion(Macro):
 
         #str = 'That should be good enough to cover $CURR STATE
             str= 'OK. All of that is good to hear'
-            dialogue.append('S: ' + str)
+
+            dialogue_counter = dialogue_counter + 1
+            dialogue.append(str(dialogue_counter) + ' S: ' + str)
             return str
         else:
             res = random.choice(vars["follow_ups"])
@@ -189,25 +191,24 @@ class MacroGreet(Macro):
 
 def interviewBuddy() -> DialogueFlow:
     transitions = { #classification state
-                    # '#STORE': { #STORE WHATEVER THEY SAY!!
-                    'state' : 'interview',
-                    '#PERSONA' : { # insert persona macro - Ameer
-                        'error' : {        
-                        'state': 'big_q',
-                        '#GET_BIG': {
-                            '#STORE': {
-                                'state': 'follow_up',
-                                '#GET_LITTLE': {
-                                    'state': 'store_follow_up',
-                                    '#IF($Q_REMAIN) #STORE':'follow_up',
-                                    '#IF($NO_FOLLOWUP)': 'no_follow_up'
-                                },
-                            }
-                        }
-                        }
-                    }
+    'state' : 'interview',
+    '#PERSONA' : { # insert persona macro - Ameer
+        '#STORE' : {
+        'state': 'big_q',
+        '#GET_BIG': {
+            '#STORE': {
+                'state': 'follow_up',
+                '#GET_LITTLE': {
+                    'state': 'store_follow_up',
+                    '#IF($Q_REMAIN) #STORE':'follow_up',
+                    '#IF($NO_FOLLOWUP)': 'no_follow_up'
+                },
+            }
+        }
+        }
+    }
 
-                    }
+    }
                 
             # }
     transitions_no_follow = {
@@ -232,7 +233,7 @@ def interviewBuddy() -> DialogueFlow:
         'SETBOOL': MacroSetBool(),
         'ENCOURAGEMENT': MacroEncourage(), 
         'PERSONA' : MacroPersona()
-
+        'RUN_EVAL' : MacroLoadScores(),
 
     }
 
@@ -255,7 +256,6 @@ def interviewBuddy() -> DialogueFlow:
     df.load_transitions(transitions_emotion)
     df.add_macros(macros)
 
-    df.add_macros(macros)
     return df
 
 def get_call_name(vars: Dict[str, Any]):
