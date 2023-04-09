@@ -10,21 +10,6 @@ import requests
 import random
 import openai
 
-class MacroWhatElse(Macro):
-    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        strlist = []
-        if 'requirements' in vars and  vars['requirements']: #not yet covered
-            strlist.append("job requirements")
-        if not vars['context']:
-            strlist.append("context appropriateness")
-        if not vars['emotion']:
-            strlist.append("emotional appropriateness")
-
-        output = "What area would you like feedback on? " + '[' + ', '.join(strlist) + ']'
-
-        return output
-
-
 class MacroSetBool(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
         if len(args) != 2:
@@ -47,9 +32,9 @@ transitions_evaluate = {
             '[{yea, ya, yes, i would, of course, sure, definitely}]' : {
                 'state': 'what_else',
                 '`Perfect!` #WHAT_ELSE': {
-                    '#GATE [emotion]': 'emotion',
-                    '#GATE [context]' : 'context',
-                    '#GATE [requirements]': 'context',
+                    '#GATE [emotional appropriateness]': 'emotion',
+                    '#GATE [context appropriateness]' : 'context',
+                    '#GATE [job requirements]': 'context',
                     'error': 'what_else'
                 }
             },

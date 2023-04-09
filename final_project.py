@@ -38,7 +38,7 @@ class MacroPersona(Macro):
         names = ['Maya', 'Ethan', 'Jenna', 'Charlie', 'Kattie', 'Adam', 'Luca', 'Jasmine', 'Omar', 'Jessica']
         chosenName = random.choice(names)
         field = vars['USER_FIELD']
-        return f"Hi there! My name is {chosenName} working in {field} and I will be conduting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
+        return f"Hi there! My name is {chosenName} working in {field} and I will be conducting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
 
 class MacroSetBool(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
@@ -59,15 +59,14 @@ class MacroSetBool(Macro):
 class MacroWhatElse(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         strlist = []
-        if not vars['requirements']: #not yet covered
+        if 'requirements' not in vars: #not yet covered
             strlist.append("job requirements")
-        if not vars['context']:
+        if 'context' not in vars:
             strlist.append("context appropriateness")
-        if not vars['emotion']:
+        if 'emotion' not in vars:
             strlist.append("emotional appropriateness")
 
         output = "What area would you like feedback on? " + '[' + ', '.join(strlist) + ']'
-
         return output
 
 
@@ -189,25 +188,24 @@ class MacroGreet(Macro):
 
 def interviewBuddy() -> DialogueFlow:
     transitions = { #classification state
-                    # '#STORE': { #STORE WHATEVER THEY SAY!!
-                    'state' : 'interview',
-                    '#PERSONA' : { # insert persona macro - Ameer
-                        'error' : {        
-                        'state': 'big_q',
-                        '#GET_BIG': {
-                            '#STORE': {
-                                'state': 'follow_up',
-                                '#GET_LITTLE': {
-                                    'state': 'store_follow_up',
-                                    '#IF($Q_REMAIN) #STORE':'follow_up',
-                                    '#IF($NO_FOLLOWUP)': 'no_follow_up'
-                                },
-                            }
-                        }
-                        }
-                    }
+    'state' : 'interview',
+    '#PERSONA' : { # insert persona macro - Ameer
+        '#STORE' : {
+        'state': 'big_q',
+        '#GET_BIG': {
+            '#STORE': {
+                'state': 'follow_up',
+                '#GET_LITTLE': {
+                    'state': 'store_follow_up',
+                    '#IF($Q_REMAIN) #STORE':'follow_up',
+                    '#IF($NO_FOLLOWUP)': 'no_follow_up'
+                },
+            }
+        }
+        }
+    }
 
-                    }
+    }
                 
             # }
     transitions_no_follow = {

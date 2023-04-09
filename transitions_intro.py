@@ -95,7 +95,7 @@ transitions_job = {
             '`So you want to get into`$USER_FIELD`, huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
         },
         'error' : {
-            '`Gotcha, thank you for sharing this to me.`' : 'feeling'
+            '`Gotcha, thank you for sharing this to me.` $USER_FIELD=unknown': 'feeling'
         }
     }
 }
