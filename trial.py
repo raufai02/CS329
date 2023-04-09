@@ -22,19 +22,29 @@ def load():
 categories = ['technical', 'leadership', 'culture', 'cognitive']
 global_var_state = random.choice(categories)
 bank = load() #key category, value dictionary with question, list pairs
+globalCount = {'technical':0, 'leadership':0, 'culture':0, 'cognitive':0}
+globalCounter = 0
+dialogue_counter = 0 #counter
+
 
 
 class MacroGetBigQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        global global_var_state
-        global bank
-        global categories
+        global global_var_state, bank, categories, dialogue_counter, globalCounter, globalCount
+        question = "whoo! That was it!"
         # global dialogue
         # stuff to select a question to ask
-        if len(categories) > 0:
-            rand_index = random.randint(0, len(categories) - 1)
-            global_var_state = categories.pop(rand_index)
-            question = "No question selected"
+        if dialogue_counter != 8 :
+            # rand_index = random.randint(0, len(categories) - 1)
+            # global_var_state = categories.pop(rand_index) # used for condition when it was len(categories) = 0
+            global_var_state = random.choice(categories)
+            globalCount[global_var_state] = (globalCount[global_var_state] + 1)
+            # print("the category is: ", global_var_state, " and the counter for Q's is ", globalCount[global_var_state])
+
+            # if(globalCount[global_var_state] == 2): 
+            #     categories.remove(global_var_state)
+            #     del bank[global_var_state]
+            #     global_var_state = random.choice(categories)
             dict = bank[global_var_state]  # dict of {Big_Question:Follow-ups}
             qs = list(dict.keys())  # Big_Questions at least two
             question = random.choice(qs)
@@ -45,10 +55,14 @@ class MacroGetBigQuestion(Macro):
             # print("question", question)
             # print("follow-ups", follow_ups)
             vars["follow_ups"] = follow_ups
+            vars['stopper'] = "Go"
+            dialogue_counter = dialogue_counter + 1
+            return question              
             # dialogue.append('S: ' + question)
-            return question   
         else: 
-            return "whoo! That was it!"               
+            vars['stopper'] = "Stop"
+            question = "whoo! That was it!"
+            return question              
 
 class MacroGetLittleQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
@@ -76,17 +90,17 @@ def interviewBuddy() -> DialogueFlow:
     transitions = {
         'state': 'start',
         '#GET_BIG': {
-            'error' : {
+            '#IF($stopper=Go)' : {
                 '#GET_LITTLE' : {
                     'error' : {
                         '`ok!`' : 'start'
                     }
                 }
+            }, 
+            '#IF($stopper=Stop)' : {
+                '`Bye!`' : 'end'
             }
-        }, 
-        'error' : {
-            '`BYE`' : 'end'
-        },
+        }
     }
 
     macros = {
