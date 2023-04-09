@@ -6,7 +6,7 @@ openai.api_key_path = PATH_API_KEY
 def rateResponseOnDescriptionTurbo(transcript, job_description):
     jsonFile = json.load(open('SampleScoring/exampleJobScoreFormat.json'))
     full_ex = json.dumps(jsonFile)
-    task_1 = "TASK1: Compare each user response with the job description. Rate each response based on the number of elements they fulfill from the job description. Only For the highest scored question and the lowest scored question, return the index of the response and provide a brief explanation for the score."
+    task_1 = "TASK1: Compare each user response with the job description. Rate each response based on the number of elements they fulfill from the job description. Only For the highest scored question and the lowest scored question, return the index of the response and provide a brief explanation for the score explaining what elements from the job description they fullfilled.."
     task_2 = "TASK2: Compare the entire transcript with the job description. Rate each response based on the total number of elements they fulfill from the job description. Return a float value representing the number of items matched divided by the number of possible elements for the entire transcript."
     job_listing = job_description
     prompt = "Here is a transcript of an interview conducted with a candidate applying for this Job listing:"+job_listing+"\nPlease do the following two tasks:"+task_1+task_2+"\nONLY respond in the JSON schema such this example output format:"+full_ex+"\n Here is the transcript:"+transcript
