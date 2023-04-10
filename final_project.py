@@ -25,8 +25,10 @@ dialogue = [] #GLOBAL VARIABLE
 dialogue_counter = 0 #counter
 categories = ['technical', 'leadership', 'culture', 'cognitive']
 global_var_state = random.choice(categories)
-
 bank = load() #key category, value dictionary with question, list pairs
+globalCount = {'technical':0, 'leadership':0, 'culture':0, 'cognitive':0}
+globalCounter = 0
+counter = 0
 
 PATH_API_KEY = 'openai_api.txt'
 openai.api_key_path = PATH_API_KEY
@@ -110,23 +112,31 @@ class MacroStoreResponse(Macro): #store the last response!
 
 class MacroGetBigQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        global global_var_state, bank, dialogue, dialogue_counter
+        global global_var_state, bank, categories, dialogue, counter, globalCounter, globalCount, dialogue_counter
         # stuff to select a question to ask
-        question = "No question selected"
-        dict = bank[global_var_state]  # dict of {Big_Question:Follow-ups}
-        qs = list(dict.keys())  # Big_Questions at least two
-        question = random.choice(qs)
-        #print(dict)
-        follow_ups = [v for v in dict[question]]
-        dict.pop(question) #removes the big question
-       # print(dict)
-        # print("question", question)
-
-        # print("follow-ups", follow_ups)
-        vars["follow_ups"] = follow_ups
-        dialogue_counter = dialogue_counter +1
-        dialogue.append(str(dialogue_counter) + ' S: ' + question)
-        return question
+        question = "whoo! That was it!"
+        if counter != 8 :
+            # rand_index = random.randint(0, len(categories) - 1)
+            # global_var_state = categories.pop(rand_index) # used for condition when it was len(categories) = 0
+            global_var_state = random.choice(categories)
+            globalCount[global_var_state] = (globalCount[global_var_state] + 1)
+            dict = bank[global_var_state]  # dict of {Big_Question:Follow-ups}
+            qs = list(dict.keys())  # Big_Questions at least two
+            question = random.choice(qs)
+            follow_ups = [v for v in dict[question]]
+            dict.pop(question) #removes the big question
+            vars["follow_ups"] = follow_ups
+            vars['stopper'] = "Go"
+            counter = counter + 1
+            dialogue_counter = dialogue_counter + 1
+            dialogue.append(str(dialogue_counter) + ' S: ' + question)
+            return question    
+        else: 
+            vars['stopper'] = "Stop"
+            question = "whoo! That was it!"
+            dialogue_counter = dialogue_counter + 1
+            dialogue.append(str(dialogue_counter) + ' S: ' + question)
+            return question
 class MacroGetLittleQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         global dialogue, dialogue_counter
@@ -157,13 +167,18 @@ def interviewBuddy() -> DialogueFlow:
         '#STORE' : {
         'state': 'big_q',
         '#GET_BIG': {
-            '#STORE': {
+            '#IF($stopper=Go) #STORE': {
                 'state': 'follow_up',
                 '#GET_LITTLE': {
                     'state': 'store_follow_up',
                     '#IF($Q_REMAIN) #STORE':'follow_up',
-                    '#IF($NO_FOLLOWUP)': 'no_follow_up'
+                    '#IF($NO_FOLLOWUP)': { #'no_follow_up'
+                        '`ok!`' : 'big_q'
+                    }
                 },
+            }, 
+            '#IF($stopper=Stop)' : {
+                '`Bye!`' : 'end'
             }
         }
         }
