@@ -186,7 +186,7 @@ def interviewBuddy() -> DialogueFlow:
             # }
     transitions_no_follow = {
         'state': 'no_follow_up',
-        '`Thanks for chatting ` #GET_NAME': {
+        '`Thanks for chatting`#GET_NAME': {
             '#STORE': 'start_evaluate'
         }
     }
