@@ -23,6 +23,11 @@ def load():
         stuff = json.load(f)
     return stuff
 
+def loadJD():
+    with open('resources/job_descriptions.json', "r") as f:
+        stuff = json.load(f)
+    return stuff
+
 dialogue = [] #GLOBAL VARIABLE
 dialogue_counter = 0 #counter
 categories = ['technical', 'leadership', 'culture', 'cognitive']
@@ -43,7 +48,12 @@ class MacroPersona(Macro):
         names = ['Maya', 'Ethan', 'Jenna', 'Charlie', 'Kattie', 'Adam', 'Luca', 'Jasmine', 'Omar', 'Jessica']
         chosenName = random.choice(names)
         field = vars['USER_FIELD']
-        return f"Hi there! My name is {chosenName} working in {field} and I will be conducting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
+        jd = loadJD()
+        position = random.choice(list(jd.keys()))
+        words = position.split()
+        company = words[0]
+        position = ' '.join(words[1:])
+        return f"Hi there! My name is {chosenName}, I am working at {company} as a {position}. I will be conducting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
 
 class MacroSetBool(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
