@@ -16,16 +16,20 @@ PATH_API_KEY = 'resources/openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
 class MacroGPTEval(Macro):
+    def __init__(self, transcript: List[str], job_description: str):
+        self.transcript = transcript
+        self.job_description = job_description
+
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        self.transcript = args[0]
-        self.job_description = args[1]
        # transcript = args[0]
        # job_description = self.job_description
-        dict = ratecombinedScoreTurbo(transcript, job_description)
+        dict = ratecombinedScoreTurbo('\n'.join(self.transcript), self.job_description)
+
+       #transcript_str = '\n'.join(self.transcript)
 
         vars["REQUIREMENT_SCORE"] = str(dict['Task 2']['Total Score'][0])
 
-        requirement_bad_example_idx = dict['Task 1']['Worst Response']['answer index'][0]
+        requirement_bad_example_idx = dict['Task 1']['Worst Response']['answer_index'][0]
         vars["REQUIREMENT_EX_BAD_"] = transcript[requirement_bad_example_idx]
 
         requirement_good_example_idx = dict['Task 1']['Best Response']['answer_index'][0]

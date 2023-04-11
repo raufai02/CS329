@@ -30,13 +30,16 @@ def loadJD():
 
 dialogue = [] #GLOBAL VARIABLE
 dialogue_counter = 0 #counter
+
 categories = ['technical', 'leadership', 'culture', 'cognitive']
 global_var_state = random.choice(categories)
 bank = load() #key category, value dictionary with question, list pairs
 globalCount = {'technical':0, 'leadership':0, 'culture':0, 'cognitive':0}
 globalCounter = 0
 counter = 0
-
+stuff = loadJD()
+job = random.choice(list(stuff.keys()))
+job_description = str(stuff[job])
 PATH_API_KEY = 'openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
@@ -207,7 +210,8 @@ def interviewBuddy() -> DialogueFlow:
         'SETBOOL': MacroSetBool(),
         'ENCOURAGEMENT': MacroEncourage(), 
         'PERSONA' : MacroPersona(),
-        'RUN_EVAL' : MacroGPTEval(dialogue, job_description)
+        #'RUN_EVAL' : MacroGPTEval(dialogue, job_description)
+        'RUN_EVAL' : MacroGPTEval(dummy, job_description)
     }
 
     df = DialogueFlow('start', end_state='end')
