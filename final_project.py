@@ -16,6 +16,8 @@ from evaluation import transitions_evaluate, transitions_emotion, transitions_co
 from transitions_intro import transitions_intro, transition_greetings, transitions_feeling,transitions_field, transitions_job
 from transitions_intro import MacroEncourage
 
+from evaluation_combinedRating import MacroGPTEval
+
 def load():
     with open('question_bank.json', "r") as f:
         stuff = json.load(f)
@@ -71,18 +73,6 @@ class MacroWhatElse(Macro):
 
         output = "What area would you like feedback on? " + '[' + ', '.join(strlist) + ']'
         return output
-
-
-class MacroLoadScores(Macro):
-    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        filename = "scoring/" + vars["user_name"] + '.json'
-        with open(filename, 'r') as f:
-            data = json.load(f) #load the scoring file into the workspace!
-
-        vars["TOTAL_SCORE"] = data["Total Score"]
-        vars["EMOTION_SCORE"] = data["Emotion Score"]
-        vars["CONTEXT_SCORE"] = data["Context Score"]
-        vars["REQUIREMENT_SCORE"] = data["Requirement Score"]
 
 class MacroGetExample(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
@@ -146,9 +136,9 @@ class MacroGetLittleQuestion(Macro):
             vars["Q_REMAIN"] = False
             vars["NO_FOLLOWUP"] = True
             #str = 'That should be good enough to cover $CURR STATE
-            str= 'OK. All of that is good to hear'
-            dialogue.append('S: ' + str)
-            return str
+            res = 'OK. All of that is good to hear'
+            dialogue.append('S: ' + res)
+            return res
         else:
             res = random.choice(vars["follow_ups"])
             idx= vars["follow_ups"].index(res)
@@ -157,6 +147,8 @@ class MacroGetLittleQuestion(Macro):
             vars["NO_FOLLOWUP"] = False
             dialogue.append('S: ' + res)
             return res
+
+        return True
 
 def interviewBuddy() -> DialogueFlow:
     transitions = { #classification state
@@ -200,14 +192,12 @@ def interviewBuddy() -> DialogueFlow:
         'GET_BIG': MacroGetBigQuestion(),
         'GET_LITTLE' : MacroGetLittleQuestion(),
         'GET_CALL_NAME': MacroNLG(get_call_name),
-        'LOAD_SCORES' : MacroLoadScores(),
         'GET_EXAMPLE' : MacroGetExample(),
         'WHAT_ELSE': MacroWhatElse(),
         'SETBOOL': MacroSetBool(),
         'ENCOURAGEMENT': MacroEncourage(), 
         'PERSONA' : MacroPersona(),
-        'RUN_EVAL' : MacroLoadScores()
-
+        'RUN_EVAL' : MacroGPTEval(dialogue, job_description)
     }
 
     df = DialogueFlow('start', end_state='end')
@@ -233,7 +223,8 @@ def interviewBuddy() -> DialogueFlow:
 
 def get_call_name(vars: Dict[str, Any]):
     ls = vars[V.call_name.name]
-    return ls[random.randrange(len(ls))]
+    vars['user_name']= ls[random.randrange(len(ls))]
+    return vars['user_name']
 
 def save(df: DialogueFlow, d: List[Any]): #d is the dialogue list
     df.run()

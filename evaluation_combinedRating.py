@@ -5,6 +5,10 @@ import utils
 from utils import gpt_completion
 import regexutils
 
+from emora_stdm import DialogueFlow, Macro, Ngrams
+from typing import Dict, Any, List
+from enum import Enum
+
 
 
 
@@ -12,59 +16,34 @@ PATH_API_KEY = 'resources/openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
 class MacroGPTEval(Macro):
-    def __init__(self, transcript: List[Any], job_description: str, set_variables: Callable[[Dict[str, Any], Dict[str, Any]], None] = None):
-        # self.request = request
-        # self.full_ex = json.dumps(full_ex)
-        # self.empty_ex = '' if empty_ex is None else json.dumps(empty_ex)
-
-        self.transcript = transcript
-        self.job_description = job_description
-        self.set_variables = set_variables
-
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-
-        transcript = self.transcript
-        job_description = self.job_description
+        self.transcript = args[0]
+        self.job_description = args[1]
+       # transcript = args[0]
+       # job_description = self.job_description
         dict = ratecombinedScoreTurbo(transcript, job_description)
 
         vars["REQUIREMENT_SCORE"] = str(dict['Task 2']['Total Score'][0])
 
         requirement_bad_example_idx = dict['Task 1']['Worst Response']['answer index'][0]
-
         vars["REQUIREMENT_EX_BAD_"] = transcript[requirement_bad_example_idx]
 
         requirement_good_example_idx = dict['Task 1']['Best Response']['answer_index'][0]
         vars["REQUIREMENT_EX_GOOD"] = transcript[requirement_good_example_idx]
 
         vars["CONTEXT_SCORE"] = str(dict['Task 4']['Total Score'][0])
+        context_bad_example_idx = dict['Task 3']['Least efficient Response']['answer_index'][0]
+        vars["CONTEXT_EX_BAD"] = transcript[context_bad_example_idx]
+        context_good_example_idx = dict['Task 3']['Most efficient Response']['answer_index'][0]
+        vars["CONTEXT_EX_GOOD"] = transcript[context_good_example_idx]
 
-        requirement_bad_example_idx = dict['Task 1']['Worst Response']['answer index'][0]
-
-        vars["REQUIREMENT_EX_BAD"] = transcript[requirement_bad_example_idx]
-
-        requirement_good_example_idx = dict['Task 1']['Best Response']['answer_index'][0]
-        vars["REQUIREMENT_EX_GOOD"] = transcript[requirement_good_example_idx]
+        emotion_good_idx = dict['Task 6']['Most Positive Response']['answer_index']
+        vars["EMOTION_EX_GOOD"] = transcript[emotion_good_idx]
+        vars["EMOTION_SCORE"] = str(dict['Task 6']['answer_emotionScore'][0])
 
 
         efficiency_good_idx = dict['Task 3']['Most efficient Response']['answer_index'][0]
         vars["EFFICIENCY_EX_GOOD"] = transcript[efficiency_good_idx]
-
-
-        # examples = f'{self.full_ex} or {self.empty_ex} if unavailable' if self.empty_ex else self.full_ex
-        # prompt = f'{self.request} Respond in the JSON schema such as {examples}: {ngrams.raw_text().strip()}'
-        # output = gpt_completion(prompt)
-        # if not output: return False
-        #
-        # try:
-        #     d = json.loads(output)
-        # except JSONDecodeError:
-        #     print(f'Invalid: {output}')
-        #     return False
-        #
-        # if self.set_variables:
-        #     self.set_variables(vars, d)
-        # else:
-        #     vars.update(d)
 
         return True
 

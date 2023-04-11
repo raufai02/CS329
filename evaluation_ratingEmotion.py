@@ -46,7 +46,7 @@ def main():
 
     with open('SampleConvos/sampleFormattedConvo.txt', 'r') as l:
         convo = l.read()
-    with open('job_descriptions.json', 'r') as f:
+    with open('resources/job_descriptions.json', 'r') as f:
         data = json.load(f)
 
     jobs = list(data.keys())
