@@ -5,6 +5,9 @@ import utils
 from utils import gpt_completion
 import regexutils
 
+
+
+
 PATH_API_KEY = 'resources/openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
