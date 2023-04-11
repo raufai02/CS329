@@ -176,8 +176,8 @@ def interviewBuddy() -> DialogueFlow:
                     # '#IF($NO_FOLLOWUP)': 'no_follow_up'
                 },
             }, 
-            '#IF($stopper=Stop) `Thanks for chatting ` #GET_NAME': {
-                '#STORE': 'start_evaluate'
+            '#IF($stopper=Stop)': {
+                '#STORE `Thanks for chatting`#GET_NAME': 'start_evaluate'
             }
             }
         }
