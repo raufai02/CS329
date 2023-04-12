@@ -164,7 +164,7 @@ class MacroGetLittleQuestion(Macro):
         return True
 
 def interviewBuddy() -> DialogueFlow:
-    transitions = { #classification state
+    transitions_classify = { #classification state
     'state' : 'interview',
     '#PERSONA' : { # insert persona macro - Ameer
         '#STORE' : {
@@ -210,8 +210,8 @@ def interviewBuddy() -> DialogueFlow:
         'SETBOOL': MacroSetBool(),
         'ENCOURAGEMENT': MacroEncourage(), 
         'PERSONA' : MacroPersona(),
-        #'RUN_EVAL' : MacroGPTEval(dialogue, job_description)
-        'RUN_EVAL' : MacroGPTEval(dummy, job_description)
+        'RUN_EVAL' : MacroGPTEval(dialogue, job_description)
+        #'RUN_EVAL' : MacroGPTEval(dummy, job_description)
     }
 
     df = DialogueFlow('start', end_state='end')
@@ -220,7 +220,7 @@ def interviewBuddy() -> DialogueFlow:
     df.knowledge_base().load_json_file('leadership_ontology.json')
     df.knowledge_base().load_json_file('tech_ontology.json')
     df.knowledge_base().load_json_file('major_ontology.json')
-    df.load_transitions(transitions)
+    df.load_transitions(transitions_classify)
     df.load_transitions(transitions_no_follow)
     df.load_transitions(transitions_intro)
     df.load_transitions(transition_greetings)

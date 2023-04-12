@@ -30,19 +30,19 @@ class MacroGPTEval(Macro):
         vars["REQUIREMENT_SCORE"] = str(dict['Task 2']['Total Score'][0])
 
         requirement_bad_example_idx = dict['Task 1']['Worst Response']['answer_index'][0]
-        vars["REQUIREMENT_EX_BAD_"] = transcript[requirement_bad_example_idx]
+        vars["REQUIREMENT_EX_BAD_"] = self.transcript[requirement_bad_example_idx]
 
         requirement_good_example_idx = dict['Task 1']['Best Response']['answer_index'][0]
-        vars["REQUIREMENT_EX_GOOD"] = transcript[requirement_good_example_idx]
+        vars["REQUIREMENT_EX_GOOD"] = self.transcript[requirement_good_example_idx]
 
-        vars["CONTEXT_SCORE"] = str(dict['Task 4']['Total Score'][0])
+        vars["CONTEXT_SCORE"] = str(dict['Task 4']['Unique words']['total_uniqueWords'])
         context_bad_example_idx = dict['Task 3']['Least efficient Response']['answer_index'][0]
-        vars["CONTEXT_EX_BAD"] = transcript[context_bad_example_idx]
+        vars["CONTEXT_EX_BAD"] = self.transcript[context_bad_example_idx]
         context_good_example_idx = dict['Task 3']['Most efficient Response']['answer_index'][0]
-        vars["CONTEXT_EX_GOOD"] = transcript[context_good_example_idx]
+        vars["CONTEXT_EX_GOOD"] = self.transcript[context_good_example_idx]
 
         emotion_good_idx = dict['Task 6']['Most Positive Response']['answer_index']
-        vars["EMOTION_EX_GOOD"] = transcript[emotion_good_idx]
+        vars["EMOTION_EX_GOOD"] = self.transcript[emotion_good_idx]
         vars["EMOTION_SCORE"] = str(dict['Task 6']['answer_emotionScore'][0])
 
 
