@@ -20,7 +20,7 @@ class MacroSetBool(Macro):
 
 transitions_evaluate = {
     'state': 'start_evaluate',
-    '`Thank you for your time. Congratulations on completing the interview! Would you like to receive feedback?`': {
+    '`Congratulations on completing the interview! Would you like to receive feedback?`': {
         '[{yea, ya, yes, i would, of course, sure, definitely}] #RUN_EVAL': {
             'state': 'what_else',
             '`Perfect!` #WHAT_ELSE': {

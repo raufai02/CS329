@@ -105,6 +105,8 @@ def main():
 
     N_job_description = str(data[job])
     response = ratecombinedScoreTurbo(convo, N_job_description)
+
+    print(convo)
     print(response)
 
 
