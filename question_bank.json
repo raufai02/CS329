@@ -1,6 +1,6 @@
 {
         "technical": {
-                "Tell me about a project you are working on currently" : [
+                "Tell me about a project you are currently working on" : [
                         "Why are you programming in that language?",
                         "How did you get interested in doing this work?",
                         "Are you working on this project for academic, extracurricular, or personal reasons?"
@@ -14,7 +14,7 @@
         },
         "leadership": {
                 "Can you tell me about a time when you had to work independently to complete a task?" : [
-                        "How did you come across this problem initially? Was it assigned?",
+                        "How did you come across this task initially? Was it assigned?",
                         "What challenges did you encounter and how did you overcome them?"
                 ],
                 
