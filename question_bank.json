@@ -6,7 +6,7 @@
                 "Is this project something you're working on for academic, extracurricular, or personal reasons?"
                 ],
                 "Tell me about the team you are working with": [
-                "How long have you been working on this project?",
+                "How long have you been working with this team?",
                 "What unique skills do the other team members bring to the project?",
                 "How do you divide the work among team members based on their skills and expertise?"
                 ]
@@ -33,7 +33,9 @@
                 "What type of work environment do you usually prefer?": [
                 "Can you describe an experience working in an environment that was different from what you're used to?",
                 "How would working on a team affect your productivity?", 
-                "In what ways did you adjust your working style to fit the new environment, and what strategies did you use to navigate any cultural or workflow differences?"
+                "In what ways did you adjust your working style to fit the new environment, and what strategies did you use to navigate any cultural or workflow differences?", 
+                "How do you think working on a team in a virtual environment differs from working on a team in an in-person environment, and how would that impact your productivity?", 
+                "How do you maintain a sense of teamwork and camaraderie when working remotely, and how does that differ from an in-person work environment?"
                 ],
                 "How do you approach working with individuals who have different work styles or personalities than your own?": [
                 "How do you prioritize team morale and create a positive work environment?",
