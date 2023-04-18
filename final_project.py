@@ -10,8 +10,7 @@ import requests
 import random
 import openai
 
-#import utils
-from utils import MacroGPTJSON, MacroNLG
+from utils import MacroGPTJSON, MacroNLG, gpt_completion
 from evaluation import transitions_evaluate, transitions_emotion, transitions_context, transitions_requirements
 from transitions_intro import transitions_intro, transition_greetings, transitions_feeling,transitions_field, transitions_job
 from transitions_intro import MacroEncourage
@@ -137,7 +136,7 @@ class MacroGetBigQuestion(Macro):
             return question    
         else: 
             vars['stopper'] = "Stop"
-            question = "whoo! That was it!"
+            question = "OK. That's all I have for you today!"
             dialogue_counter = dialogue_counter + 1
             dialogue.append(str(dialogue_counter) + ' S: ' + question)
             return question  
@@ -145,6 +144,14 @@ class MacroGetBigQuestion(Macro):
 class MacroGetLittleQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         global dialogue, dialogue_counter
+
+        context = str(dialogue[-2] + '\n' + dialogue[-1])
+        print(context)
+        model = 'text-davinci-003'
+        follow_ups = vars["follow_ups"]
+        follow_str = '[' + ','.join(follow_ups) + ']'
+        prompt = 'Select the most appropriate follow up question from the following list' + follow_str + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best question, assuming the list starts at index 0, such as "0" or "1". '
+
         if len(vars["follow_ups"]) == 0:
             vars["Q_REMAIN"] = False
             vars["NO_FOLLOWUP"] = True
@@ -153,8 +160,9 @@ class MacroGetLittleQuestion(Macro):
             dialogue.append('S: ' + res)
             return res
         else:
-            res = random.choice(vars["follow_ups"])
-            idx= vars["follow_ups"].index(res)
+            idx = int(gpt_completion(prompt, model))
+            res = vars["follow_ups"][idx]
+            #removed random.choice code
             vars["follow_ups"].pop(idx)
             vars["Q_REMAIN"] = True
             vars["NO_FOLLOWUP"] = False
@@ -173,7 +181,7 @@ def interviewBuddy() -> DialogueFlow:
             '#IF($stopper=Go) #STORE': {
                 'state': 'follow_up',
                 '#GET_LITTLE': {
-                    'error' : {
+                    '#STORE' : {
                         '`ok!`' : 'big_q'
                     }
                     # 'state': 'store_follow_up',

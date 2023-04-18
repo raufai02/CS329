@@ -41,13 +41,13 @@ class MacroGPTEval(Macro):
         context_good_example_idx = dict['Task 3']['Most efficient Response']['answer_index'][0]
         vars["CONTEXT_EX_GOOD"] = self.transcript[context_good_example_idx]
 
-        emotion_good_idx = dict['Task 6']['Most Positive Response']['answer_index']
+        emotion_good_idx = dict['Task 6']['Most Positive Response']['answer_index'][0]
         vars["EMOTION_EX_GOOD"] = self.transcript[emotion_good_idx]
-        vars["EMOTION_SCORE"] = str(dict['Task 6']['answer_emotionScore'][0])
+        vars["EMOTION_SCORE"] = str(dict['Task 7']['Friendliness']['answer_friendlinessScore'][0])
 
 
         efficiency_good_idx = dict['Task 3']['Most efficient Response']['answer_index'][0]
-        vars["EFFICIENCY_EX_GOOD"] = transcript[efficiency_good_idx]
+        vars["EFFICIENCY_EX_GOOD"] = self.transcript[efficiency_good_idx]
 
         return True
 
@@ -81,7 +81,7 @@ def ratecombinedScoreTurbo(transcript, job_description):
     # printedText = response.choices[0].message.content
     # return printedText
 
-    output = gpt_completion(prompt)
+    output = gpt_completion(prompt, model)
 
     if not output: return False
 

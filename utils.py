@@ -27,7 +27,7 @@ from emora_stdm import Macro, Ngrams
 import regexutils
 
 OPENAI_API_KEY_PATH = 'resources/openai_api.txt'
-CHATGPT_MODEL = 'gpt-3.5-turbo'
+#CHATGPT_MODEL = 'gpt-3.5-turbo'
 
 
 class MacroGPTJSON(Macro):
@@ -45,9 +45,10 @@ class MacroGPTJSON(Macro):
         self.set_variables = set_variables
 
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
+        model = 'text-davinci-003'
         examples = f'{self.full_ex} or {self.empty_ex} if unavailable' if self.empty_ex else self.full_ex
         prompt = f'{self.request} Respond in the JSON schema such as {examples}: {ngrams.raw_text().strip()}'
-        output = gpt_completion(prompt)
+        output = gpt_completion(prompt, model)
         if not output: return False
 
         try:
@@ -72,12 +73,19 @@ class MacroNLG(Macro):
         return self.generate(vars)
 
 
-def gpt_completion(input: str, regex: Pattern = None) -> str:
-    response = openai.ChatCompletion.create(
-        model=CHATGPT_MODEL,
-        messages=[{'role': 'user', 'content': input}]
-    )
-    output = response['choices'][0]['message']['content'].strip()
+def gpt_completion(input: str, model: str, regex: Pattern = None) -> str:
+    if (model=='text-davinci-003'):
+        response = openai.Completion.create(
+            model=model,
+            prompt = input
+        )
+        output = response['choices'][0]['text'].strip()
+    else:
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=[{'role': 'user', 'content': input}]
+        )
+        output = response['choices'][0]['message']['content'].strip()
 
     if regex is not None:
         m = regex.search(output)
@@ -85,10 +93,6 @@ def gpt_completion(input: str, regex: Pattern = None) -> str:
 
     return output
 
-# <<<<<<< HEAD
-# =======
-#
-# >>>>>>> origin/main
 def gpt_classification(input: str, regex: Pattern = None) -> str:
     prompt = "classify the text according to these labels: ['positive', 'negative', 'neutral']: " + input
     response = openai.ChatCompletion.create(

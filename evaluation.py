@@ -26,8 +26,10 @@ transitions_evaluate = {
             '`Perfect!` #WHAT_ELSE': {
                 '#GATE [emotional appropriateness]': 'emotion',
                 '#GATE [context appropriateness]': 'context',
-                '#GATE [job requirements]': 'context',
-                'error': 'what_else'
+                '#GATE [job requirements]': 'requirements',
+                'error': {
+                    '`OK. Good job!`' : 'end'
+                }
             }
         },
         '[{no, nope, nah, na, all good, meh}]': {
@@ -40,10 +42,11 @@ transitions_emotion = {
     '#GATE #SETBOOL($emotion, true) `Your raw emotion score was ` $EMOTION_SCORE `. Would you like to learn more about this score?`': {
         '[context]': 'context',
         '[requirements]': 'requirements',
-        '[{yea, yes, sure, of course}]': {
-            '$EMOTION_EXAMPLE': 'what_else',
+        '[{yea, yes, sure, yeah, definitely of course}]': {
+            '$EMOTION_EX_GOOD': 'what_else',
         },
-        '[{no, nah, nope}]': 'what_else'
+        '[{no, nah, nope}]': 'what_else',
+        'error' : 'what_else'
     },
     'error': {
         '`I am sorry. I don\'t have anymore emotion feedback for you!`': 'what_else'
@@ -53,7 +56,7 @@ transitions_context = {
     'state': 'context',
     '#GATE #SETBOOL($context, true) `Your raw contextual appropriateness score was ` $CONTEXT_SCORE `. Would you like to learn more about this score?`': {
         '[{yea, yes, sure, of course}]': {
-            '$CONTEXT_EXAMPLE': 'what_else',
+            '$CONTEXT_EX_GOOD': 'what_else',
         },
         '[{no, nah, nope}]': 'what_else'
     },
@@ -66,7 +69,7 @@ transitions_requirements = {
     'state': 'requirements',
     '#GATE #SETBOOL($requirements, true) `Your raw score for meeting job requirements was ` $REQUIREMENT_SCORE `. Would you like to learn more about this score?`': {
         '[{yea, yes, sure, of course}]': {
-            '$REQUIREMENT_EXAMPLE': 'what_else',
+            '$REQUIREMENT_EX_GOOD': 'what_else',
         },
         '[{no, nah, nope}]': 'what_else'
     },
