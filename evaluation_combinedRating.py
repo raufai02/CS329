@@ -24,8 +24,9 @@ class MacroGPTEval(Macro):
        # transcript = args[0]
        # job_description = self.job_description
         dict = ratecombinedScoreTurbo('\n'.join(self.transcript), self.job_description)
+        print(dict)
 
-       #transcript_str = '\n'.join(self.transcript)
+
 
         vars["REQUIREMENT_SCORE"] = str(dict['Task 2']['Total Score'][0])
 

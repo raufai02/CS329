@@ -76,6 +76,8 @@ class MacroSetBool(Macro):
 class MacroWhatElse(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         strlist = []
+
+
         if 'requirements' not in vars: #not yet covered
             strlist.append("job requirements")
         if 'context' not in vars:
@@ -83,7 +85,11 @@ class MacroWhatElse(Macro):
         if 'emotion' not in vars:
             strlist.append("emotional appropriateness")
 
-        output = "What area would you like feedback on? " + '[' + ', '.join(strlist) + ']'
+        if len(b) == 0:
+            output = "That's all the feedback I have for you!"
+        else:
+            output = "What area would you like feedback on? " + '[' + ', '.join(strlist) + ']'
+
         return output
 
 class MacroGetExample(Macro):
