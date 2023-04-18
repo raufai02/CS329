@@ -26,9 +26,9 @@
             "computer architecture",
             "high-performance computing",
             "web design",
-            "app developement",
-            "mobile developement",
-            "web developement"
+            "app development",
+            "mobile development",
+            "web development"
          ],
 
         
@@ -53,7 +53,7 @@
         "mobile developer" : ["mobile developer", "mobile dev", "mobile"],
         "devops engineer" : ["devops"],
         "machine learning engineer": ["ml engineer"],
-        "artificial intelligence researcher" : ["ai reasearcher", "ai"],
+        "artificial intelligence researcher" : ["ai researcher", "ai"],
         "ux/ui designer" :["ux designer", "ui designer"],
         "app developer" : ["app dev"],
         "web developer" : ["website developer", "web dev"],
@@ -68,8 +68,6 @@
         "machine learning" : ["ml"],
         "natural language processing" : ["nlp"],
         "human-computer interaction" : ["hci"],
-        "data science" : ["data"],
-        "data analytics" : ["data"],
         "database systems" : ["database", "databases"],
         "software engineering" : ["swe"],
         "computer graphics" : ["graphics", "graphic"],

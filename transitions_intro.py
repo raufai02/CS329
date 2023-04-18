@@ -59,15 +59,15 @@ transitions_intro = {
 
 transition_greetings = {
     'state' : 'greetings',
-    '`You\'re a young college student\graduate, correct?`' : {
+    '`You\'re a young college student/graduate, correct?`' : {
         '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]' : {
             'state' : 'major',
             '`Gotcha. What is your major, if you don\'t mind me asking?`' : {
                 '[$MAJOR=#ONT(concentration)]' : {
-                    '`That\'s interesting. I\'ve always found` $MAJOR `to be compelling.`' : 'field'
+                    '`Perfect!` $MAJOR ` is a great area of study for a position in software.`' : 'field'
                 },
                  'error' : {
-                    '`I\'m sorry, but I am looking for someone who majored in Computer Science. When you find them, let me know.`' : 'end'
+                    '`Ah, you have a bit of an unconventional background! But let\'s proceed nevertheless.`' : 'field'
                  }
             }
         },
@@ -95,7 +95,7 @@ transitions_job = {
             '`So you want to get into`$USER_FIELD`, huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
         },
         'error' : {
-            '`Gotcha, thank you for sharing this to me.` $USER_FIELD=unknown': 'feeling'
+            '`Gotcha, thank you for sharing.` $USER_FIELD=unknown': 'feeling'
         }
     }
 }
@@ -103,7 +103,7 @@ transitions_job = {
 transitions_feeling = {
     'state' : 'feeling',
         '`Anyways, we should probably get into the interview. Are you feeling nervous or confident?`': {
-                '[nervous]': {
+                '[nervous, anxious, worried, stressed]': {
                     '#ENCOURAGEMENT `Are you ready now?`': {
                         '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]': {
                             '`Then, let\'s begin.`': {
@@ -123,7 +123,7 @@ transitions_feeling = {
                         }
                     }
                 },
-                '[confident]': {
+                '[confident, comfortable, good ]': {
                     '`That\'s great. Now, let\'s begin`': {
                         'error' : 'interview'
                     }
