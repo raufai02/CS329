@@ -46,22 +46,22 @@ transitions_emotion = {
             '`Here is an example of a response where you expressed positive emotional content: \n `$EMOTION_EX_GOOD': 'what_else',
         },
         '[{no, nah, nope}]': 'what_else',
-        'error' : 'what_else'
+        'error': 'what_else'
     },
     'error': {
         '`I am sorry. I don\'t have anymore emotion feedback for you!`': 'what_else'
     }
 }
 transitions_responseQuality = {
-    'state': 'responseQuality',
-    '#GATE #SETBOOL($context, true) `Your raw response quality score was ` $QUALITY_SCORE `. Would you like to learn more about this score?`': {
+    'state': 'responseQuality', #start w/ task 4...?
+    '#GATE  `You used ` $TOTAL_UNIQUE `unique words per word. Would you like to learn more about this score?`': {
         '[{yea, yes, sure, of course}]': {
-            '`Here is an example of a response where you expressed information effectively!: \n `$QUALITY_EX_GOOD': 'what_else',
+            '`The most frequent word you used was ` $MOST_FREQUENT `. Limiting repeated use of words can help. `': 'what_else',
         },
         '[{no, nah, nope}]': 'what_else'
     },
     'error': {
-        '`I am sorry. I don\'t have anymore context feedback for you!`': 'what_else'
+        '#SETBOOL($quality, true) `I am sorry. I don\'t have anymore response quality feedback for you!`': 'what_else'
     }
 
 }

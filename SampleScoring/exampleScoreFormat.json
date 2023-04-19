@@ -69,6 +69,7 @@
     },
 
     "Task 7":{
+        "Friendliness" : [0.67],
         "Most Friendly Response":{
             "answer_index":[2],
             "answer_friendlinessScore":[0.8]

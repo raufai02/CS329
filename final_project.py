@@ -80,7 +80,7 @@ class MacroWhatElse(Macro):
 
         if 'requirements' not in vars: #not yet covered
             strlist.append("job requirements")
-        if 'context' not in vars:
+        if 'quality' not in vars:
             strlist.append("context appropriateness")
         if 'emotion' not in vars:
             strlist.append("emotional appropriateness")
