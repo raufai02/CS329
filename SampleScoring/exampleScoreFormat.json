@@ -2,104 +2,80 @@
    "Task 1":{
         "Worst Response":{
             "answer_index":[2],
-            "answer_explanation": [""],
+            "requirements_met": [""],
             "answer_score": [0.125]
         },
         "Best Response":{
             "answer_index":[4],
-            "answer_explanation": [""],
+            "requirements_met": [""],
             "answer_score": [0.25]
         }
    },
 
    "Task 2": {
-    "Total Score":[0.333],
-    "Total Explanation": [""]
+    "Total Score":[0.333]
 },
 
     "Task 3": {
-    "Most efficient Response": {
-      "answer_index": [
-        2
-      ],
+    "most efficient response": {
+      "answer_index": [2],
+      "lexical_density" : [0.4],
       "answer_efficiencyScore": [
         0.8
       ]
     },
-    "Least efficient Response": {
-      "answer_index": [
-        5
-      ],
-      "answer_explanation": [
-        ."
-      ],
-      "answer_efficiencyScore": [
-        0.1
-      ]
+    "least efficient response": {
+      "answer_index": [5],
+      "lexical_density": [0.67],
+      "answer_efficiencyScore": [0.1]
     }
   },
   "Task 4": {
     "Unique words": {
-      "total_uniqueWords": [
-        0.56
-      ],
-      "most_frequent": [
-        ""
-      ],
-      "least_frequent": [
-        ""
-      ]
+      "total_uniqueWords": [0.56],
+      "most_frequent": [""],
+      "least_frequent": [""]
     }
   },
   "Task 5": {
     "Inclusive Language": {
-      "inclusive_score": [
-        0.2
-      ]
+      "inclusive_score": [0.2]
     },
     "Most Inclusive Answer": {
-      "inclusive_score": [
-        0.4
-      ],
+      "inclusive_score": [0.4],
       "answer_index": [
         1
       ],
-      "answer_explanation": [
-        "The response includes 8 'I' and 2 'we' pronouns, which suggests a relatively individualistic approach. I would rate this response a 4 out of 10 for inclusivity."
-      ]
+      "response_adjectives": ["team-oriented", "flexible", "compassionate"]
     },
     "Least Inclusive Answer": {
-      "inclusive_score": [
-        0.2
-      ],
-      "answer_index": [
-        7
-      ],
-      "answer_explanation": [
-        "The response includes 17 'I' and 0 'we' pronouns, which suggests a relatively individualistic approach. I would rate this response a 2 out of 10 for inclusivity."
-      ]
+      "inclusive_score": [0.2],
+      "answer_index": [7],
+      "response_adjectives": ["individualistic", "narrow-minded"]
     }
   },
-
       "Task 6":{
         "Most Positive Response":{
             "answer_index":[2],
-            "answer_explanation": ["The answer is very positive and uses words such as happy, content, excited."],
+            "emotions_listed": ["happy", "content", "excited"],
             "answer_emotionScore":[0.8]
         },
 
         "Most Negative Response":{
             "answer_index":[4],
-            "answer_explanation": ["This answer expresses hate and anger."],
+            "emotions_listed": ["hate", "anger"],
             "answer_emotionScore":[0.1]
         }
     },
 
     "Task 7":{
-        "Friendliness":{
+        "Most Friendly Response":{
             "answer_index":[2],
-            "answer_explanation": ["The answer is very positive and uses words such as happy, content, excited."],
             "answer_friendlinessScore":[0.8]
+        },
+        "Least Friendly Response" : {
+          "answer_index" : [4],
+          "answer_friendlinessScore" : [0.3]
         }
     }
 }

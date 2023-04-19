@@ -66,7 +66,7 @@ transition_greetings = {
                 '[$MAJOR=#ONT(concentration)]' : {
                     '`Perfect!` $MAJOR ` is a great area of study for a position in software.`' : 'field'
                 },
-                 'error' : {
+                 'error': {
                     '`Ah, you have a bit of an unconventional background! But let\'s proceed nevertheless.`' : 'field'
                  }
             }
@@ -123,7 +123,7 @@ transitions_feeling = {
                         }
                     }
                 },
-                '[confident, comfortable, good ]': {
+                '[confident, comfortable, good]': {
                     '`That\'s great. Now, let\'s begin`': {
                         'error' : 'interview'
                     }

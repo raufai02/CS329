@@ -28,7 +28,7 @@ transitions_evaluate = {
                 '#GATE [context appropriateness]': 'context',
                 '#GATE [job requirements]': 'requirements',
                 'error': {
-                    '`OK. Good job!`' : 'end'
+                    '`OK. Good job!`': 'end'
                 }
             }
         },
@@ -43,7 +43,7 @@ transitions_emotion = {
         '[context]': 'context',
         '[requirements]': 'requirements',
         '[{yea, yes, sure, yeah, definitely of course}]': {
-            '$EMOTION_EX_GOOD': 'what_else',
+            '`Here is an example of a response where you expressed positive emotional content: \n `$EMOTION_EX_GOOD': 'what_else',
         },
         '[{no, nah, nope}]': 'what_else',
         'error' : 'what_else'
@@ -52,11 +52,11 @@ transitions_emotion = {
         '`I am sorry. I don\'t have anymore emotion feedback for you!`': 'what_else'
     }
 }
-transitions_context = {
-    'state': 'context',
-    '#GATE #SETBOOL($context, true) `Your raw contextual appropriateness score was ` $CONTEXT_SCORE `. Would you like to learn more about this score?`': {
+transitions_responseQuality = {
+    'state': 'responseQuality',
+    '#GATE #SETBOOL($context, true) `Your raw response quality score was ` $QUALITY_SCORE `. Would you like to learn more about this score?`': {
         '[{yea, yes, sure, of course}]': {
-            '$CONTEXT_EX_GOOD': 'what_else',
+            '`Here is an example of a response where you expressed information effectively!: \n `$QUALITY_EX_GOOD': 'what_else',
         },
         '[{no, nah, nope}]': 'what_else'
     },
@@ -69,12 +69,12 @@ transitions_requirements = {
     'state': 'requirements',
     '#GATE #SETBOOL($requirements, true) `Your raw score for meeting job requirements was ` $REQUIREMENT_SCORE `. Would you like to learn more about this score?`': {
         '[{yea, yes, sure, of course}]': {
-            '$REQUIREMENT_EX_GOOD': 'what_else',
+            '`Here is an example of a response where you demonstrated job requirements: \n `$REQUIREMENT_EX_GOOD': 'what_else',
         },
         '[{no, nah, nope}]': 'what_else'
     },
     'error': {
-        '`I am sorry. I don\'t have anymore emotion feedback for you!`': 'what_else'
+        '`I am sorry. I don\'t have anymore requirements feedback for you!`': 'what_else'
     }
 }
 
