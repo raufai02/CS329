@@ -1,0 +1,46 @@
+{
+    "web development": {
+        "name" : "Maya",
+        "position" : "AI Front End Developer",
+        "company" : "Patterned Learning",
+        "skills": [
+            "JavaScript",
+            "ReactJS",
+            "Redux",
+            "D3",
+            "AngularJS",
+            "Jest",
+            "Jasmine",
+            "UX/UI specification",
+            "Flexible work schedule",
+            "Insurance policies"
+            ]
+    }, 
+    "mobile development": {
+
+    },
+    "desktop application development": {
+
+    }, 
+    "game development":{
+
+    },
+    "artificial intelligence/machine learning":{
+
+    }, 
+    "database development":{
+        
+    },
+    "DevOps":{
+
+    },
+    "cloud computing":{
+
+    },
+    "Cybersecurity":{
+
+    },
+    "embedded systems development":{
+
+    }
+}

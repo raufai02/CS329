@@ -27,6 +27,11 @@ def loadJD():
         stuff = json.load(f)
     return stuff
 
+def loadPersonas():
+    with open('resources/personas.json', "r") as f:
+        stuff = json.load(f)
+    return stuff
+
 dialogue = [] #GLOBAL VARIABLE
 dialogue_counter = 0 #counter
 
@@ -48,13 +53,18 @@ class V(Enum):
 class MacroPersona(Macro): 
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
         names = ['Maya', 'Ethan', 'Jenna', 'Charlie', 'Kattie', 'Adam', 'Luca', 'Jasmine', 'Omar', 'Jessica']
-        chosenName = random.choice(names)
+        # chosenName = random.choice(names)
         field = vars['USER_FIELD']
-        jd = loadJD()
-        position = random.choice(list(jd.keys()))
-        words = position.split()
-        company = words[0]
-        position = ' '.join(words[1:])
+        # jd = loadJD()
+        # position = random.choice(list(jd.keys()))
+        # words = position.split()
+        # company = words[0]
+        # position = ' '.join(words[1:])
+        ds = loadPersonas()
+        dict = ds["web development"]
+        position = dict["position"]
+        company = dict["company"]
+        chosenName = dict["name"]
         return f"Hi there! My name is {chosenName}, I am working at {company} as a {position}. I will be conducting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
 
 class MacroSetBool(Macro):
