@@ -52,7 +52,6 @@ class V(Enum):
 
 class MacroPersona(Macro): 
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
-        names = ['Maya', 'Ethan', 'Jenna', 'Charlie', 'Kattie', 'Adam', 'Luca', 'Jasmine', 'Omar', 'Jessica']
         # chosenName = random.choice(names)
         field = vars['USER_FIELD']
         # jd = loadJD()
@@ -71,13 +70,13 @@ class MacroPersona(Macro):
         prompt = 'Select the most appropriate field from the following list' + field_str + ' and the following dialogue context: ' + context + 'Output ONLY the most appropriate field from the following list' + field_str + '.'
         # print("promot: ", prompt)
         finalField = gpt_completion(prompt, model).lower()
-        print("finalField: ", finalField)
+        # print("finalField: ", finalField)
         dict = ds[finalField]
         # print("dict: ", dict)
         position = dict["position"]
         company = dict["company"]
         chosenName = dict["name"]
-        return f"Hi there! My name is {chosenName}, I am working at {company} as a {position}. I will be conducting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
+        return f"Hi there! My name is {chosenName}, I know a thing or two about {finalField}. I am working at {company} as a {position}. I will be conducting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
 
 class MacroSetBool(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
