@@ -61,7 +61,19 @@ class MacroPersona(Macro):
         # company = words[0]
         # position = ' '.join(words[1:])
         ds = loadPersonas()
-        dict = ds["web development"]
+
+        context = str(vars['USER_FIELD'] + '\n' + vars['USER_JOB'])
+        # print(context)
+        model = 'text-davinci-003'
+        allFields = ds.keys()
+        field_str = '[' + ','.join(allFields) + ']'
+        # print("All fields: ", field_str)
+        prompt = 'Select the most appropriate field from the following list' + field_str + ' and the following dialogue context: ' + context + 'Output ONLY the most appropriate field from the following list' + field_str + '.'
+        # print("promot: ", prompt)
+        finalField = gpt_completion(prompt, model).lower()
+        print("finalField: ", finalField)
+        dict = ds[finalField]
+        # print("dict: ", dict)
         position = dict["position"]
         company = dict["company"]
         chosenName = dict["name"]
