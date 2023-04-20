@@ -9,14 +9,27 @@ import requests
 
 import random
 import openai
-
+import os
 from utils import MacroGPTJSON, MacroNLG, gpt_completion
 from evaluation import transitions_responseQuality, transitions_emotion, transitions_evaluate, transitions_requirements
 from transitions_intro import transitions_intro, transition_greetings, transitions_feeling,transitions_field, transitions_job
 from transitions_intro import MacroEncourage
 from babel_transition import question_transition
-
+from transitions_intro import MacroVisits, get_call_name
 from evaluation_combinedRating import MacroGPTEval
+
+
+
+def saveName(df: DialogueFlow, varfile: str):
+    df.run()
+    d = {k: v for k, v in df.vars().items() if not k.startswith('_')}
+    pickle.dump(d, open(varfile, 'wb'))
+
+def loadName(df: DialogueFlow, varfile: str):
+        d = pickle.load(open(varfile, 'rb'))
+        df.vars().update(d)
+        df.run()
+        save(df, varfile)
 
 def load():
     with open('question_bank.json', "r") as f:
@@ -32,6 +45,9 @@ def loadPersonas():
     with open('resources/personas.json', "r") as f:
         stuff = json.load(f)
     return stuff
+def get_call_name(vars: Dict[str, Any]):
+    ls = vars[V.call_names.name]
+    return ls[random.randrange(len(ls))]
 
 dialogue = [] #GLOBAL VARIABLE
 dialogue_counter = 0 #counter
@@ -51,6 +67,20 @@ openai.api_key_path = PATH_API_KEY
 class V(Enum):
     call_name = 0,  # str
 
+class MacroVisits(Macro):
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
+        ls = vars[V.call_name.name]
+        vars['name'] = ls[random.randrange(len(ls))]
+        vn = vars['name']
+        
+        if vn not in vars:
+            vars[vn] = 1
+            return f'Nice to meet you, ' + vars['name'] + '!'
+
+        else:
+            count = vars[vn] + 1
+            vars[vn] = count
+            return f'Welcome back, ' + vars['name'] + '!'
 class MacroPersona(Macro): 
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
         # chosenName = random.choice(names)
@@ -263,7 +293,8 @@ def interviewBuddy() -> DialogueFlow:
         'SETBOOL': MacroSetBool(),
         'ENCOURAGEMENT': MacroEncourage(), 
         'PERSONA' : MacroPersona(),
-        'RUN_EVAL' : MacroGPTEval(dialogue, job_description)
+        'RUN_EVAL' : MacroGPTEval(dialogue, job_description),
+        'NAME_SAVE' : MacroVisits()
         #'RUN_EVAL' : MacroGPTEval(dummy, job_description)
     }
 
@@ -302,7 +333,12 @@ def save(df: DialogueFlow, d: List[Any]): #d is the dialogue list
     fout = open(filename, 'w')
     fout.write('\n'.join(d))
 
+if os.path.exists('test.pkl') is False:
+    saveName(interviewBuddy(),'test.pkl')
+loadName(interviewBuddy(),'test.pkl')
 
 if __name__ == '__main__':
     interviewBuddy().run()
+    saveName(interviewBuddy(),'test.pkl')
+
     # save(interviewBuddy(),dialogue)
