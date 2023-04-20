@@ -17,30 +17,100 @@
             ]
     }, 
     "mobile development": {
-
+        "name" : "Ethan",
+        "position" : "Mobile Engineer",
+        "company" : "Thinaer",
+        "skills": [
+            "AWS",
+            "Agile methodologies",
+            "Git"
+            ]
     },
     "desktop application development": {
-
+        "name" : "Omar",
+        "position" : "Application Engineer",
+        "company" : "Vicon",
+        "skills": [
+            "biomechanics/engineering" ,
+            "Motion capturing" ,
+            "Matlab/Python/Visual 3D" ,
+            "Nexus/Tracker/Shogun/Unity/Unreal/TrackD/VRed/ROS" ,
+            "Technical troubleshooting expertise"
+          ]
     }, 
     "game development":{
+        "name" : "Jasmine",
+        "position" : "Game Developer",
+        "company" : "Valve",
+        "skills": [
+            "Cross-disciplinary teamwork",
+            "Collaboration with peers",
+            "Level/environment design"
+            ]
 
     },
     "artificial intelligence/machine learning":{
+        "name" : "Charlie",
+        "position" : "Design Group Engineer",
+        "company" : "Mathworks",
+        "skills": [
+            "MATLAB",
+            "OOP",
+            "machine learning, robotics, etc."
+            ]
 
     }, 
     "database development":{
-        
-    },
-    "DevOps":{
+        "name" : "Jenna",
+        "position" : "Technical Team Member",
+        "company" : "Fast Enterprises",
+        "skills": [
+            "SQL",
+            "Database administration",
+            "Server administration",
+            "Network knowledge",
+            "Security and compliance expertise"
+            ]
 
+    },
+    "devops":{
+        "name" : "Adam",
+        "position" : "Devops Software Engineer",
+        "company" : "HMH",
+        "skills": [
+            "cloud infrastructure",
+            "Linux",
+            "CI/CD tools"
+            ]
     },
     "cloud computing":{
-
+        "name" : "Kattie",
+        "position" : "Back End Developer",
+        "company" : "IBM",
+        "skills": [
+            "Git, Jenkins, Jira",
+            "Docker/K8S knowledge",
+            "Cloud services",
+            "Microservices and Rest APIs",
+            "Basic Javascript skills"
+          ]
     },
-    "Cybersecurity":{
-
+    "cybersecurity":{
+        "name" : "Jessica",
+        "position" : "Forward Deployed Software Engineer",
+        "company" : "Palantir",
+        "skills": [
+            "the ability to work in teams"
+            ]
     },
     "embedded systems development":{
-
+        "name" : "Luca",
+        "position" : "Systems Software Developer",
+        "company" : "Epic",
+        "skills": [
+            "JS, TS, or C#",
+            "UI/UX",
+            "ML/AI"
+          ]
     }
 }

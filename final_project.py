@@ -52,7 +52,6 @@ class V(Enum):
 
 class MacroPersona(Macro): 
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
-        names = ['Maya', 'Ethan', 'Jenna', 'Charlie', 'Kattie', 'Adam', 'Luca', 'Jasmine', 'Omar', 'Jessica']
         # chosenName = random.choice(names)
         field = vars['USER_FIELD']
         # jd = loadJD()
@@ -61,11 +60,23 @@ class MacroPersona(Macro):
         # company = words[0]
         # position = ' '.join(words[1:])
         ds = loadPersonas()
-        dict = ds["web development"]
+
+        context = str(vars['USER_FIELD'] + '\n' + vars['USER_JOB'])
+        # print(context)
+        model = 'text-davinci-003'
+        allFields = ds.keys()
+        field_str = '[' + ','.join(allFields) + ']'
+        # print("All fields: ", field_str)
+        prompt = 'Select the most appropriate field from the following list' + field_str + ' and the following dialogue context: ' + context + 'Output ONLY the most appropriate field from the following list' + field_str + '.'
+        # print("promot: ", prompt)
+        finalField = gpt_completion(prompt, model).lower()
+        # print("finalField: ", finalField)
+        dict = ds[finalField]
+        # print("dict: ", dict)
         position = dict["position"]
         company = dict["company"]
         chosenName = dict["name"]
-        return f"Hi there! My name is {chosenName}, I am working at {company} as a {position}. I will be conducting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
+        return f"Hi there! My name is {chosenName}, I know a thing or two about {finalField}. I am working at {company} as a {position}. I will be conducting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
 
 class MacroSetBool(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
@@ -162,7 +173,7 @@ class MacroGetLittleQuestion(Macro):
         global dialogue, dialogue_counter
 
         context = str(dialogue[-2] + '\n' + dialogue[-1])
-        print(context)
+        # print(context)
         model = 'text-davinci-003'
         follow_ups = vars["follow_ups"]
         follow_str = '[' + ','.join(follow_ups) + ']'
