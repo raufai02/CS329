@@ -11,7 +11,7 @@ import random
 import openai
 
 from utils import MacroGPTJSON, MacroNLG, gpt_completion
-from evaluation import transitions_evaluate, transitions_emotion, transitions_context, transitions_requirements
+from evaluation import transitions_responseQuality, transitions_emotion, transitions_evaluate, transitions_requirements
 from transitions_intro import transitions_intro, transition_greetings, transitions_feeling,transitions_field, transitions_job
 from transitions_intro import MacroEncourage
 
@@ -252,7 +252,7 @@ def interviewBuddy() -> DialogueFlow:
     df.load_transitions(transitions_job)
     df.load_transitions(transitions_feeling)
     df.load_transitions(transitions_evaluate)
-    df.load_transitions(transitions_context)
+    df.load_transitions(transitions_responseQuality)
     df.load_transitions(transitions_requirements)
     df.load_transitions(transitions_emotion)
     df.add_macros(macros)
