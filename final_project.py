@@ -173,7 +173,7 @@ class MacroGetLittleQuestion(Macro):
         global dialogue, dialogue_counter
 
         context = str(dialogue[-2] + '\n' + dialogue[-1])
-        print(context)
+        # print(context)
         model = 'text-davinci-003'
         follow_ups = vars["follow_ups"]
         follow_str = '[' + ','.join(follow_ups) + ']'
