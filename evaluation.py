@@ -18,14 +18,19 @@ class MacroSetBool(Macro):
         return True
 
 
+
+
 transitions_evaluate = {
     'state': 'start_evaluate',
     '`Congratulations on completing the interview! Would you like to receive feedback?`': {
         '[{yea, ya, yes, i would, of course, sure, definitely}] #RUN_EVAL': {
             'state': 'what_else',
             '`Perfect!` #WHAT_ELSE': {
-                '#GATE [emotional appropriateness]': 'emotion',
-                '#GATE [context appropriateness]': 'context',
+                '#GATE [friendliness]': 'friendliness',
+                '#GATE [emotion]' : 'emotion',
+                '#GATE [inclusivity]' : 'inclusivity',
+                '#GATE [efficiency]' : 'efficiency',
+                '#GATE [unique words]': 'unique',
                 '#GATE [job requirements]': 'requirements',
                 'error': {
                     '`OK. Good job!`': 'end'
@@ -37,12 +42,22 @@ transitions_evaluate = {
         }
     }
 }
+
+transitions_friendliness = {
+    'state' : 'friendliness',
+    '#GATE #SETBOOL($friendliness, true) `Your overall friendliness score was ` $FRIENDLY_SCORE `. Would you like to see some examples?`' : {
+        '[{yea, yes, sure, yeah, definitely, of course}]' : {
+            '`Here is an example of a response where you demonstrated friendliness: \n ` $FRIENDLY_EX_GOOD `. You  ': 'what_else',
+        }
+
+    }
+}
 transitions_emotion = {
     'state': 'emotion',
     '#GATE #SETBOOL($emotion, true) `Your raw emotion score was ` $EMOTION_SCORE `. Would you like to learn more about this score?`': {
         '[context]': 'context',
         '[requirements]': 'requirements',
-        '[{yea, yes, sure, yeah, definitely of course}]': {
+        '[{yea, yes, sure, yeah, definitely, of course}]': {
             '`Here is an example of a response where you expressed positive emotional content: \n `$EMOTION_EX_GOOD': 'what_else',
         },
         '[{no, nah, nope}]': 'what_else',
@@ -53,7 +68,8 @@ transitions_emotion = {
     }
 }
 transitions_responseQuality = {
-    'state': 'responseQuality', #start w/ task 4...?
+    'state': 'unique', #start w/ task 3...?
+    '#RESPONSE_WHAT_ELSE '
     '#GATE  `You used ` $TOTAL_UNIQUE `unique words per word. Would you like to learn more about this score?`': {
         '[{yea, yes, sure, of course}]': {
             '`The most frequent word you used was ` $MOST_FREQUENT `. Limiting repeated use of words can help. `': 'what_else',
