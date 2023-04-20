@@ -14,6 +14,7 @@ from utils import MacroGPTJSON, MacroNLG, gpt_completion
 from evaluation import transitions_responseQuality, transitions_emotion, transitions_evaluate, transitions_requirements
 from transitions_intro import transitions_intro, transition_greetings, transitions_feeling,transitions_field, transitions_job
 from transitions_intro import MacroEncourage
+from babel_transition import question_transition
 
 from evaluation_combinedRating import MacroGPTEval
 
@@ -199,6 +200,23 @@ class MacroGetLittleQuestion(Macro):
         return True
 
 def interviewBuddy() -> DialogueFlow:
+    global_tranisitons = {
+    '[babel]' : {
+        '`Ok, lets talk about the movie Babel. What did you think of it?`' : {
+            '[{good, great, amazing, compelling, powerful, capitvating, gripping, moving, masterful, masterpiece, multilayered, poignant, authentic, impactful, cinematic, profound, bold, oscar}]' : {
+                '`I\'m glad you enjoyed the movie! `' : 'movie_q' 
+                },
+            '[{bad, terrible, aweful, garbage, meh, ok, boring, predictable, dull, lifeless, tedious, flat, confusing, disappointing, cliche, corny, mediocre, sloppy, unoriginal}]' : {
+                '`I\'m sorry to hear that it didn\'t meet your expectations.`' : 'movie_q' 
+                },
+            'error' : {
+                '`Gotcha. Your opinion is noted`' : 'movie_q'
+            }
+                   
+            
+        } 
+    }
+}
     transitions_classify = { #classification state
     'state' : 'interview',
     '#PERSONA' : { # insert persona macro - Ameer
@@ -266,6 +284,8 @@ def interviewBuddy() -> DialogueFlow:
     df.load_transitions(transitions_responseQuality)
     df.load_transitions(transitions_requirements)
     df.load_transitions(transitions_emotion)
+    df.load_global_nlu(global_tranisitons)
+    df.load_transitions(question_transition)
     df.add_macros(macros)
 
     return df
