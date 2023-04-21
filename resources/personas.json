@@ -100,6 +100,7 @@
         "skills": [
             "the ability to work in teams"
             ]
+
     },
     "embedded systems development":{
         "name" : "Luca",
@@ -110,5 +111,6 @@
             "UI/UX",
             "ML/AI"
           ]
+
     }
 }

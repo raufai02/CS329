@@ -1,26 +1,27 @@
 import openai
-
-PATH_API_KEY = 'resources/openai_api.txt'
+import json
+PATH_API_KEY = 'openai_api.txt'
 openai.api_key_path = PATH_API_KEY
+from utils import MacroGPTJSON, MacroNLG, gpt_completion
+def contextual_comments():
+    with open('resources/contextual_comments.json', "r") as f:
+        stuff = json.load(f)
+    return stuff
 
 
-def analyze_emotion(statement):
-    prompt = "Please analyze the emotion of this statement: \n\n" + statement + "\n\n Return the emotion indicated in the statement in a single word:"
-    try:
-        response = openai.Completion.create(
-            engine="text-davinci-002",
-            prompt=prompt,
-            temperature=0.5,
-            max_tokens=10,
-            n=1,
-            stop=None,
-            timeout=10,
-        )
-        sentiment = response.choices[0].text.strip()
-        return sentiment
-    except Exception as e:
-        print(f"Error: {e}")
-        return False
+def responder():
+        contextualComments = contextual_comments()
+        # contextualComments = '[' + ','.join(contextualComments) + ']'
+        print(contextualComments['6'])
+        context = "S: How do you think working on a team in a virtual environment differs from working on a team in an in-person environment, and how would that impact your productivity?U: I think that working virtually makes you less productive because you dont get to collaborate"
+
+        model = 'gpt-3.5-turbo'
+        prompt = 'Pick a follow up response from the following list of possible follow-ups: ' + str(contextualComments) + ' given the conversation has the following context: ' + context + ' Output ONLY the index of the best question, assuming the list starts at index 0, such as "0" or "1".'
+        idx =  gpt_completion(prompt, model)
+        response = contextualComments[str(idx)]
+        #
+        return response
+
 
 def is_interview_appropriate(statement):
     prompt = "Is the following response appropriate for this job interview?\n\n" + statement + "\n\nYes or no:"
@@ -93,52 +94,12 @@ def rateResponseOnDescriptionTurbo(job_description, statement):
     return printedText
 
 def main():
-    N_job_description = """
-           Responsibilities:
-       * Provide technical support to customers
-       * Install and train customers on systems
-       * Test and quality assure products
-       Requirements:
-       * Bachelor of Science degree
-       * Strong communication and problem solving skills
-       * Willingness to travel domestically and internationally
-       Desired skills:
-       * Background in motion capture technology
-       * Experience with Matlab, Python or Visual 3D
-       * Familiarity with software such as Nexus, Unity, Unreal, etc.
-       """
-    # print('==eMOtIONs== \n')
-    # print('===CASE 1=== \n')
-    # statement = "I am really hated my job this past summer."
-    # emotion = analyze_emotion(statement)
-    # print(emotion)
-    #
-    # print('==ISJOBCONTEXT APPROPRIATE== \n')
-    # print('===CASE 1=== \n')
-    #
-    # strong_statement = "I have experience developing scalable web applications that target usng python and visual 3d technologies like Unity and UNreal"
-    # response= isJobContextAppropriateTurbo(strong_statement, N_job_description)
-    # print(response)
-    #
+
     # print('===CASE 2=== \n')
-    # icecream_statement = "I have experience working at an ice cream shop for 13 years"
-    # response= isJobContextAppropriateTurbo(icecream_statement, N_job_description)
+    # n_statement = "I have experience developing scalable web applications that target using python and visual 3d technologies like Unity"
+    # response = rateResponseOnDescriptionTurbo(n_statement, N_job_description)
     # print(response)
-    #
-    # print('===CASE 3=== \n')
-    # good_statement = "I have experience developing scalable web applications that target usng python and visual 3d technologies like Unity and UNreal"
-    # response= isJobContextAppropriateDavinci(good_statement, N_job_description)
-    # print(response)
-
-    print('RESPONSE SCORING \n')
-    print('===CASE 1=== \n')
-    n_statement = "While getting my bachelors degree in computer science I gained experience developing scalable web applications using python"
-    response= rateResponseOnDescriptionTurbo(n_statement, N_job_description)
-    print(response)
-
-    print('===CASE 2=== \n')
-    n_statement = "I have experience developing scalable web applications that target using python and visual 3d technologies like Unity"
-    response = rateResponseOnDescriptionTurbo(n_statement, N_job_description)
+    response = responder()
     print(response)
 
 

@@ -152,8 +152,9 @@ transitions_feeling = {
 macros = {
     'GET_CALL_NAME': MacroNLG(get_call_name),
     'SET_CALL_NAMES': MacroGPTJSON(
-        'How does the speaker want to be called?',
-        {V.call_names.name: ["Mike", "Michael"]}),
+        'Please choose the name that the speaker want to be called? Provide any name the user provides',
+        {V.call_names.name: ["Mike", "Michael"]},
+        {V.call_names.name: ["n/a"]}),
 
     'ENCOURAGEMENT': MacroEncourage(),
     'NAME_SAVE' : MacroVisits()

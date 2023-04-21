@@ -41,6 +41,11 @@ def loadJD():
         stuff = json.load(f)
     return stuff
 
+def contextual_comments():
+    with open('resources/contextual_comments.json', "r") as f:
+        stuff = json.load(f)
+    return stuff
+
 def loadPersonas():
     with open('resources/personas.json', "r") as f:
         stuff = json.load(f)
@@ -51,8 +56,8 @@ def get_call_name(vars: Dict[str, Any]):
 
 dialogue = [] #GLOBAL VARIABLE
 dialogue_counter = 0 #counter
-personaSkills = []
 categories = ['technical', 'leadership', 'culture', 'cognitive']
+contextualComments = contextual_comments()
 global_var_state = random.choice(categories)
 bank = load() #key category, value dictionary with question, list pairs
 globalCount = {'technical':0, 'leadership':0, 'culture':0, 'cognitive':0}
@@ -232,14 +237,13 @@ class MacroGetLittleQuestion(Macro):
 
 class MacroRespond(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        global personaSkills, dialogue, dialogue_counter
+        global contextualComments, dialogue, dialogue_counter
 
         context = str(dialogue[-2] + '\n' + dialogue[-1])
-        # print(context)
-        personaSkillsStr = '[' + ','.join(personaSkills) + ']'
-        model = 'text-davinci-003'
-        prompt = 'write the most appropriate short one line follow-up sentence less than 11 words from the following dialogue context: ' + context + ' and some of the skills from the following list ' + personaSkillsStr + ' of a person sharing their expereince. Write it without any quotes nor commas and place a period at the end.'
-        response =  gpt_completion(prompt, model)
+        model = 'gpt-3.5-turbo'
+        prompt = 'Pick a follow up response from the following list of possible follow-ups: ' + str(contextualComments) + ' given the conversation has the following context: ' + context + ' Output ONLY the index of the best question, assuming the list starts at index 0, such as "0" or "1". If none of the options work return the index 0 the empty string'
+        ths_idx =  (gpt_completion(prompt, model))
+        response = contextualComments[ths_idx]
         return response
 
 
