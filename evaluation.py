@@ -93,9 +93,3 @@ transitions_requirements = {
         '`I am sorry. I don\'t have anymore requirements feedback for you!`': 'what_else'
     }
 }
-
-
-# if __name__ == '__main__':
-#     evaluate().run()
-#     # save(interviewBuddy(),dialogue)
-

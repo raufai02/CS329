@@ -34,7 +34,10 @@ def loadName(df: DialogueFlow, varfile: str):
 def load():
     with open('question_bank.json', "r") as f:
         stuff = json.load(f)
-    return stuff
+    with open('babel_question.py', "r") as ff:
+        babels = json.load(ff)
+
+    return stuff, babels
 
 def loadJD():
     with open('resources/job_descriptions.json', "r") as f:
@@ -54,7 +57,7 @@ dialogue_counter = 0 #counter
 personaSkills = []
 categories = ['technical', 'leadership', 'culture', 'cognitive']
 global_var_state = random.choice(categories)
-bank = load() #key category, value dictionary with question, list pairs
+bank, babel = load() #key category, value dictionary with question, list pairs
 globalCount = {'technical':0, 'leadership':0, 'culture':0, 'cognitive':0}
 globalCounter = 0
 counter = 0
@@ -238,14 +241,14 @@ class MacroRespond(Macro):
         # print(context)
         personaSkillsStr = '[' + ','.join(personaSkills) + ']'
         model = 'text-davinci-003'
-        prompt = 'write the most appropriate short one line follow-up sentence less than 11 words from the following dialogue context: ' + context + ' and some of the skills from the following list ' + personaSkillsStr + ' of a person sharing their expereince. Write it without any quotes nor commas and place a period at the end.'
-        response =  gpt_completion(prompt, model)
+        prompt = 'write the most appropriate short one line follow-up sentence less than 11 words from the following dialogue context: ' + context + ' and some of the skills from the following list ' + personaSkillsStr + ' of a person sharing their experience. Write it without any quotes nor commas and place a period at the end.'
+        response = gpt_completion(prompt, model)
         return response
 
 
 
 def interviewBuddy() -> DialogueFlow:
-    global_tranisitons = {
+    global_transitions = {
     '[babel]' : {
         '`Ok, lets talk about the movie Babel. What did you think of it?`' : {
             '[{good, great, amazing, compelling, powerful, capitvating, gripping, moving, masterful, masterpiece, multilayered, poignant, authentic, impactful, cinematic, profound, bold, oscar}]' : {
@@ -331,7 +334,7 @@ def interviewBuddy() -> DialogueFlow:
     df.load_transitions(transitions_responseQuality)
     df.load_transitions(transitions_requirements)
     df.load_transitions(transitions_emotion)
-    df.load_global_nlu(global_tranisitons)
+    df.load_global_nlu(global_transitions)
     df.load_transitions(question_transition)
     df.add_macros(macros)
 

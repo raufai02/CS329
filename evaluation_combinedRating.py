@@ -63,12 +63,12 @@ class MacroGPTEval(Macro):
         vars["INCLUSIVE_SCORE"] = dict['Task 5']['Inclusive Language']['inclusive_score'][0]
         idx = dict['Task 5']['Most Inclusive Answer']['answer_index'][0]
 
-        vars["INCLUSIVE_EX_GOOD"] = self.transcript(idx)
+        vars["INCLUSIVE_EX_GOOD"] = self.transcript[idx]
         vars["INCLUSIVE_GOOD_ADJECTIVE"] = dict['Task 5']['Most Inclusive Answer']['response_adjectives'][0]
         vars["INCLUSIVE_GOOD_SCORE"] = dict['Task 5']['Most Inclusive Answer']['inclusive_score'][0]
 
         idx = dict['Task 5']['Least Inclusive Answer']['answer_index'][0]
-        vars["INCLUSIVE_EX_BAD"] = self.transcript(idx)
+        vars["INCLUSIVE_EX_BAD"] = self.transcript[idx]
         #again we are only selecting one item from a list....
         vars["INCLUSIVE_BAD_ADJECTIVE"] = dict['Task 5']['Least Inclusive Answer']['response_adjectives'][0]
         vars["INCLUSIVE_BAD_SCORE"] = dict['Task 5']['Least Inclusive Answer']['inclusive_score'][0]
