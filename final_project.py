@@ -9,13 +9,27 @@ import requests
 
 import random
 import openai
-
+import os
 from utils import MacroGPTJSON, MacroNLG, gpt_completion
 from evaluation import transitions_responseQuality, transitions_emotion, transitions_evaluate, transitions_requirements
 from transitions_intro import transitions_intro, transition_greetings, transitions_feeling,transitions_field, transitions_job
 from transitions_intro import MacroEncourage
-
+from babel_transition import question_transition
+from transitions_intro import MacroVisits, get_call_name
 from evaluation_combinedRating import MacroGPTEval
+
+
+
+def saveName(df: DialogueFlow, varfile: str):
+    df.run()
+    d = {k: v for k, v in df.vars().items() if not k.startswith('_')}
+    pickle.dump(d, open(varfile, 'wb'))
+
+def loadName(df: DialogueFlow, varfile: str):
+        d = pickle.load(open(varfile, 'rb'))
+        df.vars().update(d)
+        df.run()
+        save(df, varfile)
 
 def load():
     with open('question_bank.json', "r") as f:
@@ -31,10 +45,13 @@ def loadPersonas():
     with open('resources/personas.json', "r") as f:
         stuff = json.load(f)
     return stuff
+def get_call_name(vars: Dict[str, Any]):
+    ls = vars[V.call_names.name]
+    return ls[random.randrange(len(ls))]
 
 dialogue = [] #GLOBAL VARIABLE
 dialogue_counter = 0 #counter
-
+personaSkills = []
 categories = ['technical', 'leadership', 'culture', 'cognitive']
 global_var_state = random.choice(categories)
 bank = load() #key category, value dictionary with question, list pairs
@@ -50,17 +67,31 @@ openai.api_key_path = PATH_API_KEY
 class V(Enum):
     call_name = 0,  # str
 
+class MacroVisits(Macro):
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
+        ls = vars[V.call_name.name]
+        vars['name'] = ls[random.randrange(len(ls))]
+        vn = vars['name']
+        
+        if vn not in vars:
+            vars[vn] = 1
+            return f'Nice to meet you, ' + vars['name'] + '!'
+
+        else:
+            count = vars[vn] + 1
+            vars[vn] = count
+            return f'Welcome back, ' + vars['name'] + '!'
 class MacroPersona(Macro): 
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
+        global personaSkills
         # chosenName = random.choice(names)
-        field = vars['USER_FIELD']
+        # field = vars['USER_FIELD']
         # jd = loadJD()
         # position = random.choice(list(jd.keys()))
         # words = position.split()
         # company = words[0]
         # position = ' '.join(words[1:])
         ds = loadPersonas()
-
         context = str(vars['USER_FIELD'] + '\n' + vars['USER_JOB'])
         # print(context)
         model = 'text-davinci-003'
@@ -76,6 +107,7 @@ class MacroPersona(Macro):
         position = dict["position"]
         company = dict["company"]
         chosenName = dict["name"]
+        personaSkills = dict['skills']
         return f"Hi there! My name is {chosenName}, I know a thing or two about {finalField}. I am working at {company} as a {position}. I will be conducting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
 
 class MacroSetBool(Macro):
@@ -198,7 +230,38 @@ class MacroGetLittleQuestion(Macro):
 
         return True
 
+class MacroRespond(Macro):
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
+        global personaSkills, dialogue, dialogue_counter
+
+        context = str(dialogue[-2] + '\n' + dialogue[-1])
+        # print(context)
+        personaSkillsStr = '[' + ','.join(personaSkills) + ']'
+        model = 'text-davinci-003'
+        prompt = 'write the most appropriate short one line follow-up sentence less than 11 words from the following dialogue context: ' + context + ' and some of the skills from the following list ' + personaSkillsStr + ' of a person sharing their expereince. Write it without any quotes nor commas and place a period at the end.'
+        response =  gpt_completion(prompt, model)
+        return response
+
+
+
 def interviewBuddy() -> DialogueFlow:
+    global_tranisitons = {
+    '[babel]' : {
+        '`Ok, lets talk about the movie Babel. What did you think of it?`' : {
+            '[{good, great, amazing, compelling, powerful, capitvating, gripping, moving, masterful, masterpiece, multilayered, poignant, authentic, impactful, cinematic, profound, bold, oscar}]' : {
+                '`I\'m glad you enjoyed the movie! `' : 'movie_q' 
+                },
+            '[{bad, terrible, aweful, garbage, meh, ok, boring, predictable, dull, lifeless, tedious, flat, confusing, disappointing, cliche, corny, mediocre, sloppy, unoriginal}]' : {
+                '`I\'m sorry to hear that it didn\'t meet your expectations.`' : 'movie_q' 
+                },
+            'error' : {
+                '`Gotcha. Your opinion is noted`' : 'movie_q'
+            }
+                   
+            
+        } 
+    }
+}
     transitions_classify = { #classification state
     'state' : 'interview',
     '#PERSONA' : { # insert persona macro - Ameer
@@ -209,7 +272,7 @@ def interviewBuddy() -> DialogueFlow:
                 'state': 'follow_up',
                 '#GET_LITTLE': {
                     '#STORE' : {
-                        '`ok!`' : 'big_q'
+                        '#RESPOND' : 'big_q'
                     }
                     # 'state': 'store_follow_up',
                     # '#IF($Q_REMAIN) #STORE':'follow_up',
@@ -245,7 +308,9 @@ def interviewBuddy() -> DialogueFlow:
         'SETBOOL': MacroSetBool(),
         'ENCOURAGEMENT': MacroEncourage(), 
         'PERSONA' : MacroPersona(),
-        'RUN_EVAL' : MacroGPTEval(dialogue, job_description)
+        'RUN_EVAL' : MacroGPTEval(dialogue, job_description),
+        'NAME_SAVE' : MacroVisits(), 
+        'RESPOND' : MacroRespond()
         #'RUN_EVAL' : MacroGPTEval(dummy, job_description)
     }
 
@@ -266,6 +331,8 @@ def interviewBuddy() -> DialogueFlow:
     df.load_transitions(transitions_responseQuality)
     df.load_transitions(transitions_requirements)
     df.load_transitions(transitions_emotion)
+    df.load_global_nlu(global_tranisitons)
+    df.load_transitions(question_transition)
     df.add_macros(macros)
 
     return df
@@ -282,7 +349,12 @@ def save(df: DialogueFlow, d: List[Any]): #d is the dialogue list
     fout = open(filename, 'w')
     fout.write('\n'.join(d))
 
+if os.path.exists('test.pkl') is False:
+    saveName(interviewBuddy(),'test.pkl')
+loadName(interviewBuddy(),'test.pkl')
 
 if __name__ == '__main__':
     interviewBuddy().run()
+    saveName(interviewBuddy(),'test.pkl')
+
     # save(interviewBuddy(),dialogue)

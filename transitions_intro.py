@@ -21,7 +21,20 @@ class V(Enum):
     office_location = 1
     office_hours = 2
 
+class MacroVisits(Macro):
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
+        ls = vars[V.call_names.name]
+        vars['name'] = ls[random.randrange(len(ls))]
+        vn = vars['name']
+        
+        if vn not in vars:
+            vars[vn] = 1
+            return f'Nice to meet you, ' + vars['name'] + '!'
 
+        else:
+            count = vars[vn] + 1
+            vars[vn] = count
+            return f'Welcome back, ' + vars['name'] + '!'
 class MacroEncourage(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
         encouragement = ["You got this! Just be confident and show them why you're the best fit for the job.",
@@ -38,7 +51,7 @@ transitions_intro = {
     'state': 'start',
     '`Hello, I am InterviewBuddy. I am an interview chatbot that is designed to help interviewees practice their interview skills in order to better prepare for the real thing. You\'re here for the interview today, right? What should I call you?`': {
         '#SET_CALL_NAMES': {
-            '`Nice to meet you,` #GET_CALL_NAME `! How are you feeling right now?`': {
+            '#NAME_SAVE `How are you feeling right now?`': {
                 '[{good, well, great, fine, splendid, awesome, wonderful, terrfic, superb, nice, not bad, fantastic, amazing, alright, all right, best}]' : {
                     '`That\'s awesome! I\'m glad you\'re feeling well!`' : 'greetings'
                 },
@@ -142,7 +155,8 @@ macros = {
         'How does the speaker want to be called?',
         {V.call_names.name: ["Mike", "Michael"]}),
 
-    'ENCOURAGEMENT': MacroEncourage()
+    'ENCOURAGEMENT': MacroEncourage(),
+    'NAME_SAVE' : MacroVisits()
 
 }
 
