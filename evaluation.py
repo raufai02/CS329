@@ -38,7 +38,7 @@ transitions_evaluate = {
             }
         },
         '[{no, nope, nah, na, all good, meh}]': {
-            '`OK, no worries! Thanks for your time and good luck with your application!`': 'end'
+            '`OK, no worries! Thanks for your time and good luck with your applications!`': 'end'
         }
     }
 }
@@ -46,8 +46,14 @@ transitions_evaluate = {
 transitions_friendliness = {
     'state' : 'friendliness',
     '#GATE #SETBOOL($friendliness, true) `Your overall friendliness score was ` $FRIENDLY_SCORE `. Would you like to see some examples?`' : {
-        '[{yea, yes, sure, yeah, definitely, of course}]' : {
-            '`Here is an example of a response where you demonstrated friendliness: \n ` $FRIENDLY_EX_GOOD `. You  ': 'what_else',
+        '[{yea, yes, sure, yeah, definitely, of course}]': {
+            '`Here is an example of a response where you demonstrated friendliness: \n ` $FRIENDLY_EX_GOOD `. Do you want to see another example?': {
+                '[{yea, yes, sure, yeah, definitely, of course}]': {
+                    '`In this example, you could have been more friendly! \n ` $FRIENDLY_EX_BAD': 'what_else',
+                },
+                '[{no, nah, nope}]' : 'what_else'
+
+            }
         }
 
     }
@@ -67,12 +73,25 @@ transitions_emotion = {
         '`I am sorry. I don\'t have anymore emotion feedback for you!`': 'what_else'
     }
 }
-transitions_responseQuality = {
-    'state': 'unique', #start w/ task 3...?
-    '#RESPONSE_WHAT_ELSE '
+
+transitions_efficiency = {
+    'state': 'efficiency',
+    '#GATE `Let\'s look at your highest and lowest lexical density examples, OK?`': {
+        'error': {
+            '`Your most efficient response had a score of ` $LEXICAL_GOOD `, and an efficiency score of ` $EFFIENCY_GOOD `. \n` $EFFICIENCY_EX_GOOD' : {
+                'error': {
+                    '`Your least efficient response had a score of `$LEXICAL_BAD `, and an efficiency score of ` $EFFICIENCY_BAD `. \n ` $EFFICIENCY_EX_BAD' : 'what_else'
+                }
+            }
+        }
+    }
+
+}
+transitions_unique = {
+    'state': 'unique',
     '#GATE  `You used ` $TOTAL_UNIQUE `unique words per word. Would you like to learn more about this score?`': {
         '[{yea, yes, sure, of course}]': {
-            '`The most frequent word you used was ` $MOST_FREQUENT `. Limiting repeated use of words can help. `': 'what_else',
+            '`The most frequent word you used was ` $MOST_FREQUENT `. Limiting repeated use of words can help. The word you used least frequently was ` $LEAST_FREQUENT': 'what_else',
         },
         '[{no, nah, nope}]': 'what_else'
     },
@@ -91,5 +110,21 @@ transitions_requirements = {
     },
     'error': {
         '`I am sorry. I don\'t have anymore requirements feedback for you!`': 'what_else'
+    }
+}
+
+
+transitions_inclusive = {
+    'state' : 'inclusive',
+    '#GATE #SETBOOL($inclusive, true) `Your total inclusivity score was ` $INCLUSIVE_SCORE `. Would you like to learn more?': {
+        '[{yea, yes, sure, of course}]': {
+            '`Here is an example of a good response where you were very ` $INCLUSIVE_GOOD_ADJECTIVE `. \n` $INCLUSIVE_EX_GOOD `\n Your score for this response was ` $INCLUSIVE_GOOD_SCORE `. `': {
+                'error': {
+                    '`Here is an example of a weak response where you were  ` $INCLUSIVE_BAD_ADJECTIVE `. \n` $INCLUSIVE_EX_BAD `\n Your score for this response was ` $INCLUSIVE_BAD_SCORE `. `' : 'what_else'
+                }
+            }
+        },
+        '[{no, nah, naw, nope, meh}]' : 'what_else',
+        'error' : 'inclusive'
     }
 }
