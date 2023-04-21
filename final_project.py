@@ -51,7 +51,7 @@ def get_call_name(vars: Dict[str, Any]):
 
 dialogue = [] #GLOBAL VARIABLE
 dialogue_counter = 0 #counter
-
+personaSkills = []
 categories = ['technical', 'leadership', 'culture', 'cognitive']
 global_var_state = random.choice(categories)
 bank = load() #key category, value dictionary with question, list pairs
@@ -83,15 +83,15 @@ class MacroVisits(Macro):
             return f'Welcome back, ' + vars['name'] + '!'
 class MacroPersona(Macro): 
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
+        global personaSkills
         # chosenName = random.choice(names)
-        field = vars['USER_FIELD']
+        # field = vars['USER_FIELD']
         # jd = loadJD()
         # position = random.choice(list(jd.keys()))
         # words = position.split()
         # company = words[0]
         # position = ' '.join(words[1:])
         ds = loadPersonas()
-
         context = str(vars['USER_FIELD'] + '\n' + vars['USER_JOB'])
         # print(context)
         model = 'text-davinci-003'
@@ -107,6 +107,7 @@ class MacroPersona(Macro):
         position = dict["position"]
         company = dict["company"]
         chosenName = dict["name"]
+        personaSkills = dict['skills']
         return f"Hi there! My name is {chosenName}, I know a thing or two about {finalField}. I am working at {company} as a {position}. I will be conducting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
 
 class MacroSetBool(Macro):
@@ -229,6 +230,20 @@ class MacroGetLittleQuestion(Macro):
 
         return True
 
+class MacroRespond(Macro):
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
+        global personaSkills, dialogue, dialogue_counter
+
+        context = str(dialogue[-2] + '\n' + dialogue[-1])
+        # print(context)
+        personaSkillsStr = '[' + ','.join(personaSkills) + ']'
+        model = 'text-davinci-003'
+        prompt = 'write the most appropriate short one line follow-up sentence less than 11 words from the following dialogue context: ' + context + ' and some of the skills from the following list ' + personaSkillsStr + ' of a person sharing their expereince. Write it without any quotes nor commas and place a period at the end.'
+        response =  gpt_completion(prompt, model)
+        return response
+
+
+
 def interviewBuddy() -> DialogueFlow:
     global_tranisitons = {
     '[babel]' : {
@@ -257,7 +272,7 @@ def interviewBuddy() -> DialogueFlow:
                 'state': 'follow_up',
                 '#GET_LITTLE': {
                     '#STORE' : {
-                        '`ok!`' : 'big_q'
+                        '#RESPOND' : 'big_q'
                     }
                     # 'state': 'store_follow_up',
                     # '#IF($Q_REMAIN) #STORE':'follow_up',
@@ -294,7 +309,8 @@ def interviewBuddy() -> DialogueFlow:
         'ENCOURAGEMENT': MacroEncourage(), 
         'PERSONA' : MacroPersona(),
         'RUN_EVAL' : MacroGPTEval(dialogue, job_description),
-        'NAME_SAVE' : MacroVisits()
+        'NAME_SAVE' : MacroVisits(), 
+        'RESPOND' : MacroRespond()
         #'RUN_EVAL' : MacroGPTEval(dummy, job_description)
     }
 
