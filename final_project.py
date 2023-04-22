@@ -11,7 +11,7 @@ import random
 import openai
 import os
 from utils import MacroGPTJSON, MacroNLG, gpt_completion
-from evaluation import transitions_responseQuality, transitions_emotion, transitions_evaluate, transitions_requirements
+from evaluation import transitions_unique, transitions_inclusive, transitions_efficiency, transitions_emotion, transitions_evaluate, transitions_requirements
 from transitions_intro import transitions_intro, transition_greetings, transitions_feeling,transitions_field, transitions_job
 from transitions_intro import MacroEncourage
 from babel_transition import question_transition
@@ -34,7 +34,7 @@ def loadName(df: DialogueFlow, varfile: str):
 def load():
     with open('question_bank.json', "r") as f:
         stuff = json.load(f)
-    with open('babel_question.py', "r") as ff:
+    with open('babel_questions.json', "r") as ff:
         babels = json.load(ff)
 
     return stuff, babels
@@ -133,13 +133,18 @@ class MacroWhatElse(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         strlist = []
 
-
         if 'requirements' not in vars: #not yet covered
             strlist.append("job requirements")
         if 'quality' not in vars:
             strlist.append("context appropriateness")
         if 'emotion' not in vars:
             strlist.append("emotional appropriateness")
+        if 'inclusive' not in vars:
+            strlist.append("inclusivity")
+        if 'efficiency' not in vars:
+            strlist.append("efficiency")
+        if 'unique' not in vars:
+            strlist.append('unique words')
 
         if len(b) == 0:
             output = "That's all the feedback I have for you!"
@@ -217,14 +222,15 @@ class MacroGetLittleQuestion(Macro):
         if len(vars["follow_ups"]) == 0:
             vars["Q_REMAIN"] = False
             vars["NO_FOLLOWUP"] = True
-            #str = 'That should be good enough to cover $CURR STATE
-            res = 'OK. All of that is good to hear'
+            res = 'OK. Let\'s move on. '
             dialogue.append('S: ' + res)
             return res
         else:
             idx = int(gpt_completion(prompt, model))
-            res = vars["follow_ups"][idx]
-            #removed random.choice code
+            try:
+                res = vars["follow_ups"][idx]
+            except AssertionError: #index out of bounds ...
+                res = random.choice(vars["follow_ups"][idx]) #handle the error by picking randomly...
             vars["follow_ups"].pop(idx)
             vars["Q_REMAIN"] = True
             vars["NO_FOLLOWUP"] = False
@@ -331,7 +337,9 @@ def interviewBuddy() -> DialogueFlow:
     df.load_transitions(transitions_job)
     df.load_transitions(transitions_feeling)
     df.load_transitions(transitions_evaluate)
-    df.load_transitions(transitions_responseQuality)
+    df.load_transitions(transitions_unique)
+    df.load_transitions(transitions_efficiency)
+    df.load_transitions(transitions_inclusive)
     df.load_transitions(transitions_requirements)
     df.load_transitions(transitions_emotion)
     df.load_global_nlu(global_transitions)

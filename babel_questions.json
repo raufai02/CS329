@@ -1,0 +1,58 @@
+{
+        "technical": {
+                "Tell me about a project you are currently working on": [
+                "Why did you choose to use the programming language you're currently using for this project?",
+                "What sparked your interest in this project? Is there anything specific that motivated you to work on it?",
+                "Is this project something you're working on for academic, extracurricular, or personal reasons?"
+                ],
+                "Tell me about the team you are working with": [
+                "How long have you been working with this team?",
+                "What unique skills do the other team members bring to the project?",
+                "How do you divide the work among team members based on their skills and expertise?"
+                ]
+        },
+        "leadership": {
+                "Can you tell me about a time when you had to work independently to complete a task?": [
+                "How did you initially come across this task? Was it assigned to you or did you identify it on your own?",
+                "What challenges did you encounter while working on this task, and how did you overcome them?",
+                "What was your approach to planning and executing the task, and how did you adapt your approach as you encountered challenges or new information?"
+                ],
+                "How do you handle situations when you have to work independently without clear guidelines?": [
+                "How do you prioritize tasks when you don't have clear guidelines to follow?",
+                "What strategies do you use to stay organized and on track when working independently?",
+                "When faced with competing priorities, how do you determine which tasks to focus on first and why?"
+                ],
+                "Can you tell me about a time when you took the lead?": [
+                "How did you motivate and inspire others to achieve a common goal?",
+                "Can you give an example of a time when you had to resolve a conflict within a team or organization?",
+                "What steps did you take to find a solution and what did you learn from the experience?",
+                "How has this experience helped you in your leadership role?"
+                ]
+        },
+        "culture": {
+                "What type of work environment do you usually prefer?": [
+                "Can you describe an experience working in an environment that was different from what you're used to?",
+                "How would working on a team affect your productivity?",
+                "In what ways did you adjust your working style to fit the new environment, and what strategies did you use to navigate any cultural or workflow differences?",
+                "How do you think working on a team in a virtual environment differs from working on a team in an in-person environment, and how would that impact your productivity?",
+                "How do you maintain a sense of teamwork and camaraderie when working remotely, and how does that differ from an in-person work environment?"
+                ],
+                "How do you approach working with individuals who have different work styles or personalities than your own?": [
+                "How do you prioritize team morale and create a positive work environment?",
+                "Can you tell me about a time when you went above and beyond to support a team member who was struggling with a project?",
+                "How do you balance the needs of the team and the individual, and what strategies do you use to support team members who may have different goals or priorities?"
+                ]
+        },
+        "cognitive": {
+                "How do you handle situations where there is no obvious solution to a problem?": [
+                "Can you provide an example of a project where you identified inefficiencies and improved processes to increase productivity?",
+                "How would you approach this problem differently to solve it faster?",
+                "What metrics did you use to measure the success of your process improvements, and how did you track and communicate those results to stakeholders?"
+                ],
+                "Tell me about a time when you had to change the way you usually approach complex tasks": [
+                "How do you stay organized and keep track of all the moving parts when working on complex tasks?",
+                "What strategies did you implement to complete the task successfully?",
+                "What impact did you have on the project or organization as a result of your approach?"
+                ]
+        }
+}
