@@ -112,7 +112,10 @@ class MacroPersona(Macro):
         # print("promot: ", prompt)
         finalField = gpt_completion(prompt, model).lower()
         # print("finalField: ", finalField)
-        dict = ds[finalField]
+        if finalField in ds:
+            dict = ds[finalField]
+        else:
+            dict = random.choice(ds)
         # print("dict: ", dict)
         position = dict["position"]
         company = dict["company"]
@@ -143,10 +146,10 @@ class MacroWhatElse(Macro):
 
         if 'requirements' not in vars: #not yet covered
             strlist.append("job requirements")
-        if 'quality' not in vars:
-            strlist.append("context appropriateness")
+        if 'friendliness' not in vars:
+            strlist.append("friendliness")
         if 'emotion' not in vars:
-            strlist.append("emotional appropriateness")
+            strlist.append("emotional content")
         if 'inclusive' not in vars:
             strlist.append("inclusivity")
         if 'efficiency' not in vars:
@@ -296,7 +299,7 @@ def interviewBuddy() -> DialogueFlow:
                 'state': 'follow_up',
                 '#GET_LITTLE': {
                     '#STORE' : {
-                        '#RESPOND' : 'big_q'
+                        '#RESPOND': 'big_q'
                     }
                     # 'state': 'store_follow_up',
                     # '#IF($Q_REMAIN) #STORE':'follow_up',
@@ -309,8 +312,7 @@ def interviewBuddy() -> DialogueFlow:
     }
 
     }
-                
-            # }
+
     transitions_no_follow = {
         'state': 'no_follow_up',
         '`Thanks for chatting`#GET_NAME': {

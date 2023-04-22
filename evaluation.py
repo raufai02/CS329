@@ -25,9 +25,9 @@ transitions_evaluate = {
     '`Congratulations on completing the interview! Would you like to receive feedback?`': {
         '[{yea, ya, yes, i would, of course, sure, definitely}] #RUN_EVAL': {
             'state': 'what_else',
-            '`Perfect!` #WHAT_ELSE': {
+            '#WHAT_ELSE': {
                 '#GATE [friendliness]': 'friendliness',
-                '#GATE [emotion]' : 'emotion',
+                '#GATE [{emotion, emotional content}]': 'emotion',
                 '#GATE [inclusivity]': 'inclusive',
                 '#GATE [efficiency]': 'efficiency',
                 '#GATE [unique words]': 'unique',
@@ -47,7 +47,7 @@ transitions_friendliness = {
     'state' : 'friendliness',
     '#GATE #SETBOOL($friendliness, true) `Your overall friendliness score was ` $FRIENDLY_SCORE `. Would you like to see some examples?`' : {
         '[{yea, yes, sure, yeah, definitely, of course}]': {
-            '`Here is an example of a response where you demonstrated friendliness: \n ` $FRIENDLY_EX_GOOD `. Do you want to see another example?': {
+            '`Here is an example of a response where you demonstrated friendliness: \n ` $FRIENDLY_EX_GOOD `. Do you want to see another example? \n`': {
                 '[{yea, yes, sure, yeah, definitely, of course}]': {
                     '`In this example, you could have been more friendly! \n ` $FRIENDLY_EX_BAD': 'what_else',
                 },
@@ -64,7 +64,11 @@ transitions_emotion = {
         '[context]': 'context',
         '[requirements]': 'requirements',
         '[{yea, yes, sure, yeah, definitely, of course}]': {
-            '`Here is an example of a response where you expressed positive emotional content: \n `$EMOTION_EX_GOOD': 'what_else',
+            '`Here is an example of a response where you were ` $EMOTION_EX_GOOD_ADJ: \n `$EMOTION_EX_GOOD `\n We gave you a score of ` $EMOTION_EX_GOOD_SCORE `. \n Would you like to see another example?\n`': {
+                '[{yea, yes, sure, yeah, definitely, of course}]' : {
+                    '`Here was an example where you were ` $EMOTION_EX_BAD_ADJ ` and could have done better: \n ` $EMOTION_EX_BAD `\n We gave you a score of ` $EMOTION_EX_BAD_SCORE `\n` ': 'what_else'
+                }
+            }
         },
         '[{no, nah, nope}]': 'what_else',
         'error': 'what_else'
@@ -104,7 +108,9 @@ transitions_requirements = {
     'state': 'requirements',
     '#GATE #SETBOOL($requirements, true) `Your raw score for meeting job requirements was ` $REQUIREMENT_SCORE `. Would you like to learn more about this score?`': {
         '[{yea, yes, sure, of course}]': {
-            '`Here is an example of a response where you demonstrated job requirements: \n `$REQUIREMENT_EX_GOOD': 'what_else',
+            '`Here is an example of a response where you demonstrated job requirements:` \n  $REQUIREMENT_EX_GOOD \n `Would you like to see another example?`': {
+                '`In this response you could have done better in showing that you meet job requirements: \n ` $REQUIREMENT_EX_BAD `\n`': 'what_else'
+            }
         },
         '[{no, nah, nope}]': 'what_else'
     },
@@ -116,7 +122,7 @@ transitions_requirements = {
 
 transitions_inclusive = {
     'state' : 'inclusive',
-    '#GATE #SETBOOL($inclusive, true) `Your total inclusivity score was ` $INCLUSIVE_SCORE `. Would you like to learn more?': {
+    '#GATE `Your total inclusivity score was ` $INCLUSIVE_SCORE `. Would you like to learn more?`#SETBOOL($inclusive, true)': {
         '[{yea, yes, sure, of course}]': {
             '`Here is an example of a good response where you were very ` $INCLUSIVE_GOOD_ADJECTIVE `. \n` $INCLUSIVE_EX_GOOD `\n Your score for this response was ` $INCLUSIVE_GOOD_SCORE `. `': {
                 'error': {
@@ -125,6 +131,6 @@ transitions_inclusive = {
             }
         },
         '[{no, nah, naw, nope, meh}]' : 'what_else',
-        'error' : 'inclusive'
+        'error': 'inclusive'
     }
 }
