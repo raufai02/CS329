@@ -1,21 +1,11 @@
 {
-  "0": 
-      "",
-    "1":
-      "I remember when I first learned to program in that language. It's a hard language to learn I'm impressed that you used it!",
-    "2":
-      "That's a very interesting project! Reminds of some work I did back in college.",
-    "3":
-      "Learning to lead can be very difficult. Your approach was smart.",
-    "4":
-      "Hmm I've never thought about leadership that way. Thanks for sharing that approach",
-    "5":
-      "Cool! Our company culture really emphasizes those aspects you highlighted as well",
-    "6":
-      "Working with others can be tough, but it's a skill you gain over time! I love working with my team now.",
-    "7":
-      "That's a really smart idea! Thanks for sharing that",
-    "8": 
-      "Working with others is a skill that we all have to work on! I am glad you were able to divide tasks equally."
+  "0": ["I remember when I first learned to program in that language. It's a hard language to learn I'm impressed that you used it!", 
+        "That's a very interesting project! Reminds of some work I did back in college.",
+        "Learning to lead can be very difficult. Your approach was smart.", 
+        "Hmm I've never thought about leadership that way. Thanks for sharing that approach",
+        "Cool! Our company culture really emphasizes those aspects you highlighted as well",
+        "Working with others can be tough, but it's a skill you gain over time! I love working with my team now.",
+        "That's a really smart idea! Thanks for sharing that",
+        "Working with others is a skill that we all have to work on! I am glad you were able to divide tasks equally."]
 }
 

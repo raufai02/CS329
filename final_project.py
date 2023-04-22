@@ -48,6 +48,12 @@ def loadPersonas():
     with open('resources/personas.json', "r") as f:
         stuff = json.load(f)
     return stuff
+
+def loadComments():
+    with open('resources/contextual_comments.json', "r") as f:
+        stuff = json.load(f)
+    return stuff
+
 def get_call_name(vars: Dict[str, Any]):
     ls = vars[V.call_names.name]
     return ls[random.randrange(len(ls))]
@@ -235,15 +241,17 @@ class MacroGetLittleQuestion(Macro):
 
 class MacroRespond(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        global personaSkills, dialogue, dialogue_counter
+        global dialogue, dialogue_counter
 
         context = str(dialogue[-2] + '\n' + dialogue[-1])
         # print(context)
-        personaSkillsStr = '[' + ','.join(personaSkills) + ']'
+        ds = loadComments()
+        comments = ds['0']
+        comments_str = '[' + ','.join(comments) + ']'
         model = 'text-davinci-003'
-        prompt = 'write the most appropriate short one line follow-up sentence less than 11 words from the following dialogue context: ' + context + ' and some of the skills from the following list ' + personaSkillsStr + ' of a person sharing their experience. Write it without any quotes nor commas and place a period at the end.'
-        response = gpt_completion(prompt, model)
-        return response
+        prompt = 'Select the most appropriate follow up response from the following list' + comments_str + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best response, assuming the list starts at index 0, such as "0" or "1". '
+        idx = int(gpt_completion(prompt, model))
+        return comments[idx]
 
 
 
