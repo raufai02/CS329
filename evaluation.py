@@ -28,8 +28,8 @@ transitions_evaluate = {
             '`Perfect!` #WHAT_ELSE': {
                 '#GATE [friendliness]': 'friendliness',
                 '#GATE [emotion]' : 'emotion',
-                '#GATE [inclusivity]' : 'inclusivity',
-                '#GATE [efficiency]' : 'efficiency',
+                '#GATE [inclusivity]': 'inclusive',
+                '#GATE [efficiency]': 'efficiency',
                 '#GATE [unique words]': 'unique',
                 '#GATE [job requirements]': 'requirements',
                 'error': {

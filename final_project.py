@@ -106,7 +106,7 @@ class MacroPersona(Macro):
         # print(context)
         model = 'text-davinci-003'
         allFields = ds.keys()
-        field_str = '[' + ','.join(allFields) + ']'
+        field_str = '[' + ';'.join(allFields) + ']'
         # print("All fields: ", field_str)
         prompt = 'Select the most appropriate field from the following list' + field_str + ' and the following dialogue context: ' + context + 'Output ONLY the most appropriate field from the following list' + field_str + '.'
         # print("promot: ", prompt)
@@ -225,7 +225,7 @@ class MacroGetLittleQuestion(Macro):
         # print(context)
         model = 'text-davinci-003'
         follow_ups = vars["follow_ups"]
-        follow_str = '[' + ','.join(follow_ups) + ']'
+        follow_str = '[' + ';'.join(follow_ups) + ']'
         prompt = 'Select the most appropriate follow up question from the following list' + follow_str + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best question, assuming the list starts at index 0, such as "0" or "1". '
 
         if len(vars["follow_ups"]) == 0:
@@ -243,6 +243,7 @@ class MacroGetLittleQuestion(Macro):
                 print(prompt)
                 print(idx)
                 res = random.choice(vars["follow_ups"])
+                idx = vars["follow_ups"].index(res)
             
             #use random.choice on index out of bounds
             vars["follow_ups"].pop(idx)
@@ -259,7 +260,7 @@ class MacroRespond(Macro):
 
         context = str(dialogue[-2] + '\n' + dialogue[-1])
         model = 'gpt-3.5-turbo'
-        prompt = 'Select the most appropriate follow up response from the following list' + str(responseDS) + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best response, assuming the list starts at index 0, such as "0" or "1". If none of the above are appropriate responses respond with index 0 (the index of an empty string) '
+        prompt = 'Select the most appropriate follow up response from the following list: ' + str(responseDS) + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best response, assuming the list starts at index 0, such as "0" or "1". If none of the above are appropriate responses respond with index 0 (the index of an empty string) '
         idx = gpt_completion(prompt, model)
         output = responseDS[str(idx)]
         del responseDS[str(idx)]
