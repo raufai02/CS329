@@ -116,7 +116,7 @@ transitions_job = {
 transitions_feeling = {
     'state' : 'feeling',
         '`Anyways, we should probably get into the interview. Are you feeling nervous or confident?`': {
-                '[nervous, anxious, worried, stressed]': {
+                '[{nervous, anxious, worried, stressed}]': {
                     '#ENCOURAGEMENT `Are you ready now?`': {
                         '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]': {
                             '`Then, let\'s begin.`': {
@@ -136,7 +136,7 @@ transitions_feeling = {
                         }
                     }
                 },
-                '[confident, comfortable, good]': {
+                '[{confident, comfortable, good}]': {
                     '`That\'s great. Now, let\'s begin`': {
                         'error' : 'interview'
                     }

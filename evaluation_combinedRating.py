@@ -60,30 +60,30 @@ class MacroGPTEval(Macro):
         vars["LEAST_FREQUENT"] = dict['Task 4']['Unique words']['least_frequent'][0]
 
             #TASK 5
-        vars["INCLUSIVE_SCORE"] = dict['Task 5']['Inclusive Language']['inclusive_score'][0]
+        vars["INCLUSIVE_SCORE"] = str(dict['Task 5']['Inclusive Language']['inclusive_score'][0])
         idx = dict['Task 5']['Most Inclusive Answer']['answer_index'][0]
 
         vars["INCLUSIVE_EX_GOOD"] = self.transcript[idx]
         vars["INCLUSIVE_GOOD_ADJECTIVE"] = dict['Task 5']['Most Inclusive Answer']['response_adjectives'][0]
-        vars["INCLUSIVE_GOOD_SCORE"] = dict['Task 5']['Most Inclusive Answer']['inclusive_score'][0]
+        vars["INCLUSIVE_GOOD_SCORE"] = str(dict['Task 5']['Most Inclusive Answer']['inclusive_score'][0])
 
         idx = dict['Task 5']['Least Inclusive Answer']['answer_index'][0]
         vars["INCLUSIVE_EX_BAD"] = self.transcript[idx]
         #again we are only selecting one item from a list....
         vars["INCLUSIVE_BAD_ADJECTIVE"] = dict['Task 5']['Least Inclusive Answer']['response_adjectives'][0]
-        vars["INCLUSIVE_BAD_SCORE"] = dict['Task 5']['Least Inclusive Answer']['inclusive_score'][0]
+        vars["INCLUSIVE_BAD_SCORE"] = str(dict['Task 5']['Least Inclusive Answer']['inclusive_score'][0])
 
             #TASK 6 ******
         emotion_good_idx = dict['Task 6']['Most Positive Response']['answer_index'][0]
         vars["EMOTION_EX_GOOD"] = self.transcript[emotion_good_idx]
         vars["EMOTION_EX_GOOD_ADJ"] = dict['Task 6']['Most Positive Response']['emotions_listed'][0]
-        vars["EMOTION_EX_GOOD_SCORE"] = dict['Task 6']['Most Positive Response']['answer_emotionScore'][0]
+        vars["EMOTION_EX_GOOD_SCORE"] = str(dict['Task 6']['Most Positive Response']['answer_emotionScore'][0])
 
 
         idx = dict['Task 6']['Most Negative Response']['answer_index'][0]
         vars["EMOTION_EX_BAD"] = self.transcript[idx]
         vars["EMOTION_EX_BAD_ADJ"] = dict['Task 6']['Most Negative Response']['emotions_listed'][0]
-        vars["EMOTION_EX_BAD_SCORE"] = dict['Task 6']['Most Negative Response']['answer_emotionScore'][0]
+        vars["EMOTION_EX_BAD_SCORE"] = str(dict['Task 6']['Most Negative Response']['answer_emotionScore'][0])
 
             #TASK 7
         vars["FRIENDLY_SCORE"] = dict['Task 7']['Friendliness'][0]
