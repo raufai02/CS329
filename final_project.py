@@ -245,10 +245,10 @@ class MacroRespond(Macro):
 
         context = str(dialogue[-2] + '\n' + dialogue[-1])
         ds = loadComments()
-        model = 'text-davinci-003'
+        model = 'gpt-3.5-turbo'
         prompt = 'Select the most appropriate follow up response from the following list' + str(ds) + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best response, assuming the list starts at index 0, such as "0" or "1". If none of the above are appropriate responses respond with index 0 (the index of an empty string) '
-        idx = int(gpt_completion(prompt, model))
-        return ds[idx]
+        idx = gpt_completion(prompt, model)
+        return ds[str(idx)]
 
 
 
