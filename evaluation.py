@@ -17,9 +17,6 @@ class MacroSetBool(Macro):
         vars[variable] = bool(boolean)
         return True
 
-
-
-
 transitions_evaluate = {
     'state': 'start_evaluate',
     '`Congratulations on completing the interview! Would you like to receive feedback?`': {
@@ -27,9 +24,9 @@ transitions_evaluate = {
             'state': 'what_else',
             '`Perfect!` #WHAT_ELSE': {
                 '#GATE [friendliness]': 'friendliness',
-                '#GATE [emotion]' : 'emotion',
-                '#GATE [inclusivity]' : 'inclusivity',
-                '#GATE [efficiency]' : 'efficiency',
+                '#GATE [emotion]': 'emotion',
+                '#GATE [inclusivity]': 'inclusivity',
+                '#GATE [efficiency]': 'efficiency',
                 '#GATE [unique words]': 'unique',
                 '#GATE [job requirements]': 'requirements',
                 'error': {
@@ -76,7 +73,7 @@ transitions_emotion = {
 
 transitions_efficiency = {
     'state': 'efficiency',
-    '#GATE `Let\'s look at your highest and lowest lexical density examples, OK?`': {
+    '#GATE #SETBOOL(efficiency, true) `Let\'s look at your highest and lowest lexical density examples, OK?`': {
         'error': {
             '`Your most efficient response had a score of ` $LEXICAL_GOOD `, and an efficiency score of ` $EFFIENCY_GOOD `. \n` $EFFICIENCY_EX_GOOD' : {
                 'error': {
@@ -89,7 +86,7 @@ transitions_efficiency = {
 }
 transitions_unique = {
     'state': 'unique',
-    '#GATE  `You used ` $TOTAL_UNIQUE `unique words per word. Would you like to learn more about this score?`': {
+    '#GATE #SETBOOL($unique, true) `You used ` $TOTAL_UNIQUE `unique words per word. Would you like to learn more about this score?`': {
         '[{yea, yes, sure, of course}]': {
             '`The most frequent word you used was ` $MOST_FREQUENT `. Limiting repeated use of words can help. The word you used least frequently was ` $LEAST_FREQUENT': 'what_else',
         },

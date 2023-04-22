@@ -229,8 +229,11 @@ class MacroGetLittleQuestion(Macro):
             idx = int(gpt_completion(prompt, model))
             try:
                 res = vars["follow_ups"][idx]
-            except AssertionError: #index out of bounds ...
-                res = random.choice(vars["follow_ups"][idx]) #handle the error by picking randomly...
+            except IndexError: #index out of bounds ...
+                print(vars["follow_ups"])
+                print(prompt)
+                print(idx)
+                res = random.choice(vars["follow_ups"]) #handle the error by picking randomly...
             vars["follow_ups"].pop(idx)
             vars["Q_REMAIN"] = True
             vars["NO_FOLLOWUP"] = False
