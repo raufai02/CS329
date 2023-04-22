@@ -76,13 +76,13 @@ class MacroGPTEval(Macro):
             #TASK 6 ******
         emotion_good_idx = dict['Task 6']['Most Positive Response']['answer_index'][0]
         vars["EMOTION_EX_GOOD"] = self.transcript[emotion_good_idx]
-        vars["EMOTION_EX_GOOD_ADJ"] = dict['Task 6']['Most Positive Response']['emotions_listed'][0]
+        vars["EMOTION_EX_GOOD_ADJ"] = dict['Task 6']['Most Positive Response']['descriptors'][0]
         vars["EMOTION_EX_GOOD_SCORE"] = str(dict['Task 6']['Most Positive Response']['answer_emotionScore'][0])
 
 
         idx = dict['Task 6']['Most Negative Response']['answer_index'][0]
         vars["EMOTION_EX_BAD"] = self.transcript[idx]
-        vars["EMOTION_EX_BAD_ADJ"] = dict['Task 6']['Most Negative Response']['emotions_listed'][0]
+        vars["EMOTION_EX_BAD_ADJ"] = dict['Task 6']['Most Negative Response']['descriptors'][0]
         vars["EMOTION_EX_BAD_SCORE"] = str(dict['Task 6']['Most Negative Response']['answer_emotionScore'][0])
 
             #TASK 7

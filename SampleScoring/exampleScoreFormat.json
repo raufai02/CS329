@@ -56,13 +56,13 @@
       "Task 6":{
         "Most Positive Response":{
             "answer_index":[2],
-            "emotions_listed": ["happy", "content", "excited"],
+            "descriptors": ["happy", "content", "excited"],
             "answer_emotionScore":[0.8]
         },
 
         "Most Negative Response":{
             "answer_index":[4],
-            "emotions_listed": ["hate", "anger"],
+            "descriptors": ["hate", "anger"],
             "answer_emotionScore":[0.1]
         }
     },
