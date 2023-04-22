@@ -115,7 +115,7 @@ class MacroPersona(Macro):
         if finalField in ds:
             dict = ds[finalField]
         else:
-            dict = random.choice(ds)
+            dict = ds[random.choice(list(ds.keys))] #choose randomly!!
         # print("dict: ", dict)
         position = dict["position"]
         company = dict["company"]
@@ -142,8 +142,6 @@ class MacroSetBool(Macro):
 class MacroWhatElse(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         strlist = []
-
-
         if 'requirements' not in vars: #not yet covered
             strlist.append("job requirements")
         if 'friendliness' not in vars:
@@ -156,7 +154,6 @@ class MacroWhatElse(Macro):
             strlist.append("efficiency")
         if 'unique' not in vars:
             strlist.append('unique words')
-
 
         if len(strlist) == 0:
             output = "That's all the feedback I have for you!"
@@ -179,17 +176,12 @@ class MacroGetExample(Macro):
 
 class MacroStoreResponse(Macro): #store the last response!
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        # num_threads = len(vars[Dialogue.DialogueList])  # current length of DialogueList
-        # num_questions = len(user[Dialogue.DialogueList[num_threads - 1]])  # number of questions in the final item in list
-        # vars[Dialogue.DialogueList[num_threads-1][num_questions-1].response.name] = Ngrams.text()
-       # print(dialogue)
+
         global dialogue, dialogue_counter
 
         dialogue_counter = dialogue_counter + 1
         dialogue.append(str(dialogue_counter) +  ' U: ' + ngrams.text())
         return True
-        # vars[Dialogue.DialogueList[num_threads - 1][num_questions - 1].question.name] = vars['QUESTION']
-
 
 class MacroGetBigQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
