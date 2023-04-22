@@ -320,8 +320,8 @@ def interviewBuddy() -> DialogueFlow:
     macros = {
         'STORE': MacroStoreResponse(),
         'SET_CALL_NAMES': MacroGPTJSON(
-            'How does the speaker want to be called?',
-            {V.call_name.name: ["Mike", "Michael"]}),
+            'How does the speaker want to be called? Select the name provided by the user and return. If no name is available return Micheal',
+            {V.call_name.name: ["Mike", "Michael"]}, {V.call_name.name: ["Micheal"]}),
         'GET_NAME': MacroNLG(get_call_name),
         'GET_BIG': MacroGetBigQuestion(),
         'GET_LITTLE' : MacroGetLittleQuestion(),

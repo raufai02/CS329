@@ -89,7 +89,7 @@ transitions_efficiency = {
 }
 transitions_unique = {
     'state': 'unique',
-    '#GATE  `You used ` $TOTAL_UNIQUE `unique words per word. Would you like to learn more about this score?`': {
+    '#GATE`You used ` $TOTAL_UNIQUE `unique words per word. Would you like to learn more about this score?`SETBOOL($unique, true)': {
         '[{yea, yes, sure, of course}]': {
             '`The most frequent word you used was ` $MOST_FREQUENT `. Limiting repeated use of words can help. The word you used least frequently was ` $LEAST_FREQUENT': 'what_else',
         },
