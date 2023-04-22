@@ -67,6 +67,7 @@ bank, babel = load() #key category, value dictionary with question, list pairs
 globalCount = {'technical':0, 'leadership':0, 'culture':0, 'cognitive':0}
 globalCounter = 0
 counter = 0
+responseDS = loadComments()
 stuff = loadJD()
 job = random.choice(list(stuff.keys()))
 job_description = str(stuff[job])
@@ -254,14 +255,15 @@ class MacroGetLittleQuestion(Macro):
 
 class MacroRespond(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        global dialogue, dialogue_counter
+        global responseDS, dialogue, dialogue_counter
 
         context = str(dialogue[-2] + '\n' + dialogue[-1])
-        ds = loadComments()
         model = 'gpt-3.5-turbo'
-        prompt = 'Select the most appropriate follow up response from the following list' + str(ds) + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best response, assuming the list starts at index 0, such as "0" or "1". If none of the above are appropriate responses respond with index 0 (the index of an empty string) '
+        prompt = 'Select the most appropriate follow up response from the following list' + str(responseDS) + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best response, assuming the list starts at index 0, such as "0" or "1". If none of the above are appropriate responses respond with index 0 (the index of an empty string) '
         idx = gpt_completion(prompt, model)
-        return ds[str(idx)]
+        output = responseDS[str(idx)]
+        del responseDS[str(idx)]
+        return output
 
 
 
