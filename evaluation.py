@@ -20,7 +20,7 @@ class MacroSetBool(Macro):
 
 transitions_evaluate = {
     'state': 'start_evaluate',
-    '`Congratulations on completing the interview! I can now analyze your responses to give you some feedback on points to improve. Would you like to receive feedback?`': {
+    '#STORE_SYSTEM(`Congratulations on completing the interview! I can now analyze your responses to give you some feedback on points to improve. Would you like to receive feedback?`)': {
         '[{yea, ya, yes, i would, of course, sure, definitely}] #RUN_EVAL': {
             'state': 'what_else',
             '#WHAT_ELSE': {
@@ -36,14 +36,14 @@ transitions_evaluate = {
             }
         },
         '[{no, nope, nah, na, all good, meh}]': {
-            '`OK, no worries! Thanks for your time and good luck with your applications!`': 'end'
+            '#STORE_SYSTEM(`OK, no worries! Thanks for your time and good luck with your applications!`)': 'end'
         }
     }
 }
 
 transitions_friendliness = {
     'state' : 'friendliness',
-    '#GATE #SETBOOL($friendliness, true) `Studies in psychology have shown that interviewers are more receptive towards friendly candidates.  Here we analyze the conversation to see how friendly you were during the interview. Your overall friendliness score was: `$FRIENDLY_SCORE ` out of 1.0 possible.\n Would you like to see some specific examples?`': {
+    '#GATE #SETBOOL($friendliness, true) `Studies in psychology have shown that interviewers are more receptive towards friendly candidates.  Here we analyze the conversation to see how friendly you were during the interview. Your overall friendliness score was: ` $FRIENDLY_SCORE ` out of 1.0 possible.\n Would you like to see some specific examples?`': {
         '[{yea, yes, sure, yeah, definitely, of course}]': {
             '`Here is an example of a response where you demonstrated friendliness: \n ` $FRIENDLY_EX_GOOD `.\n In this example you recieved a score of:` $FRIENDLY_EX_GOOD_SCORE `.  Do you want to see another example? \n`': {
                 '[{yea, yes, sure, yeah, definitely, of course}]': {

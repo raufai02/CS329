@@ -1,15 +1,18 @@
 {
         "What are some themes of the movie?": [
-                "How do you think the name of the movie relates to its theme?"
+                "How do you think the name of the movie relates to its theme?",
+                "Have you heard of the tower of Babel biblical story?"
         ],
         "Have you heard of the butterfly effect?": [
                 "How do you think time is used in the movie?",
                 "How is the butterfly effect used in the movie?"
         ],
         "Who were your favorite characters in the movie?": [
-                "How do you feel about the Americans being the only characters to have a happy ending?"
+                "How do you feel about the Americans being the only characters to have a happy ending?",
+                "Do you think this was Brad Pitt's best movie?"
         ],
-        "Language and translation is an important element of the movie. What do you think the argument of the movie is with regards to the issue of translation?": [
-                "Do you think it is every possible to fully understand what someone is saying?"
+        "What do you think about Language and translation in the movie?": [
+                "Do you think it is every possible to fully understand what someone is saying?",
+                "Do you think there is a political element to the issue of language and translation?"
         ]
 }

@@ -122,7 +122,10 @@ class MacroPersona(Macro):
         company = dict["company"]
         chosenName = dict["name"]
         personaSkills = dict['skills']
-        return f"Hi there! My name is {chosenName}, I know a thing or two about {finalField}. I am working at {company} as a {position}. I will be conducting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
+        output = f"Hi there! My name is {chosenName}, I know a thing or two about {finalField}. I am working at {company} as a {position}. I will be conducting the interview with you! I want to you to know that I am on your side throughout this process, just do your best when answering the questions. So let's start!"
+        dialogue.append('S: ' + output)
+        dialogue_counter = dialogue_counter + 1
+        return output
 
 class MacroSetBool(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
@@ -268,7 +271,7 @@ class MacroRespond(Macro):
 def interviewBuddy() -> DialogueFlow:
     global_transitions = {
     '[{babel}]' : 'movie_q'
-}
+    }
     transitions_classify = {
     'state' : 'interview',
     '#PERSONA' : { # insert persona macro - Ameer
