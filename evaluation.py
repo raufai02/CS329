@@ -60,7 +60,7 @@ transitions_emotion = {
         '[{yea, yes, sure, yeah, definitely, of course, ok}]': {
             '`Here is an example of a response where you were ` $EMOTION_EX_GOOD_ADJ `: \n ` $EMOTION_EX_GOOD `\n We gave you a score of ` $EMOTION_EX_GOOD_SCORE `. out of 1 possible.\n Would you like to see another example?\n`': {
                 '[{yea, yes, sure, yeah, definitely, of course}]': {
-                    '`Here was an example where you were ` $EMOTION_EX_BAD_ADJ ` and could have done better: \n ` $EMOTION_EX_BAD `\n We gave you a score of ` $EMOTION_EX_BAD_SCORE `\n` ': 'what_else'
+                    '`Here was an example where you were ` $EMOTION_EX_BAD_ADJ ` and could have done better: \n ` $EMOTION_EX_BAD ` We gave you a score of ` $EMOTION_EX_BAD_SCORE `\n`': 'what_else'
                 }
             }
         },

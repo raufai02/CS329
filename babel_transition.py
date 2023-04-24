@@ -71,8 +71,8 @@ class MacroBabelLittleQuestion(Macro):
             try:
                 res = vars["babel_follow_ups"][idx]
             except IndexError:
-                print(prompt)
-                print(idx)
+                # print(prompt)
+                # print(idx)
                 res = random.choice(vars["babel_follow_ups"])
                 idx = vars["babel_follow_ups"].index(res)
 

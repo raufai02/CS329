@@ -93,7 +93,7 @@ class MacroVisits(Macro):
             return f'Welcome back, ' + vars['name'] + '!'
 class MacroPersona(Macro): 
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[str]):
-        global personaSkills
+        global personaSkills, dialogue_counter, dialogue
         # chosenName = random.choice(names)
         # field = vars['USER_FIELD']
         # jd = loadJD()

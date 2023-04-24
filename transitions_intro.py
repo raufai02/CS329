@@ -121,7 +121,7 @@ transitions_feeling = {
                     '#ENCOURAGEMENT `Are you ready now?`': {
                         '[{yes, yeah, yea, ye, yeye, correct, indeed, affirmative, absolutely,bet,roger, yup, definitely, uh huh, yep}]': {
                             '`Then, let\'s begin.`': {
-                                'error' : 'interview'
+                                'error': 'interview'
                             }
                             
                         },
