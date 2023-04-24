@@ -119,7 +119,7 @@ transitions_babel = {
                     'state': 'babel_follow_up',
                     '#BABEL_RESPOND #GET_BABEL_LITTLE': {
                         '#STORE': {
-                            '#BABEL_RESPOND': {
+                            '#BABEL_RESPOND #GET_BABEL_LITTLE': {
                                 '#STORE' : {
                                     '#BABEL_RESPOND #GET_BABEL_LITTLE': {
                                         '#STORE': {
