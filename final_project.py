@@ -14,7 +14,7 @@ from utils import MacroGPTJSON, MacroNLG, gpt_completion
 from evaluation import transitions_unique, transitions_friendliness, transitions_inclusive, transitions_efficiency, transitions_emotion, transitions_evaluate, transitions_requirements
 from transitions_intro import transitions_intro, transition_greetings, transitions_feeling,transitions_field, transitions_job
 from transitions_intro import MacroEncourage
-from babel_transition import question_transition
+from babel_transition import transitions_babel, MacroBabelBigQuestion, MacroBabelLittleQuestion
 from transitions_intro import MacroVisits, get_call_name
 from evaluation_combinedRating import MacroGPTEval
 
@@ -265,21 +265,7 @@ class MacroRespond(Macro):
 
 def interviewBuddy() -> DialogueFlow:
     global_transitions = {
-    '[{babel}]' : {
-        '`Ok, lets talk about the movie Babel. What did you think of it?`' : {
-            '[{good, great, amazing, compelling, powerful, capitvating, gripping, moving, masterful, masterpiece, multilayered, poignant, authentic, impactful, cinematic, profound, bold, oscar}]' : {
-                '`I\'m glad you enjoyed the movie! `' : 'movie_q' 
-                },
-            '[{bad, terrible, awful, garbage, meh, ok, boring, predictable, dull, lifeless, tedious, flat, confusing, disappointing, cliche, corny, mediocre, sloppy, unoriginal}]' : {
-                '`I\'m sorry to hear that it didn\'t meet your expectations.`' : 'movie_q' 
-                },
-            'error' : {
-                '`Gotcha. Your opinion is noted`' : 'movie_q'
-            }
-                   
-            
-        } 
-    }
+    '[{babel}]' : 'movie_q'
 }
     transitions_classify = {
     'state' : 'interview',
@@ -315,6 +301,8 @@ def interviewBuddy() -> DialogueFlow:
         'GET_NAME': MacroNLG(get_call_name),
         'GET_BIG': MacroGetBigQuestion(),
         'GET_LITTLE' : MacroGetLittleQuestion(),
+        'GET_BABEL_LITTLE':MacroBabelLittleQuestion(),
+        'GET_BABEL_BIG':MacroBabelBigQuestion(),
         'GET_CALL_NAME': MacroNLG(get_call_name),
         'GET_EXAMPLE' : MacroGetExample(),
         'WHAT_ELSE': MacroWhatElse(),
@@ -348,7 +336,7 @@ def interviewBuddy() -> DialogueFlow:
     df.load_transitions(transitions_requirements)
     df.load_transitions(transitions_emotion)
     df.load_global_nlu(global_transitions)
-    df.load_transitions(question_transition)
+    df.load_transitions(transitions_babel)
     df.add_macros(macros)
 
     return df
@@ -370,6 +358,7 @@ if os.path.exists('test.pkl') is False:
     loadName(interviewBuddy(),'test.pkl')
 
 if __name__ == '__main__':
-    saveName(interviewBuddy(),'test.pkl')
+    interviewBuddy().run()
+    #saveName(interviewBuddy(),'test.pkl')
 
     # save(interviewBuddy(),dialogue)
