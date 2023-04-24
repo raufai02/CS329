@@ -49,11 +49,10 @@ class MacroGPTEval(Macro):
 
         efficient_good_example_idx = dict['Task 3']['most efficient response']['answer_index'][0]
         vars["EFFICIENT_EX_GOOD"] = self.transcript[efficient_good_example_idx]
-        vars["LEXICAL_GOOD"] = dict['Task 3']['most efficient response']['lexical_density'][0]
-        vars["EFFICIENCY_GOOD"] = dict['Task 3']['most efficient response']['answer_efficiencyScore'][0]
+        vars["LEXICAL_GOOD"] = str(dict['Task 3']['most efficient response']['lexical_density'][0])
+        vars["EFFICIENCY_GOOD"] = str(dict['Task 3']['most efficient response']['answer_efficiencyScore'][0])
 
             #TASK 4
-
         vars["TOTAL_UNIQUE"] = dict['Task 4']['Unique words']['total_uniqueWords'][0]
         #these next two are supposed to be lists, not single words. but we will just extract a single word for now...
         vars["MOST_FREQUENT"] = dict['Task 4']['Unique words']['most_frequent'][0]

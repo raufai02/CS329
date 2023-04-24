@@ -81,7 +81,7 @@ transitions_babel = {
                 },
                 '#IF($b_stopper=Stop)': {
                     '`Thanks for chatting`#GET_NAME': {
-                        '#STORE': 'babel_evaluate'
+                        '#STORE': 'start_evaluate'
                     }
                 }
             }
