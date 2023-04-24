@@ -47,7 +47,7 @@ transitions_friendliness = {
         '[{yea, yes, sure, yeah, definitely, of course}]': {
             '`Here is an example of a response where you demonstrated friendliness: \n ` $FRIENDLY_EX_GOOD `.\n In this example you recieved a score of:` $FRIENDLY_EX_GOOD_SCORE `.  Do you want to see another example? \n`': {
                 '[{yea, yes, sure, yeah, definitely, of course}]': {
-                    '`In this example, you could have been more friendly. You recieved a score of:` $FRIENDLY_EX_BAD_SCORE `\n` And your response was: `$FRIENDLY_EX_BAD` \n': 'what_else',
+                    '`In this example, you could have been more friendly. You recieved a score of:` $FRIENDLY_EX_BAD_SCORE `\n` And your response was:` $FRIENDLY_EX_BAD `\n`': 'what_else',
                 },
                 '[{no, nah, nope}]' : 'what_else'
             }
