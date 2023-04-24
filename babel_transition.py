@@ -54,28 +54,26 @@ class MacroBabelLittleQuestion(Macro):
         try:
             context = str(dialogue[-2] + '\n' + dialogue[-1])
         except IndexError:
-            print(dialogue)
+            # print(dialogue)
             context = '\n'.join(dialogue)
 
         model = 'text-davinci-003'
         follow_ups = vars["babel_follow_ups"]
-        try:
-            follow_str = '[' + ';'.join(follow_ups) + ']'
-        except TypeError:
-            print(follow_ups)
-        prompt = 'Select the most appropriate follow up question about the movie Babel (2006),from the following list' + follow_str + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best question, assuming the list starts at index 0, such as "0" or "1". '
+        follow_str = '[' + ';'.join(follow_ups) + ']'
 
+        prompt = 'Select the most appropriate follow up question about the movie Babel (2006),from the following list' + follow_str + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best question, assuming the list starts at index 0, such as "0" or "1". '
         if len(vars["babel_follow_ups"]) == 0:
             res = 'Very thoughtful of you!'
             dialogue.append('S: ' + res)
             return res
         else:
-            idx = int(gpt_completion(prompt, model))
+            try:
+                idx = int(gpt_completion(prompt, model))
+            except RateLimitError: #if GPT overwhelmed!!
+                idx = random.randrange(0, len(vars["babel_follow_ups"]))
             try:
                 res = vars["babel_follow_ups"][idx]
             except IndexError:
-                # print(prompt)
-                # print(idx)
                 res = random.choice(vars["babel_follow_ups"])
                 idx = vars["babel_follow_ups"].index(res)
 
@@ -92,7 +90,11 @@ class MacroBabelRespond(Macro):
         context = str(dialogue[-2] + '\n' + dialogue[-1])
         model = 'gpt-3.5-turbo'
         prompt = 'Select the most appropriate follow up response from the following list: ' + str(babel_response) + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best response, assuming the list starts at index 0, such as "0" or "1". If none of the above are appropriate responses respond with index 0 (the index of an empty string) '
-        idx = gpt_completion(prompt, model)
+        try:
+            idx = gpt_completion(prompt, model)
+        except:
+            idx = random.randrange(0, len(babel_response)) #random if rate limit!!!
+
         output = babel_response[str(idx)]
         del babel_response[str(idx)]
         return output
@@ -113,9 +115,17 @@ transitions_babel = {
             '#GET_BABEL_BIG': {
                 '#IF($b_stopper=Go) #STORE': {
                     'state': 'babel_follow_up',
-                    '#GET_BABEL_LITTLE': {
+                    '#BABEL_RESPOND #GET_BABEL_LITTLE': {
                         '#STORE': {
-                            '#BABEL_RESPOND': 'babel_big_q'
+                            '#BABEL_RESPOND': {
+                                '#STORE' : {
+                                    '#BABEL_RESPOND #GET_BABEL_LITTLE': {
+                                        '#STORE': {
+                                            '#BABEL_RESPOND': 'babel_big_q'
+                                        }
+                                    }
+                                }
+                            }
                         }
                     },
                 },
