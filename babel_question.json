@@ -1,18 +1,30 @@
 {
         "What are some themes of the movie?": [
                 "How do you think the name of the movie relates to its theme?",
-                "Have you heard of the tower of Babel biblical story?"
+                "Have you heard of the tower of Babel biblical story?",
+                "Did the film challenge any of your preconceived notions or beliefs?"
         ],
         "Have you heard of the butterfly effect?": [
                 "How do you think time is used in the movie?",
-                "How is the butterfly effect used in the movie?"
+                "How is the butterfly effect used in the movie?",
+                "How did the use of non-linear storytelling impact your viewing experience?"
         ],
         "Who were your favorite characters in the movie?": [
                 "How do you feel about the Americans being the only characters to have a happy ending?",
-                "Do you think this was Brad Pitt's best movie?"
+                "Do you think this was Brad Pitt's best movie?",
+                "How did the performances of the actors in the film contribute to the overall quality of the movie?"
         ],
         "What do you think about Language and translation in the movie?": [
                 "Do you think it is ever possible to fully understand what someone is saying?",
-                "Do you think there is a political element to the issue of language and translation?"
+                "Do you think there is a political element to the issue of language and translation?",
+                "Did you find the multi-lingual aspect of the film added to its overall effect?"
+        ],
+        "Would you recommend Babel to others?" : [
+                "Do you think the film succeeded in its attempt to portray the interconnectedness of human experience?",
+                "What was your emotional response to the film?",
+                "How does Babel compare to other films you've seen that explore similar themes?",
+                "What was your overall impression of the film's cinematography, music, and editing?",
+                "Were there any specific scenes or moments in the film that stood out to you?"
         ]
+
 }
