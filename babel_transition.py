@@ -6,15 +6,26 @@ import random
 import openai
 from utils import MacroGPTJSON
 from utils import MacroNLG
+import json
 
 
 PATH_API_KEY = 'openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
+def load():
+    with open('babel_question.json', "r") as ff:
+        babels = json.load(ff)
+
+    return babels
+
+dialogue = [] #GLOBAL VARIABLE
+dialogue_counter = 0 #counter
+babel_q = load() #key category, value dictionary with question, list pairs
+counter = 0
 
 class MacroBabelBigQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        global babel_q, dialogue, counter, globalCounter, globalCount, dialogue_counter
+        global babel_q, dialogue, counter, dialogue_counter
         if counter < 4: #arbitrary limit on big question ... ?
             key_list = list(babel_q.keys())
             qs = random.sample(key_list, 2)  # Big_Questions at least two

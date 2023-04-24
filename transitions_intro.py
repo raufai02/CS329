@@ -4,6 +4,7 @@ from typing import Dict, Any, List
 from enum import Enum
 import random
 import openai
+import os
 from utils import MacroGPTJSON
 from utils import MacroNLG
 
@@ -17,7 +18,7 @@ def get_call_name(vars: Dict[str, Any]):
 
 
 class V(Enum):
-    call_names = 0,
+    call_names = 0
     office_location = 1
     office_hours = 2
 
@@ -80,7 +81,7 @@ transition_greetings = {
                     '`Perfect!` $MAJOR ` is a great area of study for a position in software.`' : 'field'
                 },
                  'error': {
-                    '`Ah, you have a bit of an unconventional background! But let\'s proceed nevertheless.`': 'field'
+                    '`Ah, you have a bit of an unconventional background! But let\'s proceed nevertheless.`' : 'field'
                  }
             }
         },
@@ -95,7 +96,7 @@ transitions_field = {
 '`What kind of software developer do you want to be when you start applying for jobs?`' : {
 '[{$USER_JOB=#ONT(job), $USER_JOB=#ONT(field)}]': 'job',
     'error' : {
-        '`Oh that sounds really interesting. I will take note of that.` $USER_JOB=unknown' : 'job'
+    '`Oh that sounds really interesting. I will take note of that.` $USER_JOB=Cool' : 'job'
     }
 
     }
@@ -108,7 +109,7 @@ transitions_job = {
             '`So you want to get into`$USER_FIELD`, huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
         },
         'error' : {
-            '`Gotcha, thank you for sharing.`': 'feeling'
+            '`Gotcha, thank you for sharing.` $USER_FIELD=Cool': 'feeling'
         }
     }
 }
@@ -152,9 +153,8 @@ transitions_feeling = {
 macros = {
     'GET_CALL_NAME': MacroNLG(get_call_name),
     'SET_CALL_NAMES': MacroGPTJSON(
-        'Please choose the name that the speaker want to be called? Provide any name the user provides',
-        {V.call_names.name: ["Mike", "Michael"]},
-        {V.call_names.name: ["n/a"]}),
+        'How does the speaker want to be called?',
+        {V.call_names.name: ["Mike", "Michael"]}),
 
     'ENCOURAGEMENT': MacroEncourage(),
     'NAME_SAVE' : MacroVisits()
