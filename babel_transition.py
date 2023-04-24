@@ -96,7 +96,9 @@ class MacroBabelRespond(Macro):
             idx = random.randrange(0, len(babel_response)) #random if rate limit!!!
 
         output = babel_response[str(idx)]
-        del babel_response[str(idx)]
+        if idx != 0:
+            del babel_response[str(idx)]
+
         return output
 
 class MacroStoreSystem(Macro):
