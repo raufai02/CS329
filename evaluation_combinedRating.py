@@ -95,7 +95,7 @@ class MacroGPTEval(Macro):
             vars["INCLUSIVE_BAD_SCORE"] = str(dict['Task 5']['Least Inclusive Answer']['inclusive_score'][0])
 
         else:
-            vars["INCLUSIVE_EX_BAD"] = "No data"
+            vars["INCLUSIVE_EX_BAD"] = "No data!"
             vars["INCLUSIVE_BAD_ADJECTIVE"] = "No data"
             vars["INCLUSIVE_BAD_SCORE"] = "No data"
 
