@@ -73,7 +73,6 @@ transitions_emotion = {
         '`I am sorry. I don\'t have anymore emotion feedback for you!`': 'what_else'
     }
 }
-
 transitions_efficiency = {
     'state': 'efficiency',
     '#GATE `Let\'s look at your highest and lowest lexical density examples, OK?`': {
