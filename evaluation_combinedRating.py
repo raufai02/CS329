@@ -28,7 +28,9 @@ class MacroGPTEval(Macro):
         dict = ratecombinedScoreTurbo('\n'.join(self.transcript), self.job_description)
 
         # REQUIREMENTS ********
-        requirement_bad_example_idx = dict['Task 1']['Worst Response']['answer_index'][0]
+        if len(dict['Task 1']['Worst Response']['answer_index']) > 0:
+            requirement_bad_example_idx = dict['Task 1']['Worst Response']['answer_index'][0]
+
         vars["REQUIREMENT_EX_BAD"] = self.transcript[requirement_bad_example_idx] if self.transcript[
             requirement_bad_example_idx] else "REQUIREMENT_EX_BAD"
 
