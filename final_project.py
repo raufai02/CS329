@@ -14,7 +14,7 @@ from utils import MacroGPTJSON, MacroNLG, gpt_completion
 from evaluation import transitions_unique, transitions_friendliness, transitions_inclusive, transitions_efficiency, transitions_emotion, transitions_evaluate, transitions_requirements
 from transitions_intro import transitions_intro, transition_greetings, transitions_feeling,transitions_field, transitions_job
 from transitions_intro import MacroEncourage
-from babel_transition import transitions_babel, MacroBabelBigQuestion, MacroBabelLittleQuestion
+from babel_transition import transitions_babel, MacroBabelBigQuestion, MacroBabelLittleQuestion, MacroStoreSystem
 from transitions_intro import MacroVisits, get_call_name
 from evaluation_combinedRating import MacroGPTEval
 
@@ -175,6 +175,8 @@ class MacroGetExample(Macro):
         negative = data["Negative Examples"][2].Reason #returns a sentence reasoning
         return negative
 
+
+
 class MacroStoreResponse(Macro): #store the last response!
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
 
@@ -311,7 +313,8 @@ def interviewBuddy() -> DialogueFlow:
         'PERSONA' : MacroPersona(),
         'RUN_EVAL' : MacroGPTEval(dialogue, job_description),
         'NAME_SAVE' : MacroVisits(), 
-        'RESPOND' : MacroRespond()
+        'RESPOND' : MacroRespond(),
+        'STORE_SYSTEM':MacroStoreSystem()
         #'RUN_EVAL' : MacroGPTEval(dummy, job_description)
     }
 

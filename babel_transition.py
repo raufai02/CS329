@@ -36,21 +36,25 @@ class MacroBabelBigQuestion(Macro):
             vars['b_stopper'] = "Go"
             counter = counter + 1
             dialogue_counter = dialogue_counter + 1
-            dialogue.append(str(dialogue_counter) + ' S: ' + question)
+            dialogue.append(str(dialogue_counter) + 'S: ' + question)
             return question
         else:
             vars['b_stopper'] = "Stop"
             question = "I love Babel!"
             dialogue_counter = dialogue_counter + 1
-            dialogue.append(str(dialogue_counter) + ' S: ' + question)
+            dialogue.append(str(dialogue_counter) + 'S: ' + question)
             return question
 
 
 class MacroBabelLittleQuestion(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
         global dialogue, dialogue_counter, babel_q
+        try:
+            context = str(dialogue[-2] + '\n' + dialogue[-1])
+        except IndexError:
+            print(dialogue)
+            context = '\n'.join(dialogue)
 
-        context = str(dialogue[-2] + '\n' + dialogue[-1])
         model = 'text-davinci-003'
         follow_ups = vars["babel_follow_ups"]
         follow_str = '[' + ';'.join(follow_ups) + ']'
@@ -76,9 +80,17 @@ class MacroBabelLittleQuestion(Macro):
 
         return True
 
+class MacroStoreSystem(Macro):
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
+
+        global dialogue, dialogue_counter
+        dialogue_counter = dialogue_counter + 1
+        dialogue.append(str(dialogue_counter) + ' S: ' + str(args[0]))
+
+        return str(args[0])
 transitions_babel = {
     'state': 'movie_q',
-    '`Ok, lets talk about the movie Babel (2006). How did you like the film?`': {  # insert persona macro - Ameer
+    '#STORE_SYSTEM(`Ok, lets talk about the movie Babel (2006). How did you like the film?`)': {  # insert persona macro - Ameer
         '#STORE': {
             'state': 'babel_big_q',
             '#GET_BABEL_BIG': {

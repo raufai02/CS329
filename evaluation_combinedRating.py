@@ -38,7 +38,6 @@ class MacroGPTEval(Macro):
         vars["REQUIREMENT_EX_GOOD"] = self.transcript[requirement_good_example_idx]
 
         vars["REQUIREMENT_SCORE"] = str(dict['Task 2']['Total Score'][0])
-            #*****
 
         #RESPONSE QUALITY
             #TASK3
