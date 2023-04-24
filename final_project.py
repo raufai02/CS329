@@ -14,7 +14,7 @@ from utils import MacroGPTJSON, MacroNLG, gpt_completion
 from evaluation import transitions_unique, transitions_friendliness, transitions_inclusive, transitions_efficiency, transitions_emotion, transitions_evaluate, transitions_requirements
 from transitions_intro import transitions_intro, transition_greetings, transitions_feeling,transitions_field, transitions_job
 from transitions_intro import MacroEncourage
-from babel_transition import transitions_babel, MacroBabelBigQuestion, MacroBabelLittleQuestion, MacroStoreSystem
+from babel_transition import transitions_babel, MacroBabelBigQuestion, MacroBabelLittleQuestion, MacroStoreSystem, MacroBabelRespond
 from transitions_intro import MacroVisits, get_call_name
 from evaluation_combinedRating import MacroGPTEval
 
@@ -52,6 +52,8 @@ def loadPersonas():
 def loadComments():
     with open('resources/contextual_comments.json', "r") as f:
         stuff = json.load(f)
+
+
     return stuff
 
 def get_call_name(vars: Dict[str, Any]):
@@ -317,8 +319,8 @@ def interviewBuddy() -> DialogueFlow:
         'RUN_EVAL' : MacroGPTEval(dialogue, job_description),
         'NAME_SAVE' : MacroVisits(), 
         'RESPOND' : MacroRespond(),
-        'STORE_SYSTEM':MacroStoreSystem()
-        #'RUN_EVAL' : MacroGPTEval(dummy, job_description)
+        'STORE_SYSTEM':MacroStoreSystem(),
+        'BABEL_RESPOND': MacroBabelRespond()
     }
 
     df = DialogueFlow('start', end_state='end')

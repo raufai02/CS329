@@ -11,15 +11,18 @@ from utils import MacroGPTJSON, MacroNLG, gpt_completion
 PATH_API_KEY = 'openai_api.txt'
 openai.api_key_path = PATH_API_KEY
 
+
 def load():
     with open('babel_question.json', "r") as ff:
         babels = json.load(ff)
+    with open('resources/babel_comments.json', "r") as ff:
+        babel_response = json.load(ff)
 
-    return babels
+    return babels, babel_response
 
 dialogue = [] #GLOBAL VARIABLE
 dialogue_counter = 0 #counter
-babel_q = load() #key category, value dictionary with question, list pairs
+babel_q, babel_response = load() #key category, value dictionary with question, list pairs
 counter = 0
 
 class MacroBabelBigQuestion(Macro):
@@ -82,6 +85,18 @@ class MacroBabelLittleQuestion(Macro):
 
         return True
 
+class MacroBabelRespond(Macro):
+    def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
+        global babel_response, dialogue, dialogue_counter
+
+        context = str(dialogue[-2] + '\n' + dialogue[-1])
+        model = 'gpt-3.5-turbo'
+        prompt = 'Select the most appropriate follow up response from the following list: ' + str(babel_response) + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best response, assuming the list starts at index 0, such as "0" or "1". If none of the above are appropriate responses respond with index 0 (the index of an empty string) '
+        idx = gpt_completion(prompt, model)
+        output = babel_response[str(idx)]
+        del babel_response[str(idx)]
+        return output
+
 class MacroStoreSystem(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
 
@@ -100,7 +115,7 @@ transitions_babel = {
                     'state': 'babel_follow_up',
                     '#GET_BABEL_LITTLE': {
                         '#STORE': {
-                            '#RESPOND': 'babel_big_q'
+                            '#BABEL_RESPOND': 'babel_big_q'
                         }
                     },
                 },
