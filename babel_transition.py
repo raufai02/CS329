@@ -4,10 +4,9 @@ import random
 from enum import Enum
 import random
 import openai
-from utils import MacroGPTJSON
-from utils import MacroNLG
-import json
 
+import json
+from utils import MacroGPTJSON, MacroNLG, gpt_completion
 
 PATH_API_KEY = 'openai_api.txt'
 openai.api_key_path = PATH_API_KEY
@@ -30,7 +29,7 @@ class MacroBabelBigQuestion(Macro):
             key_list = list(babel_q.keys())
             qs = random.sample(key_list, 2)  # Big_Questions at least two
             question = random.choice(qs)
-            follow_ups = [v for v in dict[question]]
+            follow_ups = [v for v in babel_q[question]]
             babel_q.pop(question)  # removes the big question
             vars["babel_follow_ups"] = follow_ups
             vars['b_stopper'] = "Go"
@@ -57,7 +56,10 @@ class MacroBabelLittleQuestion(Macro):
 
         model = 'text-davinci-003'
         follow_ups = vars["babel_follow_ups"]
-        follow_str = '[' + ';'.join(follow_ups) + ']'
+        try:
+            follow_str = '[' + ';'.join(follow_ups) + ']'
+        except TypeError:
+            print(follow_ups)
         prompt = 'Select the most appropriate follow up question about the movie Babel (2006),from the following list' + follow_str + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best question, assuming the list starts at index 0, such as "0" or "1". '
 
         if len(vars["babel_follow_ups"]) == 0:
@@ -71,7 +73,7 @@ class MacroBabelLittleQuestion(Macro):
             except IndexError:
                 print(prompt)
                 print(idx)
-                res = random.choice(vars["follow_ups"])
+                res = random.choice(vars["babel_follow_ups"])
                 idx = vars["babel_follow_ups"].index(res)
 
             vars["babel_follow_ups"].pop(idx)
