@@ -184,7 +184,7 @@ def ratecombinedScoreTurbo(transcript, job_description):
 
 
     job_listing = job_description
-    prompt = "Here is a transcript of an interview conducted with a candidate applying for this Job listing:"+job_listing+"\nPlease do the following two tasks:"+task_1+task_2+task_3+task_4+task_5+task_6+task_7+"\nTHE response content be in the JSON schema shown in this example format:"+full_ex+"\n Here is the transcript:"+transcript + "Only evaluate the user responses, which are the responses that start with 'U:'. The other responses are from the dialogue system and are only for context."
+    prompt = "Here is a transcript of an interview conducted with a candidate applying for this Job listing:"+job_listing+"\nPlease do the following seven tasks:"+task_1+task_2+task_3+task_4+task_5+task_6+task_7+"\nTHE response content be in the JSON schema shown in this example format:"+full_ex+"\n Here is the transcript:"+transcript + "Only evaluate the user responses, which are the responses that start with 'U:'. Do not choose from system responses that start with 'S:'."
     model = 'gpt-3.5-turbo'
     content = prompt
 
