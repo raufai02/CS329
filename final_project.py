@@ -375,7 +375,6 @@ if os.path.exists('test.pkl') is False:
     loadName(interviewBuddy(),'test.pkl')
 
 if __name__ == '__main__':
-    interviewBuddy().run()
     saveName(interviewBuddy(),'test.pkl')
 
     # save(interviewBuddy(),dialogue)

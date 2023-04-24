@@ -24,12 +24,12 @@ transitions_evaluate = {
         '[{yea, ya, yes, i would, of course, sure, definitely}] #RUN_EVAL': {
             'state': 'what_else',
             '#WHAT_ELSE': {
-                '#GATE [friendliness]': 'friendliness',
-                '#GATE [{emotion, emotional content}]': 'emotion',
-                '#GATE [inclusivity]': 'inclusive',
-                '#GATE [efficiency]': 'efficiency',
-                '#GATE [unique words]': 'unique',
-                '#GATE [job requirements]': 'requirements',
+                '[friendliness]': 'friendliness',
+                '[{emotion, emotional content}]': 'emotion',
+                '[inclusivity]': 'inclusive',
+                '[efficiency]': 'efficiency',
+                '[unique words]': 'unique',
+                '[job requirements]': 'requirements',
                 'error': {
                     '`OK. Good job!`': 'end'
                 }
@@ -56,15 +56,17 @@ transitions_friendliness = {
 }
 transitions_emotion = {
     'state': 'emotion',
-    '#GATE #SETBOOL($emotion, true) `Your raw emotion score was ` $EMOTION_SCORE `. Would you like to learn more about this score?`': {
-        '[{yea, yes, sure, yeah, definitely, of course}]': {
+    '#GATE `Let\'s look at some examples where you succeeded and struggled with emotional content. OK?`#SETBOOL($emotion, true)': {
+        '[{yea, yes, sure, yeah, definitely, of course, ok}]': {
             '`Here is an example of a response where you were ` $EMOTION_EX_GOOD_ADJ `: \n ` $EMOTION_EX_GOOD `\n We gave you a score of ` $EMOTION_EX_GOOD_SCORE `. \n Would you like to see another example?\n`': {
                 '[{yea, yes, sure, yeah, definitely, of course}]': {
                     '`Here was an example where you were ` $EMOTION_EX_BAD_ADJ ` and could have done better: \n ` $EMOTION_EX_BAD `\n We gave you a score of ` $EMOTION_EX_BAD_SCORE `\n` ': 'what_else'
                 }
             }
         },
-        '[{no, nah, nope, pass, naw}]': 'what_else',
+        '[{no, nah, nope, pass, naw}]': {
+          '`OK. Never-mind then!`':'what_else'
+        },
         'error': 'emotion'
     },
     'error': {
