@@ -95,11 +95,19 @@ def gpt_completion(input: str, model: str, regex: Pattern = None) -> str:
 
 def gpt_classification(input: str, regex: Pattern = None) -> str:
     prompt = "classify the text according to these labels: ['positive', 'negative', 'neutral']: " + input
-    response = openai.ChatCompletion.create(
-        model=CHATGPT_MODEL,
-        messages=[{'role': 'user', 'content': prompt}]
-    )
-    output = response['choices'][0]['message']['content'].strip()
+    try:
+        response = openai.ChatCompletion.create(
+            model=CHATGPT_MODEL,
+            messages=[{'role': 'user', 'content': prompt}]
+        )
+        output = response['choices'][0]['message']['content'].strip()
+    except RateLimitError:
+        response = openai.ChatCompletion.create(
+            model='text-davinci-003',
+            messages=[{'role': 'user', 'content': prompt}]
+        )
+        output = response['choices'][0]['message']['content'].strip()
+
 
     if regex is not None:
         m = regex.search(output)
