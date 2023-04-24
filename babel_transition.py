@@ -89,7 +89,7 @@ class MacroBabelRespond(Macro):
 
         context = str(dialogue[-2] + '\n' + dialogue[-1])
         model = 'gpt-3.5-turbo'
-        prompt = 'Select the most appropriate follow up response from the following list: ' + str(babel_response) + ' and the following dialogue context: ' + context + 'Output ONLY the index of the best response, assuming the list starts at index 0, such as "0" or "1". If none of the above are appropriate responses respond with index 0 (the index of an empty string) '
+        prompt = 'Select the most appropriate follow up response from the following dictionary: ' + str(babel_response) + ' and the following dialogue context: ' + context + 'Output ONLY the numerical KEY of the best response, such as "0" or "1". If none of the above are appropriate responses respond with key 0 (the index of an empty string)'
         try:
             idx = gpt_completion(prompt, model)
         except:
