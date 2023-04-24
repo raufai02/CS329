@@ -77,13 +77,10 @@ transitions_emotion = {
 transitions_efficiency = {
     'state': 'efficiency',
     '#GATE `Let\'s look at your highest and lowest lexical density examples, OK?`': {
-        '[{no, nah, all good, nope, pass}]' : {
-            '`OK. Never-mind!': 'what_else'
-        },
         'error': {
-            '`Your most efficient response had a score of ` $LEXICAL_GOOD `, and an efficiency score of ` $EFFICIENCY_GOOD `. \n` $EFFICIENCY_EX_GOOD `. \n Would you like to see another example?`': {
+            '`Your most efficient response had a score of ` $LEXICAL_GOOD `, and an efficiency score of ` $EFFICIENCY_GOOD `. \n` $EFFICIENT_EX_GOOD `. \n Would you like to see another example?`': {
                 'error': {
-                    '`Your least efficient response had a score of `$LEXICAL_BAD `, and an efficiency score of ` $EFFICIENCY_BAD `. \n ` $EFFICIENCY_EX_BAD' : 'what_else'
+                    '`Your least efficient response had a score of `$LEXICAL_BAD `, and an efficiency score of ` $EFFICIENCY_BAD `. \n ` $EFFICIENT_EX_BAD' : 'what_else'
                 }
             }
         }
