@@ -57,17 +57,15 @@ transitions_friendliness = {
 transitions_emotion = {
     'state': 'emotion',
     '#GATE #SETBOOL($emotion, true) `Your raw emotion score was ` $EMOTION_SCORE `. Would you like to learn more about this score?`': {
-        '[context]': 'context',
-        '[requirements]': 'requirements',
         '[{yea, yes, sure, yeah, definitely, of course}]': {
             '`Here is an example of a response where you were ` $EMOTION_EX_GOOD_ADJ `: \n ` $EMOTION_EX_GOOD `\n We gave you a score of ` $EMOTION_EX_GOOD_SCORE `. \n Would you like to see another example?\n`': {
-                '[{yea, yes, sure, yeah, definitely, of course}]' : {
+                '[{yea, yes, sure, yeah, definitely, of course}]': {
                     '`Here was an example where you were ` $EMOTION_EX_BAD_ADJ ` and could have done better: \n ` $EMOTION_EX_BAD `\n We gave you a score of ` $EMOTION_EX_BAD_SCORE `\n` ': 'what_else'
                 }
             }
         },
-        '[{no, nah, nope}]': 'what_else',
-        'error': 'what_else'
+        '[{no, nah, nope, pass, naw}]': 'what_else',
+        'error': 'emotion'
     },
     'error': {
         '`I am sorry. I don\'t have anymore emotion feedback for you!`': 'what_else'
@@ -77,8 +75,8 @@ transitions_emotion = {
 transitions_efficiency = {
     'state': 'efficiency',
     '#GATE `Let\'s look at your highest and lowest lexical density examples, OK?`': {
-        '[{no, nah, I\'m good, nope, pass}]':{
-            '`OK. Nevermind!' : 'what_else'
+        '[{no, nah, all good, nope, pass}]' : {
+            '`OK. Never-mind!': 'what_else'
         },
         'error': {
             '`Your most efficient response had a score of ` $LEXICAL_GOOD `, and an efficiency score of ` $EFFICIENCY_GOOD `. \n` $EFFICIENCY_EX_GOOD `. \n Would you like to see another example?`': {

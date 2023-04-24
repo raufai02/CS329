@@ -372,7 +372,7 @@ def save(df: DialogueFlow, d: List[Any]): #d is the dialogue list
 
 if os.path.exists('test.pkl') is False:
     saveName(interviewBuddy(),'test.pkl')
-loadName(interviewBuddy(),'test.pkl')
+    loadName(interviewBuddy(),'test.pkl')
 
 if __name__ == '__main__':
     interviewBuddy().run()
