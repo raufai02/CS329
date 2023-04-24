@@ -63,7 +63,7 @@ dialogue_counter = 0 #counter
 personaSkills = []
 categories = ['technical', 'leadership', 'culture', 'cognitive']
 global_var_state = random.choice(categories)
-bank, babel = load() #key category, value dictionary with question, list pairs
+bank, babel_q = load() #key category, value dictionary with question, list pairs
 globalCount = {'technical':0, 'leadership':0, 'culture':0, 'cognitive':0}
 globalCounter = 0
 counter = 0
@@ -115,7 +115,8 @@ class MacroPersona(Macro):
         if finalField in ds:
             dict = ds[finalField]
         else:
-            dict = ds[random.choice(list(ds.keys))] #choose randomly!!
+            rc = random.choice(list(allFields))
+            dict = ds[rc] #choose randomly!!
         # print("dict: ", dict)
         position = dict["position"]
         company = dict["company"]
@@ -217,7 +218,6 @@ class MacroGetLittleQuestion(Macro):
         global dialogue, dialogue_counter
 
         context = str(dialogue[-2] + '\n' + dialogue[-1])
-        # print(context)
         model = 'text-davinci-003'
         follow_ups = vars["follow_ups"]
         follow_str = '[' + ';'.join(follow_ups) + ']'
@@ -265,12 +265,12 @@ class MacroRespond(Macro):
 
 def interviewBuddy() -> DialogueFlow:
     global_transitions = {
-    '[babel]' : {
+    '[{babel}]' : {
         '`Ok, lets talk about the movie Babel. What did you think of it?`' : {
             '[{good, great, amazing, compelling, powerful, capitvating, gripping, moving, masterful, masterpiece, multilayered, poignant, authentic, impactful, cinematic, profound, bold, oscar}]' : {
                 '`I\'m glad you enjoyed the movie! `' : 'movie_q' 
                 },
-            '[{bad, terrible, aweful, garbage, meh, ok, boring, predictable, dull, lifeless, tedious, flat, confusing, disappointing, cliche, corny, mediocre, sloppy, unoriginal}]' : {
+            '[{bad, terrible, awful, garbage, meh, ok, boring, predictable, dull, lifeless, tedious, flat, confusing, disappointing, cliche, corny, mediocre, sloppy, unoriginal}]' : {
                 '`I\'m sorry to hear that it didn\'t meet your expectations.`' : 'movie_q' 
                 },
             'error' : {
@@ -281,7 +281,7 @@ def interviewBuddy() -> DialogueFlow:
         } 
     }
 }
-    transitions_classify = { #classification state
+    transitions_classify = {
     'state' : 'interview',
     '#PERSONA' : { # insert persona macro - Ameer
         '#STORE' : {
@@ -293,18 +293,13 @@ def interviewBuddy() -> DialogueFlow:
                     '#STORE' : {
                         '#RESPOND': 'big_q'
                     }
-                    # 'state': 'store_follow_up',
-                    # '#IF($Q_REMAIN) #STORE':'follow_up',
-                    # '#IF($NO_FOLLOWUP)': 'no_follow_up'
                 },
             }, 
             '#IF($stopper=Stop)': 'no_follow_up'
             }
         }
     }
-
     }
-
     transitions_no_follow = {
         'state': 'no_follow_up',
         '`Thanks for chatting`#GET_NAME': {

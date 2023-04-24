@@ -70,7 +70,7 @@ class MacroGPTEval(Macro):
         idx = dict['Task 5']['Least Inclusive Answer']['answer_index'][0]
         vars["INCLUSIVE_EX_BAD"] = self.transcript[idx]
         #again we are only selecting one item from a list....
-        adjectives = dict['Task 5']['Least Inclusive Answer'][response_adjectives]
+        adjectives = dict['Task 5']['Least Inclusive Answer']['response_adjectives']
         if len(adjectives) > 0:
             vars["INCLUSIVE_BAD_ADJECTIVE"] = adjectives[0]
         else:
