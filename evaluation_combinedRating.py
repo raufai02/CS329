@@ -112,7 +112,7 @@ def ratecombinedScoreTurbo(transcript, job_description):
     task_5 = "TASK5: Evaluate the response for inclusive language. Count the total number of individualistic pronouns (e.g., 'I', 'me') compared to the number of inclusive pronouns (e.g., 'we', 'us'). Calculate a float value indicating a rating for inclusivity on a scale of 0 to 1. Respond with the index of the most and least inclusive answer and a list of adjectives to describe the quality of the response.\n"
     #EMOTION
     task_6 = "TASK6: Please analyze the responses from this transcript for emotional content. Calculate  a float value rating each user's response from 0 (negative emotional content, e.g., bad, fool, hate, lose) to 1 (positive emotional content, e.g., hope, improve, kind, love). Respond with the index of the the most positive emotional response and most negative  emotional response and their scores. Also respond with a list of emotions expressed in the sentence.\n"
-    task_7 = "TASK7: Please analyze the responses from this transcript for friendliness. Return a value for the overall friendliness of the text. Respond with an example of the most positive friendly sentence. Also, respond with an example of the least friendly sentence. Return the index and a score of the friendly responses.\n"
+    task_7 = "TASK7: Please analyze the responses from this transcript for friendliness. Return a value for the overall friendliness of the text from 0(not friendly) to 1 (friendly). Respond with an example of the most positive friendly sentence. Also, respond with an example of the least friendly sentence. Return the index and a score of the friendly responses.\n"
 
 
     job_listing = job_description
