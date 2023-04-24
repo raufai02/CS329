@@ -80,7 +80,7 @@ transition_greetings = {
                     '`Perfect!` $MAJOR ` is a great area of study for a position in software.`' : 'field'
                 },
                  'error': {
-                    '`Ah, you have a bit of an unconventional background! But let\'s proceed nevertheless.`' : 'field'
+                    '`Ah, you have a bit of an unconventional background! But let\'s proceed nevertheless.`': 'field'
                  }
             }
         },
@@ -108,7 +108,7 @@ transitions_job = {
             '`So you want to get into`$USER_FIELD`, huh? That\'s awesome. Always found that line of work to be pretty interesting.`' : 'feeling'
         },
         'error' : {
-            '`Gotcha, thank you for sharing.` $USER_FIELD=unknown': 'feeling'
+            '`Gotcha, thank you for sharing.`': 'feeling'
         }
     }
 }

@@ -26,79 +26,123 @@ class MacroGPTEval(Macro):
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
 
         dict = ratecombinedScoreTurbo('\n'.join(self.transcript), self.job_description)
-        #print(dict)
+        # print(dict)
 
-        #vars["DICT"] = dict
+        # vars["DICT"] = dict
 
-        #REQUIREMENTS ********
+        # REQUIREMENTS ********
         requirement_bad_example_idx = dict['Task 1']['Worst Response']['answer_index'][0]
-        vars["REQUIREMENT_EX_BAD"] = self.transcript[requirement_bad_example_idx]
+        vars["REQUIREMENT_EX_BAD"] = self.transcript[requirement_bad_example_idx] if self.transcript[
+            requirement_bad_example_idx] else "None"
 
         requirement_good_example_idx = dict['Task 1']['Best Response']['answer_index'][0]
-        vars["REQUIREMENT_EX_GOOD"] = self.transcript[requirement_good_example_idx]
+        vars["REQUIREMENT_EX_GOOD"] = self.transcript[requirement_good_example_idx] if self.transcript[
+            requirement_good_example_idx] else "None"
 
-        vars["REQUIREMENT_SCORE"] = str(dict['Task 2']['Total Score'][0])
-            #*****
+        vars["REQUIREMENT_SCORE"] = str(dict['Task 2']['Total Score'][0]) if dict['Task 2']['Total Score'] else "None"
+        # *****
 
-        #RESPONSE QUALITY
-            #TASK3
+        # RESPONSE QUALITY
+        # TASK3
         efficient_bad_example_idx = dict['Task 3']['least efficient response']['answer_index'][0]
-        vars["EFFICIENT_EX_BAD"] = self.transcript[efficient_bad_example_idx]
-        vars["LEXICAL_BAD"] = dict['Task 3']['least efficient response']['lexical_density'][0]
-        vars["EFFICIENCY_BAD"] = dict['Task 3']['least efficient response']['answer_efficiencyScore'][0]
+        vars["EFFICIENT_EX_BAD"] = self.transcript[efficient_bad_example_idx] if self.transcript[
+            efficient_bad_example_idx] else "None"
+        vars["LEXICAL_BAD"] = dict['Task 3']['least efficient response']['lexical_density'][0] if \
+        dict['Task 3']['least efficient response']['lexical_density'] else "None"
+        vars["EFFICIENCY_BAD"] = dict['Task 3']['least efficient response']['answer_efficiencyScore'][0] if \
+        dict['Task 3']['least efficient response']['answer_efficiencyScore'] else "None"
 
         efficient_good_example_idx = dict['Task 3']['most efficient response']['answer_index'][0]
-        vars["EFFICIENT_EX_GOOD"] = self.transcript[efficient_good_example_idx]
-        vars["LEXICAL_GOOD"] = str(dict['Task 3']['most efficient response']['lexical_density'][0])
-        vars["EFFICIENCY_GOOD"] = str(dict['Task 3']['most efficient response']['answer_efficiencyScore'][0])
+        vars["EFFICIENT_EX_GOOD"] = self.transcript[efficient_good_example_idx] if self.transcript[
+            efficient_good_example_idx] else "None"
+        vars["LEXICAL_GOOD"] = str(dict['Task 3']['most efficient response']['lexical_density'][0]) if \
+        dict['Task 3']['most efficient response']['lexical_density'] else "None"
+        vars["EFFICIENCY_GOOD"] = str(dict['Task 3']['most efficient response']['answer_efficiencyScore'][0]) if \
+        dict['Task 3']['most efficient response']['answer_efficiencyScore'] else "None"
 
-            #TASK 4
-        vars["TOTAL_UNIQUE"] = dict['Task 4']['Unique words']['total_uniqueWords'][0]
-        #these next two are supposed to be lists, not single words. but we will just extract a single word for now...
-        vars["MOST_FREQUENT"] = dict['Task 4']['Unique words']['most_frequent'][0]
-        vars["LEAST_FREQUENT"] = dict['Task 4']['Unique words']['least_frequent'][0]
+        # TASK 4
+        vars["TOTAL_UNIQUE"] = dict['Task 4']['Unique words']['total_uniqueWords'][0] if dict['Task 4']['Unique words'][
+            'total_uniqueWords'] else None
+        # these next two are supposed to be lists, not single words. but we will just extract a single word for now...
+        vars["MOST_FREQUENT"] = dict['Task 4']['Unique words']['most_frequent'][0] if dict['Task 4']['Unique words'][
+            'most_frequent'] else None
+        vars["LEAST_FREQUENT"] = dict['Task 4']['Unique words']['least_frequent'][0] if dict['Task 4']['Unique words'][
+            'least_frequent'] else None
 
-            #TASK 5
-        vars["INCLUSIVE_SCORE"] = str(dict['Task 5']['Inclusive Language']['inclusive_score'][0])
+        # TASK 5
+        vars["INCLUSIVE_SCORE"] = str(dict['Task 5']['Inclusive Language']['inclusive_score'][0]) if \
+        dict['Task 5']['Inclusive Language']['inclusive_score'] else "None"
         idx = dict['Task 5']['Most Inclusive Answer']['answer_index'][0]
 
-        vars["INCLUSIVE_EX_GOOD"] = self.transcript[idx]
-        vars["INCLUSIVE_GOOD_ADJECTIVE"] = dict['Task 5']['Most Inclusive Answer']['response_adjectives'][0]
+        vars["INCLUSIVE_EX_GOOD"] = self.transcript[idx] if self.transcript[idx] else "None"
+        vars["INCLUSIVE_GOOD_ADJECTIVE"] = dict['Task 5']['Most Inclusive Answer']['response_adjectives'][0] if \
+        dict['Task 5']['Most Inclusive Answer']['response_adjectives'] else "None"
         vars["INCLUSIVE_GOOD_SCORE"] = str(dict['Task 5']['Most Inclusive Answer']['inclusive_score'][0])
 
-        idx = dict['Task 5']['Least Inclusive Answer']['answer_index'][0]
-        vars["INCLUSIVE_EX_BAD"] = self.transcript[idx]
-        #again we are only selecting one item from a list....
-        adjectives = dict['Task 5']['Least Inclusive Answer']['response_adjectives']
-        if len(adjectives) > 0:
-            vars["INCLUSIVE_BAD_ADJECTIVE"] = adjectives[0]
+
+
+        # TASK 5 ******
+        if 'Task 5' in dict:
+            idx = dict['Task 5']['Least Inclusive Answer']['answer_index'][0]
+            vars["INCLUSIVE_EX_BAD"] = self.transcript[idx]
+            adjectives = dict['Task 5']['Least Inclusive Answer']['response_adjectives']
+
+            if len(adjectives) > 0:
+                vars["INCLUSIVE_BAD_ADJECTIVE"] = adjectives[0]
+            else:
+                vars["INCLUSIVE_BAD_ADJECTIVE"] = "Bad"
+
+            vars["INCLUSIVE_BAD_SCORE"] = str(dict['Task 5']['Least Inclusive Answer']['inclusive_score'][0])
+
         else:
-            vars["INCLUSIVE_BAD_ADJECTIVE"] = "Bad"
-        vars["INCLUSIVE_BAD_SCORE"] = str(dict['Task 5']['Least Inclusive Answer']['inclusive_score'][0])
+            vars["INCLUSIVE_EX_BAD"] = "No data"
+            vars["INCLUSIVE_BAD_ADJECTIVE"] = "No data"
+            vars["INCLUSIVE_BAD_SCORE"] = "No data"
 
-            #TASK 6 ******
-        emotion_good_idx = dict['Task 6']['Most Positive Response']['answer_index'][0]
-        vars["EMOTION_EX_GOOD"] = self.transcript[emotion_good_idx]
-        vars["EMOTION_EX_GOOD_ADJ"] = dict['Task 6']['Most Positive Response']['descriptors'][0]
-        vars["EMOTION_EX_GOOD_SCORE"] = str(dict['Task 6']['Most Positive Response']['answer_emotionScore'][0])
+        # TASK 6 ******
+        if 'Task 6' in dict:
+            emotion_good_idx = dict['Task 6']['Most Positive Response']['answer_index'][0]
+            vars["EMOTION_EX_GOOD"] = self.transcript[emotion_good_idx]
+            vars["EMOTION_EX_GOOD_ADJ"] = dict['Task 6']['Most Positive Response']['descriptors'][0]
+            vars["EMOTION_EX_GOOD_SCORE"] = str(dict['Task 6']['Most Positive Response']['answer_emotionScore'][0])
 
+            idx = dict['Task 6']['Most Negative Response']['answer_index'][0]
+            vars["EMOTION_EX_BAD"] = self.transcript[idx]
+            vars["EMOTION_EX_BAD_ADJ"] = dict['Task 6']['Most Negative Response']['descriptors'][0]
+            vars["EMOTION_EX_BAD_SCORE"] = str(dict['Task 6']['Most Negative Response']['answer_emotionScore'][0])
 
-        idx = dict['Task 6']['Most Negative Response']['answer_index'][0]
-        vars["EMOTION_EX_BAD"] = self.transcript[idx]
-        vars["EMOTION_EX_BAD_ADJ"] = dict['Task 6']['Most Negative Response']['descriptors'][0]
-        vars["EMOTION_EX_BAD_SCORE"] = str(dict['Task 6']['Most Negative Response']['answer_emotionScore'][0])
+        else:
+            vars["EMOTION_EX_GOOD"] = "No data"
+            vars["EMOTION_EX_GOOD_ADJ"] = "No data"
+            vars["EMOTION_EX_GOOD_SCORE"] = "No data"
+            vars["EMOTION_EX_BAD"] = "No data"
+            vars["EMOTION_EX_BAD_ADJ"] = "No data"
+            vars["EMOTION_EX_BAD_SCORE"] = "No data"
 
-            #TASK 7
-        vars["FRIENDLY_SCORE"] = dict['Task 7']['Friendliness'][0]
+        # TASK 7 ******
+        if 'Task 7' in dict:
+            friendly = dict['Task 7']
+            vars["FRIENDLY_SCORE"] = dict['Task 7']['Friendliness'][0]
 
-        idx = dict['Task 7']['Most Friendly Response']['answer_index'][0]
-        vars["FRIENDLY_EX_GOOD"] = self.transcript[idx]
-        vars["FRIENDLY_EX_GOOD_SCORE"] = str(dict['Task 7']['Most Friendly Response']['answer_friendlinessScore'][0])
+            idx = dict['Task 7']['Most Friendly Response']['answer_index'][0]
+            vars["FRIENDLY_EX_GOOD"] = self.transcript[idx]
+            vars["FRIENDLY_EX_GOOD_SCORE"] = str(
+                dict['Task 7']['Most Friendly Response']['answer_friendlinessScore'][0])
 
-        idx = dict['Task 7']['Least Friendly Response']['answer_index'][0]
-        vars["FRIENDLY_EX_BAD"] = self.transcript[idx]
-        vars["FRIENDLY_EX_BAD_SCORE"] = str(dict['Task 7']['Least Friendly Response']['answer_friendlinessScore'][0])
+            idx = dict['Task 7']['Least Friendly Response']['answer_index'][0]
+            vars["FRIENDLY_EX_BAD"] = self.transcript[idx]
+            vars["FRIENDLY_EX_BAD_SCORE"] = str(
+                dict['Task 7']['Least Friendly Response']['answer_friendlinessScore'][0])
+
+        else:
+            vars["FRIENDLY_SCORE"] = "No data"
+            vars["FRIENDLY_EX_GOOD"] = "No data"
+            vars["FRIENDLY_EX_GOOD_SCORE"] = "No data"
+            vars["FRIENDLY_EX_BAD"] = "No data"
+            vars["FRIENDLY_EX_BAD_SCORE"] = "No data"
+
         return True
+
 
 def ratecombinedScoreTurbo(transcript, job_description):
     jsonFile = json.load(open('SampleScoring/exampleScoreFormat.json'))
@@ -116,7 +160,7 @@ def ratecombinedScoreTurbo(transcript, job_description):
 
 
     job_listing = job_description
-    prompt = "Here is a transcript of an interview conducted with a candidate applying for this Job listing:"+job_listing+"\nPlease do the following two tasks:"+task_1+task_2+task_3+task_4+task_5+task_6+task_7+"\nTHE response content be in the JSON schema shown in this example format:"+full_ex+"\n Here is the transcript:"+transcript + "Only evaluate the user responses, which are the responses that start with 'U:'. The other responses are from the dialogue system and are only for context."
+    prompt = "Here is a transcript of an interview conducted with a candidate applying for this Job listing:"+job_listing+"\nPlease do the following seven tasks:"+task_1+task_2+task_3+task_4+task_5+task_6+task_7+"\n  Respond in the JSON schema shown in this example format:"+full_ex+"\n Here is the transcript:"+transcript + "Only evaluate the user responses, which are the responses that start with 'U:'. Do not select any of the the other responses dialogue system that start with 'S:'."
     model = 'gpt-3.5-turbo'
     content = prompt
 
