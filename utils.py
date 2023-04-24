@@ -45,7 +45,7 @@ class MacroGPTJSON(Macro):
         self.set_variables = set_variables
 
     def run(self, ngrams: Ngrams, vars: Dict[str, Any], args: List[Any]):
-        model = 'text-davinci-003'
+        model = 'gpt-3.5-turbo'
         examples = f'{self.full_ex} or {self.empty_ex} if unavailable' if self.empty_ex else self.full_ex
         prompt = f'{self.request} Respond in the JSON schema such as {examples}: {ngrams.raw_text().strip()}'
         output = gpt_completion(prompt, model)

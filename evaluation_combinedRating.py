@@ -44,8 +44,8 @@ class MacroGPTEval(Macro):
             #TASK3
         efficient_bad_example_idx = dict['Task 3']['least efficient response']['answer_index'][0]
         vars["EFFICIENT_EX_BAD"] = self.transcript[efficient_bad_example_idx]
-        vars["LEXICAL_BAD"] = dict['Task 3']['least efficient response']['lexical_density'][0]
-        vars["EFFICIENCY_BAD"] = dict['Task 3']['least efficient response']['answer_efficiencyScore'][0]
+        vars["LEXICAL_BAD"] = str(dict['Task 3']['least efficient response']['lexical_density'][0])
+        vars["EFFICIENCY_BAD"] = str(dict['Task 3']['least efficient response']['answer_efficiencyScore'][0])
 
         efficient_good_example_idx = dict['Task 3']['most efficient response']['answer_index'][0]
         vars["EFFICIENT_EX_GOOD"] = self.transcript[efficient_good_example_idx]
@@ -89,7 +89,7 @@ class MacroGPTEval(Macro):
         vars["EMOTION_EX_BAD_SCORE"] = str(dict['Task 6']['Most Negative Response']['answer_emotionScore'][0])
 
             #TASK 7
-        vars["FRIENDLY_SCORE"] = dict['Task 7']['Friendliness'][0]
+        vars["FRIENDLY_SCORE"] = str(dict['Task 7']['Friendliness'][0])
 
         idx = dict['Task 7']['Most Friendly Response']['answer_index'][0]
         vars["FRIENDLY_EX_GOOD"] = self.transcript[idx]
